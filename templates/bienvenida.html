@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenida</title>
+    {% load static %}
+    {%block css%}
+    <title>BookCase</title>
+    {%endblock%}
+</head>
+{% block content %}
+{% load static %}
+<body>
+  <h1>Bienvenida</h1>
+  <button><a href="{% url 'usuario:registro' %}">Registro</a></button>
+  <button><a href="{% url 'usuario:inicioSesion' %}">Inicia sesion</a></button>
+</body>
+{% endblock %}
+</html>

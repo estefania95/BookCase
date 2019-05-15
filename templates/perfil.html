@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>{{ usuario.usuario.username }}</h2>
+<h4>Añadir generos (máximo 1)</h4>
+<form action="{% url 'usuario:perfil' %}" method="post">
+        {% csrf_token %}
+        {% for genero in generos %}
+        <input type="checkbox" name="genero" value="{{ genero }}" {% for generoUser in generoUser %}
+          {% if genero == generoUser %}
+            checked
+          {% endif %}
+          {% endfor %}>{{ genero.nombre }}
+        <br>
+        {% endfor %}
+        <input type="submit" name="Guardar">
+    </form>
+  <h4>Listas</h4>
+
+</body>
+</html>
