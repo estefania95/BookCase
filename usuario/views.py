@@ -10,7 +10,7 @@ from libro.models import Genero, Libro
 
 #Bienvenida
 def bienvenida(request):
-    return render(request, 'bienvenida.html', {})
+    return render(request, 'bienvenida/bienvenida.html', {})
 
 
 #home
@@ -93,7 +93,7 @@ def miPerfil(request):
         return render(request, 'prueba.html', context)
 
     generos = Genero.objects.all()
-    leidos = LibroUsuario.objects.filter(usuario=usuario, estado="Leído")
+    #leidos = LibroUsuario.objects.filter(usuario=usuario, estado="Leído")
 
     context = {'generos': generos, 'generoUser': generosUser, 'usuario': usuario}
     return render(request, 'perfil.html', context)
