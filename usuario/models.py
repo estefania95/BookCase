@@ -16,10 +16,14 @@ class Usuario(models.Model):
 
 class Ranking(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    tiempo = (
-        ('Semanal', 'Semanal'),
-        ('Mensual', 'Mensual'),
-        ('Anual', 'Anual'),
+    tiempo_choices = (
+        ('SM', 'Semanal'),
+        ('MN', 'Mensual'),
+        ('AN', 'Anual'),
+    )
+    tiempo = models.CharField(
+        max_length=2,
+        choices=tiempo_choices,
     )
     cantidad  = models.IntegerField()
 

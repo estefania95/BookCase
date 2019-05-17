@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from .forms import ExtendedUserCreationForm, UsuarioForm
+from .forms import ExtendedUserCreationForm, UsuarioForm, EstadoForm
 from .models import Usuario, LibroUsuario
 from libro.models import Genero, Libro
 # Create your views here.
@@ -19,9 +19,11 @@ def home(request):
     generos = Genero.objects.all()
     #Todos los libros ordenados por mas nuevos
     libros = Libro.objects.all().order_by('-anoEdicion')
+    form = EstadoForm()
 
-    #
-    context = {'generos': generos, 'libros': libros}
+
+
+    context = {'generos': generos, 'libros': libros, 'form': form}
     return render(request, 'web/home.html', context)
 
 
@@ -93,7 +95,7 @@ def miPerfil(request):
         return render(request, 'prueba.html', context)
 
     generos = Genero.objects.all()
-    leidos = LibroUsuario.objects.filter(usuario=usuario, estado="Leído")
+    leidos = LibroUsuario.objects.filter(usuario=usuario, estado="LD")
 
-    context = {'generos': generos, 'generoUser': generosUser, 'usuario': usuario}
+    context = {'generos': generos, 'generoUser': generosUser, 'usuario': usuario, 'leidos': leidos}
     return render(request, 'web/perfil.html', context)

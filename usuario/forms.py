@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Usuario
+from .models import Usuario, LibroUsuario
 
 
 class ExtendedUserCreationForm(UserCreationForm):
@@ -13,7 +13,6 @@ class ExtendedUserCreationForm(UserCreationForm):
 
   def save(self, commit=True):
     user = super(ExtendedUserCreationForm, self).save(commit=True)
-
     user.email = self.cleaned_data['email']
 
     if commit:
@@ -26,5 +25,9 @@ class UsuarioForm(forms.ModelForm):
         model = Usuario
         fields = ('genero',)
 
-
+class EstadoForm(forms.ModelForm):
+    estado = LibroUsuario.estado
+    class Meta:
+        model = LibroUsuario
+        fields = ('estado',)
 

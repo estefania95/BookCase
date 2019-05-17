@@ -20,6 +20,9 @@
         <input type="submit" name="Guardar">
     </form>
   <h4>Listas</h4>
-
+  <h5>Leídos</h5>
+    {% for leido in leidos %}
+        <img src="{{ leido.libro.imagen }}">
+    {% endfor %}
 </body>
 </html>
