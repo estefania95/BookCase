@@ -22,7 +22,7 @@ def home(request):
 
     #
     context = {'generos': generos, 'libros': libros}
-    return render(request, 'home.html', context)
+    return render(request, 'web/home.html', context)
 
 
 #Registrar usuario
@@ -50,7 +50,7 @@ def registro(request):
 
     context = {'form': form }
 
-    return render(request, 'registro.html', context)
+    return render(request, 'registro/registro.html', context)
 
 
 #Iniciar sesion
@@ -70,7 +70,7 @@ def inicioSesion(request):
             print("They used username: {} and password: {}".format(username, password))
             return HttpResponse("Invalid login details given")
     else:
-        return render(request, 'login.html', {})
+        return render(request, 'login/login.html', {})
 
 
 #Mi Perfil
@@ -93,7 +93,7 @@ def miPerfil(request):
         return render(request, 'prueba.html', context)
 
     generos = Genero.objects.all()
-    #leidos = LibroUsuario.objects.filter(usuario=usuario, estado="Leído")
+    leidos = LibroUsuario.objects.filter(usuario=usuario, estado="Leído")
 
     context = {'generos': generos, 'generoUser': generosUser, 'usuario': usuario}
-    return render(request, 'perfil.html', context)
+    return render(request, 'web/perfil.html', context)

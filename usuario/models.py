@@ -29,11 +29,15 @@ class Ranking(models.Model):
 class LibroUsuario(models.Model):
     libro = models.ForeignKey(Libro, on_delete=models.CASCADE)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    estado = (
-        ('Leído', 'Leído'),
-        ('Leer', 'Leer'),
-        ('Comprar', 'Comprar'),
-        ('Abandonado', 'Abandonado')
+    estado_choices = [
+        ('LD', 'Leído'),
+        ('LR', 'Leer'),
+        ('CM', 'Comprar'),
+        ('AB', 'Abandonado')
+    ]
+    estado = models.CharField(
+        max_length=2,
+        choices=estado_choices,
     )
     dia = models.DateField()
 

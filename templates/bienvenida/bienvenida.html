@@ -14,24 +14,20 @@
 {% block content %}
 {% load static %}
 <body>
-    <div class="contenedor">
-        <div class="header">
-            <nav class="navbar">
-                <a class="navbar-brand" href="#">
-                BookCase
-                </a>
-                <form class="form-inline">
-                    <a class="btn btn-info" href="{% url 'usuario:registro' %}">Registro</a>
-                    <a class="btn btn-info m-1" href="{% url 'usuario:inicioSesion' %}">Inicia sesion</a>
-                </form>
-            </nav>
-            <div class="contains">
-                <h1 class="slogan">
-                    Bienvenido a BookCase, donde te vamos a recomendar los mejores libros
-                </h1>
-            </div>
+    <header class="contenedor">
+        <nav class="navbar">
+            <a class="navbar-brand" href="#">BookCase</a>
+            <form class="form-inline">
+                <a class="btn btn-info" href="{% url 'usuario:registro' %}">Registro</a>
+                <a class="btn btn-info m-1" href="{% url 'usuario:inicioSesion' %}">Inicia sesion</a>
+            </form>
+        </nav>
+        <div class="contains">
+            <h1 class="slogan">
+                Bienvenido a BookCase, donde te vamos a recomendar los mejores libros
+            </h1>
         </div>
-    </div>
+    </header>
 </body>
 {% endblock %}
 </html>
