@@ -1,20 +1,39 @@
+{% extends 'base.html' %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    {% load static %}
+    {%block css%}
+        <title>BookCase</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+    {%endblock%}
 </head>
+{% block content %}
+{% load static %}
 <body>
-<form method="post" action="">
-      {% csrf_token %}
-      {# A more "HTML" way of creating the login form#}
-      <div>
-        <input type="text" name="username" placeholder="Nombre de usuario">
-      </div>
-      <div>
-        <input type="password" name="password" placeholder="Contraseña">
-      </div>
-      <button type="submit">Iniciar Sesion</button>
-    </form>
+    <div class="contenedor">
+        <a href="bienvenida.html" class="close"><i class="fas fa-times"> </i></a>
+        <div class="conten">
+            <div class="contenedorForm">
+                <h2>INICIAR SESIÓN</h2>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" class="form-control formulario" id="usuario" name="username" aria-describedby="Usuario" placeholder="Usuario">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control formulario" name="password" id="password" placeholder="Contraseña">
+                    </div>
+                    <div>
+                        <a href="">¿Has olvidado la contraseña?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary formulario">Acceder</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </body>
+{% endblock %}
 </html>

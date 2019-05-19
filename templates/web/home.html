@@ -3,7 +3,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
     {% load static %}
     {%block css%}
     <title>BookCase</title>
@@ -14,7 +13,17 @@
 <body>
   <!-- As a link -->
   <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">Navbar</a>
+      <div class="btn-group usuario">
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-user-circle"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+              <button class="dropdown-item" type="button"><a href="{% url 'usuario:perfil' %}">Mi Perfil</a></button>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item" type="button"><a href="{% url 'logout' %}">Cerrar sesión</a></button>
+          </div>
+      </div>
   </nav>
   <div class="container">
       <h1>Estas en la home</h1>
@@ -24,33 +33,16 @@
             <p>{{ genero.descripcion }}</p>
       {% endfor %}
       <h2>Libros más nuevos</h2>
-      {% for libro in libros %}
-          <h3>{{ libro.titulo }}</h3>
-          <p>{{ libro.sinopsis }}</p>
-          <img src="{{ libro.imagen }}">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#lista">Añadir a mi lista</button>
-
-          <!-- Modal -->
-            <div class="modal fade" id="lista" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Añadir a mi lista</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div>
-                </div>
+      <div class="row">
+          {% for libro in libros %}
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-0">
+              <div>
+                  <img src="{{ libro.imagen }}" style="height: 320px">
+                  <p><a href="{% url 'usuario:libro' libro.id %}">{{ libro.titulo }}</a></p>
               </div>
-            </div>
-      {% endfor %}
+          </div>
+          {% endfor %}
+      </div>
       <h2>Libros</h2>
   </div>
 

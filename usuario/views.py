@@ -1,7 +1,7 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import ExtendedUserCreationForm, UsuarioForm, EstadoForm
 from .models import Usuario, LibroUsuario
@@ -10,7 +10,21 @@ from libro.models import Genero, Libro
 
 #Bienvenida
 def bienvenida(request):
+    if request.user.is_authenticated:
+        user = request.user
+        try:
+            usuario = Usuario.objects.get(usuario=user)
+            return redirect('usuario:home')
+        except Usuario.DoesNotExist:
+            usuario = None
+
     return render(request, 'bienvenida/bienvenida.html', {})
+
+
+#Logout
+def salir(request):
+    logout(request)
+    return render(request, 'bienvenida/bienvenida.html')
 
 
 #home
@@ -19,12 +33,24 @@ def home(request):
     generos = Genero.objects.all()
     #Todos los libros ordenados por mas nuevos
     libros = Libro.objects.all().order_by('-anoEdicion')
-    form = EstadoForm()
+    #form = EstadoForm()
 
 
-
-    context = {'generos': generos, 'libros': libros, 'form': form}
+    context = {'generos': generos, 'libros': libros}
     return render(request, 'web/home.html', context)
+
+
+def libro(request, id_libro):
+    libro = get_object_or_404(Libro, pk=id_libro)
+    form = EstadoForm()
+    if request.method == 'POST':
+        form = EstadoForm()
+        print(form)
+
+
+    context = {'libro': libro, 'form': form}
+
+    return render(request, 'web/libro.html', context)
 
 
 #Registrar usuario

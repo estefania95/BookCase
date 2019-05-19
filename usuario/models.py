@@ -42,6 +42,7 @@ class LibroUsuario(models.Model):
     estado = models.CharField(
         max_length=2,
         choices=estado_choices,
+        default='LD',
     )
     dia = models.DateField()
 

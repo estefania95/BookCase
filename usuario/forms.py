@@ -25,6 +25,7 @@ class UsuarioForm(forms.ModelForm):
         model = Usuario
         fields = ('genero',)
 
+
 class EstadoForm(forms.ModelForm):
     estado = LibroUsuario.estado
     class Meta:
