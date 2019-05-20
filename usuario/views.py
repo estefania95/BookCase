@@ -35,6 +35,23 @@ def home(request):
     usuario = Usuario.objects.get(usuario=user)
     # Todos los generos para mostrarlos en la home
     generosTodos = Genero.objects.all()
+    mitad = len(generosTodos)/2
+
+    primerosGeneros = []
+    segundosGeneros = []
+
+    cont = 0
+    for genero in generosTodos:
+        if cont < mitad:
+            primerosGeneros.append(genero)
+
+        else:
+            segundosGeneros.append(genero)
+        cont += 1
+
+    if len(primerosGeneros) != len(segundosGeneros):
+        segundosGeneros.append("")
+
     # Todos los libros ordenados por mas nuevos
     librosNuevos = Libro.objects.all().order_by('-anoEdicion')[:5]
 
@@ -101,7 +118,7 @@ def home(request):
         contador = contador + 1
         librosRecomendados.append(libroRecom)
 
-    context = {'generos': generosTodos, 'librosNuevos': librosNuevos, 'librosRecomendados': librosRecomendados}
+    context = {'generos1': primerosGeneros, 'generos2': segundosGeneros, 'librosNuevos': librosNuevos, 'librosRecomendados': librosRecomendados}
     return render(request, 'web/home.html', context)
 
 
