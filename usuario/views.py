@@ -42,6 +42,7 @@ def home(request):
     # Array para generos de libros recomendados
     generosLibrosUsuario = []
     contador = 0
+
     # Seleccion generos
     while contador < 5:
         # Seleccionar generos de los libros que el usuario ha guardado como leído.
@@ -66,32 +67,37 @@ def home(request):
                     generosLibrosUsuario.append(genero.nombre)
                     contador = contador + 1
 
+            # Si no tiene ningun libro ni genero añadido en favoritos seleccionará 5 generos
+            if contador == 0:
+                # Generos aleatorios
+                generos = Genero.objects.order_by('?')[:5]
+                for genero in generos:
+                    if contador >= 5:
+                        break
+                    generosLibrosUsuario.append(genero.nombre)
+                    contador = contador + 1
         except:
             libroUsuario = None
 
-        # Si no tiene ningun libro ni genero añadido en favoritos seleccionará 5 generos
-        if contador == 0:
-            generos = Genero.objects.all()[:5]
-            for genero in generos:
-                if contador >= 5:
-                    break
-                generosLibrosUsuario.append(genero.nombre)
-                contador = contador + 1
+
 
     # Seleccionar libros de los generos favoritos
     librosUser = []
     for genero in generosLibrosUsuario:
         generoLibro = Genero.objects.get(nombre=genero)
         libroU = Libro.objects.filter(genero=generoLibro)
-        libroAleatorio = random.choice(libroU)
-        if libroAleatorio not in librosUser:
-            librosUser.append(libroAleatorio)
+        try:
+            libroAleatorio = random.choice(libroU)
+            if libroAleatorio not in librosUser:
+                librosUser.append(libroAleatorio)
+        except:
+            libroAleatorio = None
+
 
     librosRecomendados = []
     contador=0
     for libro in librosUser:
         libroRecom = Libro.objects.get(titulo=libro)
-        print(libroRecom)
         contador = contador + 1
         librosRecomendados.append(libroRecom)
 
