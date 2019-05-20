@@ -44,7 +44,7 @@ class LibroUsuario(models.Model):
         choices=estado_choices,
         default='LD',
     )
-    dia = models.DateField()
+    dia = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return '%s %s' % (self.libro, self.usuario)

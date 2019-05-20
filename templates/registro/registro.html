@@ -1,17 +1,47 @@
+{% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    {% load static %}
+    {%block css%}
+        <title>BookCase</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'registro.css' %}">
+    {%endblock%}
 </head>
+{% block content %}
+{% load static %}
 <body>
-<form method="POST" action="{% url 'usuario:registro' %}">
-      {% csrf_token %}
-      <div>Nombre usuario: {{ form.username }}</div>
-      <div>Email {{ form.email }}</div>
-      <div>Contraseña: {{ form.password1 }}</div>
-      <div>Repite contraseña: {{ form.password2 }}</div>
-      <button type="submit">Registrar</button>
-    </form>
+    <div class="contenedor">
+        <div class="imagen ">
+            <a class="navbar-brand" href="#">
+                <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                BookCase
+            </a>
+            <div class="conteTexto">
+                <div class="texto">
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam, sapiente nihil assumenda blanditiis, atque sequi ut praesentium dolore eligendi minus ipsam aut minima earum et, tempore temporibus unde quasi dolorum.</p>
+                </div>
+            </div>
+        </div>
+        <div class="registro">
+            <h2>REGÍSTRATE</h2>
+            <div class="contentForm">
+                <form method="POST" action="{% url 'usuario:registro' %}">
+                    {% csrf_token %}
+                   <div>
+                        <input type="text" class="form-control formulario" id="usuario" name="username" aria-describedby="Usuario" placeholder="Usuario">
+                    </div>
+                    <div>
+                        <input type="text" class="form-control formulario" id="email" aria-describedby="email" name="email" placeholder="Email">
+                    </div>
+                    <div><input type="password" class="form-control formulario" id="usuario" aria-describedby="password1" name="password1" placeholder="Contraseña"></div>
+                    <div><input type="password" class="form-control formulario" id="usuario" aria-describedby="password2" name="password2" placeholder="Repite la contraseña"></div>
+                    <button type="submit" class="btn btn-primary formulario">Registrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
-</html
+{% endblock %}
+</html>

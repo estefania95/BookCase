@@ -29,11 +29,29 @@ def salir(request):
 
 #home
 def home(request):
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
     #Todos los generos para mostrarlos en la home
     generos = Genero.objects.all()
     #Todos los libros ordenados por mas nuevos
     libros = Libro.objects.all().order_by('-anoEdicion')
-    #form = EstadoForm()
+    generosLibrosUsuario = []
+#Libros recomendados
+    #Seleccionar generos de los libros que el usuario ha guardado como leído.
+    try:
+        leidos = LibroUsuario.objects.filter(usuario=usuario, estado="LD")
+
+        for libroU in leidos:
+            libroUser = libroU.libro
+            print(libroUser.genero)
+            generosLibrosUsuario.append(libroUser.genero)
+
+    except:
+        libroUsuario = None
+    #Seleccionar libros de los generos favoritos
+    librosUser = []
+    contador = 0
+
 
 
     context = {'generos': generos, 'libros': libros}
