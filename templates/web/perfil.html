@@ -24,5 +24,17 @@
     {% for leido in leidos %}
         <img src="{{ leido.libro.imagen }}">
     {% endfor %}
+{% if leer %}
+    <h5>Leer</h5>
+    {% for leer in leer %}
+        <img src="{{ leer.libro.imagen }}">
+    {% endfor %}
+{% endif %}
+{% if comprar %}
+  <h5>Comprar</h5>
+{% endif %}
+{% if abandonados %}
+  <h5>Abandonado</h5>
+{% endif %}
 </body>
 </html>

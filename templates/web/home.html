@@ -11,7 +11,7 @@
 {% block content %}
 {% load static %}
 <body>
-  <!-- As a link -->
+  <!-- Navegador -->
   <nav class="navbar navbar-light bg-light">
       <a class="navbar-brand" href="#">Navbar</a>
       <div class="btn-group usuario">
@@ -25,6 +25,7 @@
           </div>
       </div>
   </nav>
+  <!-- Contenedor -->
   <div class="container">
       <h1>Estas en la home</h1>
       <h2>Generos</h2>
@@ -34,7 +35,7 @@
       {% endfor %}
       <h2>Libros más nuevos</h2>
       <div class="row">
-          {% for libro in libros %}
+          {% for libro in librosNuevos %}
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-0">
               <div>
                   <img src="{{ libro.imagen }}" style="height: 320px">
@@ -44,6 +45,16 @@
           {% endfor %}
       </div>
       <h2>Libros</h2>
+      <div class="row">
+          {% for libro in librosRecomendados %}
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-0">
+              <div>
+                  <img src="{{ libro.imagen }}" style="height: 320px">
+                  <p><a href="{% url 'usuario:libro' libro.id %}">{{ libro.titulo }}</a></p>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
   </div>
 
 </body>
