@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -28,6 +29,16 @@ def salir(request):
     logout(request)
     return render(request, 'bienvenida/bienvenida.html')
 
+
+# Buscador
+def buscador(request):
+    libro = request.GET.get('libro', '')
+    titulo = (Q(titulo__contains=libro))
+    libros = Libro.objects.filter(titulo)
+
+    context = {'libros': libros}
+
+    return render(request, 'buscador/buscador.html', context)
 
 # Apartado Home
 def home(request):
@@ -157,13 +168,14 @@ def librosGenero(request):
     return render(request, 'web/libros.html')
 
 
+    # Api Libros Generos
 def apiLibrosGenero(request):
     generos = Genero.objects.all()
     contadorGen = 0
     generosLibros = {}
     for genero in generos:
         contadorGen += 1
-        libros = Libro.objects.filter(genero=genero)[:5]
+        libros = Libro.objects.filter(genero=genero).order_by('?')[:5]
 
         nombreGenero = genero.nombre
         descripcionGenero = genero.descripcion
@@ -191,6 +203,7 @@ def apiLibrosGenero(request):
         generosLibros['genero'+str(contadorGen)] = infoGenero
 
     return JsonResponse(generosLibros)
+
 
 # Registrar usuario
 def registro(request):

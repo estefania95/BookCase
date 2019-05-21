@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     {% load static %}
@@ -13,20 +13,20 @@
 {% load static %}
 <body>
   <!-- Navegador -->
-  <nav class="navbar navbar-light navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Navbar</a>
+  <nav class="navbar navbar-light navbar-dark bg-dark navegador">
+      <a class="navbar-brand" href="{% url 'usuario:home' %}"><img src="{% static 'imagenes/logo/logo.png' %}" width="150px"></a>
       <div class="btn-group usuario">
           <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-user-circle"></i>
           </button>
-          <div class="dropdown-menu dropdown-menu-right">
-              <button class="dropdown-item" type="button"><a href="{% url 'usuario:perfil' %}">Mi Perfil</a></button>
+           <div class="dropdown-menu dropdown-menu-right ">
+              <a class="dropdown-item " href="{% url 'usuario:perfil' %}">Mi Perfil</a>
               <div class="dropdown-divider"></div>
-              <button class="dropdown-item" type="button"><a href="{% url 'logout' %}">Cerrar sesión</a></button>
+              <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
           </div>
       </div>
   </nav>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top navegador">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -59,8 +59,9 @@
         </ul>
       </div>
 
-      <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+      <form class="form-inline" action="{% url 'usuario:buscador' %}" method="GET">
+          {% csrf_token %}
+        <input class="form-control mr-sm-2" name="libro" id="buscador" type="search" placeholder="Buscar" aria-label="Search">
         <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Buscar</button>
       </form>
 

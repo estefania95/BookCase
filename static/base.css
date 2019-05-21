@@ -1,3 +1,7 @@
 .sticky-top{
     z-index: 900;
 }
+.navegador{
+    background-color: #A9B7C0 !important;
+    color: black;
+}

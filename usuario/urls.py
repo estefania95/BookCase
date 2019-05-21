@@ -16,5 +16,6 @@ urlpatterns = [
     path('registro', views.registro, name="registro"),
     path('perfil/', views.miPerfil, name="perfil"),
     path('libros/', views.librosGenero, name="libros"),
-    path('apiLibros/', views.apiLibrosGenero, name="apiLibros")
+    path('apiLibros/', views.apiLibrosGenero, name="apiLibros"),
+    path('buscador/', views.buscador, name="buscador")
 ]
