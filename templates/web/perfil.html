@@ -32,9 +32,15 @@
 {% endif %}
 {% if comprar %}
   <h5>Comprar</h5>
+    {% for comprar in comprar %}
+        <img src="{{ comprar.libro.imagen }}">
+    {% endfor %}
 {% endif %}
 {% if abandonados %}
   <h5>Abandonado</h5>
+    {% for abandonado in abandonados %}
+        <img src="{{ abandonado.libro.imagen }}">
+    {% endfor %}
 {% endif %}
 </body>
 </html>

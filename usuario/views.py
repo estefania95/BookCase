@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import ExtendedUserCreationForm, UsuarioForm, EstadoForm
@@ -29,7 +29,7 @@ def salir(request):
     return render(request, 'bienvenida/bienvenida.html')
 
 
-#home
+# Apartado Home
 def home(request):
     user = request.user
     usuario = Usuario.objects.get(usuario=user)
@@ -96,8 +96,6 @@ def home(request):
         except:
             libroUsuario = None
 
-
-
     # Seleccionar libros de los generos favoritos
     librosUser = []
     for genero in generosLibrosUsuario:
@@ -110,7 +108,6 @@ def home(request):
         except:
             libroAleatorio = None
 
-
     librosRecomendados = []
     contador=0
     for libro in librosUser:
@@ -122,6 +119,7 @@ def home(request):
     return render(request, 'web/home.html', context)
 
 
+# Libros individuales
 def libro(request, id_libro):
     libro = get_object_or_404(Libro, pk=id_libro)
     user = request.user
@@ -140,7 +138,61 @@ def libro(request, id_libro):
     return render(request, 'web/libro.html', context)
 
 
-#Registrar usuario
+# Genero: Todos los libros
+def genero(request, id_genero):
+    genero = get_object_or_404(Genero, pk=id_genero)
+
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+    libros = Libro.objects.filter(genero=genero)
+
+
+    context = {'libros': libros, 'genero': genero}
+
+    return render(request, 'web/genero.html', context)
+
+
+# Apartado Libros
+def librosGenero(request):
+    return render(request, 'web/libros.html')
+
+
+def apiLibrosGenero(request):
+    generos = Genero.objects.all()
+    contadorGen = 0
+    generosLibros = {}
+    for genero in generos:
+        contadorGen += 1
+        libros = Libro.objects.filter(genero=genero)[:5]
+
+        nombreGenero = genero.nombre
+        descripcionGenero = genero.descripcion
+        imagenGenero = genero.nombreImagen
+
+        librosGenero = {}
+        contador = 0
+        for libro in libros:
+            contador += 1
+            idLibro = libro.id
+            tituloLibro = libro.titulo
+            sinopsisLibro = libro.sinopsis
+            imagenLibro = libro.imagen
+            libroGen = {'idLibro': idLibro,
+                        'tituloLibro': tituloLibro,
+                        'sinopsisLibro': sinopsisLibro,
+                        'imagenLibro': imagenLibro}
+            librosGenero['libro'+str(contador)] = libroGen
+
+        infoGenero = {'nombreGenero': nombreGenero,
+                      'descripcionGenero': descripcionGenero,
+                      'imagenGenero': imagenGenero,
+                      'libros': librosGenero}
+
+        generosLibros['genero'+str(contadorGen)] = infoGenero
+
+    return JsonResponse(generosLibros)
+
+# Registrar usuario
 def registro(request):
     if request.method == 'POST':
         form = ExtendedUserCreationForm(request.POST)
@@ -168,7 +220,7 @@ def registro(request):
     return render(request, 'registro/registro.html', context)
 
 
-#Iniciar sesion
+# Iniciar sesion
 def inicioSesion(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -188,10 +240,10 @@ def inicioSesion(request):
         return render(request, 'login/login.html', {})
 
 
-#Mi Perfil
+# Mi Perfil
 
 
-#Añadir generos
+# Añadir generos
 def miPerfil(request):
     user = request.user
     usuario = Usuario.objects.get(usuario=user)

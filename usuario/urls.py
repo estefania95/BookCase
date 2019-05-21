@@ -10,8 +10,11 @@ urlpatterns = [
     path('accounts/logout', views.salir, name="logout"),
     path('home/', include([
         path('', views.home, name="home"),
-        path('<int:id_libro>', views.libro, name="libro"),
+        path('libro/<int:id_libro>', views.libro, name="libro"),
+        path('genero/<int:id_genero>', views.genero, name="genero"),
     ])),
     path('registro', views.registro, name="registro"),
     path('perfil/', views.miPerfil, name="perfil"),
+    path('libros/', views.librosGenero, name="libros"),
+    path('apiLibros/', views.apiLibrosGenero, name="apiLibros")
 ]
