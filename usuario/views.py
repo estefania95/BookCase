@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import ExtendedUserCreationForm, UsuarioForm, EstadoForm
 from .models import Usuario, LibroUsuario
-from libro.models import Genero, Libro
+from libro.models import Genero, Libro, Autor
 import random
 # Create your views here.
 
@@ -145,11 +145,8 @@ def libro(request, id_libro):
             libroUsuario = LibroUsuario.objects.get(usuario=usuario, libro=libro)
 
             if libroUsuario:
-                print("Existe")
-                print(libroUsuario)
                 libroUsuario.estado = valor
                 libroUsuario.save()
-                print(valor)
             else:
                 libroUsuario = LibroUsuario.objects.create(usuario=usuario, libro=libro, estado=valor)
 
@@ -219,6 +216,108 @@ def apiLibrosGenero(request):
     return JsonResponse(generosLibros)
 
 
+# Explorador
+def explorador(request):
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+
+    # Libros recomendados
+    # Array para generos de libros recomendados
+    generosLibrosUsuario = []
+    contador = 0
+
+    # Seleccion generos
+    while contador < 5:
+        # Seleccionar generos de los libros que el usuario ha guardado como leído.
+        try:
+            # Seleccionar los generos que el usuario ha guardado como favoritos
+            if contador <= 5:
+                generos = usuario.genero.all()
+                for genero in generos:
+                    if contador >= 5:
+                        break
+                    generosLibrosUsuario.append(genero.nombre)
+                    contador = contador + 1
+
+            leidos = LibroUsuario.objects.filter(usuario=usuario, estado="LD")
+
+            for libroU in leidos:
+                if contador >= 5:
+                    break
+                libroUser = libroU.libro
+                generos = libroUser.genero.all()
+                for genero in generos:
+                    generosLibrosUsuario.append(genero.nombre)
+                    contador = contador + 1
+
+            # Si no tiene ningun libro ni genero añadido en favoritos seleccionará 5 generos
+            if contador == 0:
+                # Generos aleatorios
+                generos = Genero.objects.order_by('?')[:5]
+                for genero in generos:
+                    if contador >= 5:
+                        break
+                    generosLibrosUsuario.append(genero.nombre)
+                    contador = contador + 1
+        except:
+            libroUsuario = None
+
+    # Seleccionar libros de los generos favoritos (API!!!)
+    librosUser = []
+    for genero in generosLibrosUsuario:
+        generoLibro = Genero.objects.get(nombre=genero)
+        libroU = Libro.objects.filter(genero=generoLibro)
+        try:
+            libroAleatorio = random.choice(libroU)
+            if libroAleatorio not in librosUser:
+                librosUser.append(libroAleatorio)
+        except:
+            libroAleatorio = None
+
+    librosRecomendados = []
+    contador = 0
+    for libro in librosUser:
+        libroRecom = Libro.objects.get(titulo=libro)
+        contador = contador + 1
+        librosRecomendados.append(libroRecom)
+
+    # Generos favoritos
+    generos = usuario.genero.all()
+
+    generosFav = {}
+
+    if generos:
+        contadorGeneros = 0
+        for genero in generos:
+            contadorGeneros += 1
+            contadorLibros = 0
+            libros = Libro.objects.filter(genero=genero)[:5]
+            librosFav = {}
+            for libro in libros:
+                contadorLibros += 1
+                librosFav['libro'+str(contadorLibros)] = libro
+            generosFav[genero.nombre] = librosFav
+
+        print(generosFav)
+
+
+    else:
+        print("No tiene generos")
+
+    context = {'librosRecomendados': librosRecomendados, 'generos': generosFav}
+
+    return render(request, 'web/explorador.html', context)
+
+
+# Autores
+def autores(request):
+    autores = Autor.objects.all()
+
+    context = {'autores': autores}
+
+    return render(request, 'web/autores.html', context)
+
+
 # Registrar usuario
 def registro(request):
     if request.method == 'POST':
@@ -246,11 +345,6 @@ def registro(request):
 
     return render(request, 'registro/registro.html', context)
 
-
-# Explorador
-def explorador(request):
-
-    return render(request, 'web/explorador.html')
 
 # Iniciar sesion
 def inicioSesion(request):

@@ -36,14 +36,14 @@
           <li class="nav-item active">
             <a class="nav-link" href="{% url 'usuario:home' %}">INICIO <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item"></li>
             <a class="nav-link" href="{% url 'usuario:libros' %}">LIBROS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="#">EXPLORAR</a>
+            <a class="nav-link " href="{% url 'usuario:explorador' %}">EXPLORAR</a>
           </li>
             <li class="nav-item">
-                <a class="nav-link " href="#">AUTORES</a>
+                <a class="nav-link " href="{% url 'usuario:autores' %}">AUTORES</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link " href="#">MIS LIBRERIAS</a>
@@ -108,10 +108,6 @@
     </a>
   </div>
   <!-- Fin Generos -->
-      {% for genero in generos %}
-            <h3>{{ genero.nombre }}</h3>
-            <p>{{ genero.descripcion }}</p>
-      {% endfor %}
       <h2>Libros más nuevos</h2>
       <div class="row">
           {% for libro in librosNuevos %}

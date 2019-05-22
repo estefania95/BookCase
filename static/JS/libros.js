@@ -7,7 +7,6 @@ $.ajax({
     }
 });
 
-
 function generos(response){
     var jsonObject = JSON.stringify(response);
     var x = JSON.parse(jsonObject);
@@ -63,11 +62,5 @@ function generos(response){
             element.appendChild(divLibros);
 
         }
-
-
-
-
-
     }
-
 }

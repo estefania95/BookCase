@@ -17,5 +17,7 @@ urlpatterns = [
     path('perfil/', views.miPerfil, name="perfil"),
     path('libros/', views.librosGenero, name="libros"),
     path('apiLibros/', views.apiLibrosGenero, name="apiLibros"),
-    path('buscador/', views.buscador, name="buscador")
+    path('buscador/', views.buscador, name="buscador"),
+    path('explorador/', views.explorador, name="explorador"),
+    path('autores/', views.autores, name="autores"),
 ]
