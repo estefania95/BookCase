@@ -1,9 +1,16 @@
+{% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    {% load static %}
+    {%block css%}
+    <title>BookCase</title>
+        <link href="{% static 'css/home.css' %}">
+    {%endblock%}
 </head>
+{% block content %}
+{% load static %}
 <body>
   <!-- Navegador -->
   <nav class="navbar navbar-light navbar-dark bg-dark navegador">
@@ -15,7 +22,7 @@
            <div class="dropdown-menu dropdown-menu-right ">
               <a class="dropdown-item " href="{% url 'usuario:perfil' %}">Mi Perfil</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
+              <a class="dropdown-item" href="{% url 'usuario:logout' %}">Cerrar sesión</a>
           </div>
       </div>
   </nav>
@@ -71,4 +78,5 @@
 <p>No hay libros de ese genero</p>
 {% endif %}
 </body>
+{% endblock %}
 </html>

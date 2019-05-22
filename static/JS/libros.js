@@ -1,15 +1,73 @@
-function exerciciDos(){
+$.ajax({
+    url: 'http://127.0.0.1:8000/apiLibros/',
+    contentType: "application/json; charset=utf-8",
+    type: "GET",
+    success: function(response) {
+        generos(response);
+    }
+});
 
-    //Faig la petició ajax al JSON
-    $.ajax({
-        url: 'http://127.0.0.1:8000/apiLibros/',
-        success: function(response){
-            //Mostro el resultat
-            var p = $("#exercici2").html(response.current.condition.text);
-        },
-        error: function(){
-            //Mostro un error si no troba la ruta
-            var div = $("#exercici2").html("Error");
+
+function generos(response){
+    var jsonObject = JSON.stringify(response);
+    var x = JSON.parse(jsonObject);
+    var count = Object.keys(x).length;
+    console.log(count);
+    for(var i=1;i<=count; i++){
+
+        var element = document.getElementById("genero"+i);
+
+
+        /* Generos */
+        var h2element = document.createElement("h2");
+        var genero = x['genero'+i].nombreGenero;
+        var nombreGenero = document.createTextNode(genero);
+        h2element.appendChild(nombreGenero);
+
+        var pGenero = document.createElement("p");
+        var textoGenero = document.createTextNode(x['genero'+i].descripcionGenero);
+        pGenero.appendChild(textoGenero);
+
+        element.appendChild(h2element);
+        element.appendChild(pGenero);
+
+        var divLibros = document.createElement("div");
+        divLibros.setAttribute("class", "libros row");
+
+        /* Libros */
+        var contador = Object.keys(x['genero'+i].libros).length;
+        if(contador == 0){
+            var texto = document.createTextNode("Este genero todavia no tiene libros")
+            divLibros.appendChild(texto);
+            element.appendChild(divLibros);
         }
-    })
+        for(var j=1; j<=contador;j++){
+            var divLibro = document.createElement("div");
+            divLibro.setAttribute("class", "libro col-lg-3 col-md-4 col-sm-6 col-xs-12 p-0");
+
+            var libro = x['genero'+i].libros['libro'+j].tituloLibro;
+            var imagen = x['genero'+i].libros['libro'+j].imagenLibro;
+
+            var imagenLibro = document.createElement("img");
+            imagenLibro.setAttribute("src", imagen);
+            imagenLibro.setAttribute("height","250px");
+            divLibro.appendChild(imagenLibro);
+
+            var h5element = document.createElement("h5");
+            var tituloLibro = document.createTextNode(libro);
+            h5element.appendChild(tituloLibro);
+            divLibro.appendChild(h5element);
+
+            divLibros.appendChild(divLibro);
+
+            element.appendChild(divLibros);
+
+        }
+
+
+
+
+
+    }
+
 }

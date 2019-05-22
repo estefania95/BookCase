@@ -142,7 +142,17 @@ def libro(request, id_libro):
         if form.is_valid():
             valor = form.cleaned_data['estado']
 
-            libroUsuario = LibroUsuario.objects.create(usuario=usuario, libro=libro, estado=valor)
+            libroUsuario = LibroUsuario.objects.get(usuario=usuario, libro=libro)
+
+            if libroUsuario:
+                print("Existe")
+                print(libroUsuario)
+                libroUsuario.estado = valor
+                libroUsuario.save()
+                print(valor)
+            else:
+                libroUsuario = LibroUsuario.objects.create(usuario=usuario, libro=libro, estado=valor)
+
 
     context = {'libro': libro, 'form': form}
 
@@ -165,17 +175,21 @@ def genero(request, id_genero):
 
 # Apartado Libros
 def librosGenero(request):
-    return render(request, 'web/libros.html')
+    generos = Genero.objects.all()
+
+    context = {'generos': generos}
+
+    return render(request, 'web/libros.html', context)
 
 
-    # Api Libros Generos
+# Api Libros Generos
 def apiLibrosGenero(request):
     generos = Genero.objects.all()
     contadorGen = 0
     generosLibros = {}
     for genero in generos:
         contadorGen += 1
-        libros = Libro.objects.filter(genero=genero).order_by('?')[:5]
+        libros = Libro.objects.filter(genero=genero).order_by('?')[:4]
 
         nombreGenero = genero.nombre
         descripcionGenero = genero.descripcion
@@ -233,6 +247,11 @@ def registro(request):
     return render(request, 'registro/registro.html', context)
 
 
+# Explorador
+def explorador(request):
+
+    return render(request, 'web/explorador.html')
+
 # Iniciar sesion
 def inicioSesion(request):
     if request.method == 'POST':
@@ -254,7 +273,6 @@ def inicioSesion(request):
 
 
 # Mi Perfil
-
 
 # Añadir generos
 def miPerfil(request):
@@ -279,7 +297,6 @@ def miPerfil(request):
 
     # Libros leer del usuario
     leer = LibroUsuario.objects.filter(usuario=usuario, estado="LR")
-    print(leer)
 
     # Libros comprar del usuario
     comprar = LibroUsuario.objects.filter(usuario=usuario, estado="CM")
@@ -289,3 +306,5 @@ def miPerfil(request):
 
     context = {'generos': generos, 'generoUser': generosUser, 'usuario': usuario, 'leidos': leidos, 'leer': leer, 'comprar': comprar, 'abandonados': abandonados}
     return render(request, 'web/perfil.html', context)
+
+

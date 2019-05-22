@@ -6,7 +6,9 @@
     {% load static %}
     {%block css%}
     <title>BookCase</title>
-        <link href="{% static 'css/home.css' %}">
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <link rel="stylesheet" href="{% static 'css/libros.css' %}">
     {%endblock%}
 </head>
 {% block content %}
@@ -20,10 +22,10 @@
           <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-user-circle"></i>
           </button>
-          <div class="dropdown-menu dropdown-menu-right">
-              <button class="dropdown-item" type="button"><a href="{% url 'usuario:perfil' %}">Mi Perfil</a></button>
+          <div class="dropdown-menu dropdown-menu-right ">
+              <a class="dropdown-item " href="{% url 'usuario:perfil' %}">Mi Perfil</a>
               <div class="dropdown-divider"></div>
-              <button class="dropdown-item" type="button"><a href="{% url 'logout' %}">Cerrar sesión</a></button>
+              <a class="dropdown-item" href="{% url 'usuario:logout' %}">Cerrar sesión</a>
           </div>
       </div>
   </nav>
@@ -68,7 +70,16 @@
 
     </nav>
   <!-- Fin navegador -->
+
+  <div class="container">
+    <!-- Inicio Generos y Libros -->
+      {% for genero in generos %}
+      <div id="genero{{ genero.id }}">
+
+      </div>
+      {% endfor %}
+  </div>
 </body>
-    <script src="{% static 'JS/login.js' %}"></script>
+<script src="{% static 'JS/libros.js' %}"></script>
 {% endblock %}
 </html>
