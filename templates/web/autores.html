@@ -71,7 +71,7 @@
 <div class="container">
     <div id="app">
         <h1>[[ titulo ]]</h1>
-        <a href="{% url 'usuario:autor' %}" v-for="autor of autores">[[autor.nombre | capitalize('{{ inicial }}') ]]</a>
+        <p v-for="autor of autores">[[autor.nombre | capitalize('{{ inicial }}') ]]</p>
     </div>
 </div>
 

@@ -21,5 +21,7 @@ urlpatterns = [
     path('explorador/', views.explorador, name="explorador"),
     path('autores/', views.autores, name="autores"),
     path('autoresApi/', views.autoresApi, name="autoresApi"),
-    path('librerias/', views.libreria, name="librerias")
+    path('librerias/', views.libreria, name="librerias"),
+    path('libreria/<int:id_libreria>', views.libreriaIndividual, name="libreria"),
+    path('borrar/<int:id_libreria>', views.borrar, name="borrar"),
 ]

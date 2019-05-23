@@ -141,13 +141,13 @@ def libro(request, id_libro):
 
         if form.is_valid():
             valor = form.cleaned_data['estado']
+            try:
+                libroUsuario = LibroUsuario.objects.get(usuario=usuario, libro=libro)
 
-            libroUsuario = LibroUsuario.objects.get(usuario=usuario, libro=libro)
-
-            if libroUsuario:
-                libroUsuario.estado = valor
-                libroUsuario.save()
-            else:
+                if libroUsuario:
+                    libroUsuario.estado = valor
+                    libroUsuario.save()
+            except:
                 libroUsuario = LibroUsuario.objects.create(usuario=usuario, libro=libro, estado=valor)
 
 
@@ -373,8 +373,9 @@ def libreria(request):
             nombreLibreria = form.cleaned_data['nombre']
             descripcionLibreria = form.cleaned_data['descripcion']
             estantes = form.cleaned_data['estantes']
+            libreria = Libreria.objects.create(nombre=nombreLibreria, descripcion=descripcionLibreria, estantes=estantes, usuario=usuario)
 
-            libroUsuario = LibroUsuario.objects.get(usuario=usuario, libro=libro)
+            return redirect('usuario:librerias')
 
     librerias = Libreria.objects.filter(usuario=usuario)
 
@@ -383,7 +384,22 @@ def libreria(request):
     return render(request, 'web/librerias.html', context)
 
 
+# Libreria individual
+def libreriaIndividual(request, id_libreria):
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
 
+    libreria = get_object_or_404(Libreria, pk=id_libreria)
+
+    context = {'libreria': libreria}
+
+    return render(request, 'web/libreria.html', context)
+
+
+# Borrar libreria
+def borrar(request, id_libreria):
+    libreria = get_object_or_404(Libreria, pk=id_libreria).delete()
+    return redirect('usuario:librerias')
 
 
 # Registrar usuario

@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     {% load static %}
     {%block css%}
-        <title>BookCase</title>
+    <title>BookCase</title>
         <link href="{% static 'css/home.css' %}">
     {%endblock%}
 </head>
@@ -33,10 +33,10 @@
 
       <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
         <ul class="navbar-nav">
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="{% url 'usuario:home' %}">INICIO <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item"></li>
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'usuario:libros' %}">LIBROS</a>
           </li>
           <li class="nav-item">
@@ -45,7 +45,7 @@
             <li class="nav-item">
                 <a class="nav-link " href="{% url 'usuario:autores' %}">AUTORES</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link " href="{% url 'usuario:librerias' %}">MIS LIBRERIAS</a>
             </li>
           <!--<li class="nav-item dropdown">
@@ -64,46 +64,11 @@
         <input class="form-control mr-sm-2" name="libro" id="buscador" type="search" placeholder="Buscar" aria-label="Search">
         <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Buscar</button>
       </form>
+
     </nav>
   <!-- Fin navegador -->
 <div class="container">
-<!-- Si tiene librerias -->
-    {% if librerias %}
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#libreria">Crear libreria</button>
-        {% for libreria in librerias %}
-            <h2>{{ libreria.nombre }}</h2>
-            <p>{{ libreria.descripcion }}</p>
-            <a href="{% url 'usuario:libreria' libreria.id %}">Ver</a>
-            <a href="{% url 'usuario:borrar' libreria.id %}">Eliminar</a>
-        {% endfor %}
-    {% else %}
-        <p>No tienes librerias</p>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#libreria">Crear libreria</button>
 
-    {% endif %}
-<!-- Modal -->
-        <div class="modal fade" id="libreria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <form method="POST" action="{% url 'usuario:librerias' %}">
-                    {% csrf_token %}
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Añadir a mi lista</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                          {{ form }}
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                      </div>
-                    </div>
-                </form>
-            </div>
-        </div>
 </div>
 </body>
 {% endblock %}
