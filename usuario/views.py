@@ -4,10 +4,10 @@ from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import ExtendedUserCreationForm, UsuarioForm, EstadoForm
-from .models import Usuario, LibroUsuario
+from .forms import ExtendedUserCreationForm, UsuarioForm, EstadoForm, LibreriaForm
+from .models import Usuario, LibroUsuario, Libreria
 from libro.models import Genero, Libro, Autor
-import random
+import random, json
 # Create your views here.
 
 
@@ -311,11 +311,79 @@ def explorador(request):
 
 # Autores
 def autores(request):
-    autores = Autor.objects.all()
-
-    context = {'autores': autores}
-
+    caracter = 'J'
+    context = {'inicial': caracter}
     return render(request, 'web/autores.html', context)
+
+
+def autoresApi(request):
+    autoresTodos = Autor.objects.all()
+
+    autores = {}
+    contador = 0
+
+    for autor in autoresTodos:
+        contador += 1
+        id = autor.id
+        nombre = autor.nombre
+        apellidos = autor.apellidos
+        anoNacimiento = autor.anoNacimiento
+        descripcion = autor.descripcion
+        librosAutor = autor.libro.all()
+        libros = {}
+        contadorLibros = 0
+        for libro in librosAutor:
+            contadorLibros += 1
+            idLibro = libro.id
+            tituloLibro = libro.titulo
+            isbn = libro.isbn
+            numPaginas = libro.numeroPaginas
+            anoEdicion = libro.anoEdicion
+            imagenLibros = libro.imagen
+            sinopsis = libro.sinopsis
+
+            libros['libro'+str(contadorLibros)] = {'idLibro': idLibro,
+                                                   'titulo': tituloLibro,
+                                                   'isbn': isbn,
+                                                   'numPaginas': numPaginas,
+                                                   'anoEdicion': anoEdicion,
+                                                   'imagenLibro': imagenLibros,
+                                                   'sinopsis': sinopsis}
+            autores['autor'+str(contador)] = {'idAutor': id,
+                                              'nombre': nombre,
+                                              'apellidos': apellidos,
+                                              'descripcionAutor': descripcion,
+                                              'anoNacimiento': anoNacimiento,
+                                              'libros': libros}
+
+    return JsonResponse(autores)
+
+
+# Mis librerias
+def libreria(request):
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+
+    form = LibreriaForm()
+
+    if request.method == 'POST':
+        form = LibreriaForm(request.POST)
+
+        if form.is_valid():
+            nombreLibreria = form.cleaned_data['nombre']
+            descripcionLibreria = form.cleaned_data['descripcion']
+            estantes = form.cleaned_data['estantes']
+
+            libroUsuario = LibroUsuario.objects.get(usuario=usuario, libro=libro)
+
+    librerias = Libreria.objects.filter(usuario=usuario)
+
+    context = {'librerias': librerias, 'form': form}
+
+    return render(request, 'web/librerias.html', context)
+
+
+
 
 
 # Registrar usuario

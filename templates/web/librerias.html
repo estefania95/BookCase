@@ -1,10 +1,105 @@
+{% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    {% load static %}
+    {%block css%}
+        <title>BookCase</title>
+        <link href="{% static 'css/home.css' %}">
+    {%endblock%}
 </head>
+{% block content %}
+{% load static %}
 <body>
+<!-- Navegador -->
+  <nav class="navbar navbar-light navbar-dark bg-dark navegador">
+      <a class="navbar-brand" href="{% url 'usuario:home' %}"><img src="{% static 'imagenes/logo/logo.png' %}" width="150px"></a>
+      <div class="btn-group usuario">
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-user-circle"></i>
+          </button>
+           <div class="dropdown-menu dropdown-menu-right ">
+              <a class="dropdown-item " href="{% url 'usuario:perfil' %}">Mi Perfil</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'usuario:logout' %}">Cerrar sesión</a>
+          </div>
+      </div>
+  </nav>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top navegador">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
+      <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'usuario:home' %}">INICIO <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item"></li>
+            <a class="nav-link" href="{% url 'usuario:libros' %}">LIBROS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="{% url 'usuario:explorador' %}">EXPLORAR</a>
+          </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'usuario:autores' %}">AUTORES</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link " href="{% url 'usuario:librerias' %}">MIS LIBRERIAS</a>
+            </li>
+          <!--<li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MIS LIBRERIAS</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown08">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li> -->
+        </ul>
+      </div>
+
+      <form class="form-inline" action="{% url 'usuario:buscador' %}" method="GET">
+          {% csrf_token %}
+        <input class="form-control mr-sm-2" name="libro" id="buscador" type="search" placeholder="Buscar" aria-label="Search">
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Buscar</button>
+      </form>
+    </nav>
+  <!-- Fin navegador -->
+<!-- Si tiene librerias -->
+    {% if librerias %}
+
+        {% for libreria in librerias %}
+            <h2>{{ libreria.nombre }}</h2>
+            <p>{{ libreria.descripcion }}</p>
+        {% endfor %}
+    {% else %}
+        <p>No tienes librerias</p>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#libreria">Crear libreria</button>
+        <!-- Modal -->
+        <div class="modal fade" id="libreria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form method="POST" action="{% url 'usuario:librerias' %}">
+                    {% csrf_token %}
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Añadir a mi lista</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                          {{ form }}
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                      </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% endif %}
 </body>
+{% endblock %}
 </html>

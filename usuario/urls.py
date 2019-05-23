@@ -20,4 +20,6 @@ urlpatterns = [
     path('buscador/', views.buscador, name="buscador"),
     path('explorador/', views.explorador, name="explorador"),
     path('autores/', views.autores, name="autores"),
+    path('autoresApi/', views.autoresApi, name="autoresApi"),
+    path('librerias/', views.libreria, name="librerias")
 ]

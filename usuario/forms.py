@@ -1,9 +1,10 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Usuario, LibroUsuario
+from .models import Usuario, LibroUsuario, Libreria
 
 
+# Creación del usuario
 class ExtendedUserCreationForm(UserCreationForm):
   email = forms.EmailField(required=True)
 
@@ -26,9 +27,16 @@ class UsuarioForm(forms.ModelForm):
         fields = ('genero',)
 
 
+# Añadir libro a lista predefinida del usuario (Leer, Leído, ...)
 class EstadoForm(forms.ModelForm):
     estado = LibroUsuario.estado
     class Meta:
         model = LibroUsuario
         fields = ('estado',)
 
+
+# Crear libreria
+class LibreriaForm(forms.ModelForm):
+    class Meta:
+        model = Libreria
+        fields = ('nombre', 'descripcion', 'estantes')

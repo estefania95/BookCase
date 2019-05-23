@@ -67,54 +67,16 @@
 
     </nav>
   <!-- Fin navegador -->
+<!-- VUE -->
 <div class="container">
-<h1>Autores</h1>
-<!-- Buscador inicial
-<div class="row justify-content-md-center">
-    <pagination-autor>
-        <div class="abecedario-min" style="display: none;">
-            <ul class="pagination">
-                <li><a class="page-link" href="/autores/a"> A</a></li>
-                <li><a class="page-link" href="/autores/b"> B</a></li>
-                <li><a class="page-link" href="/autores/c"> C</a></li>
-                <li><a class="page-link" href="/autores/d"> D</a></li>
-                <li><a class="page-link" href="/autores/e"> E</a></li>
-                <li><a class="page-link" href="/autores/f"> F</a></li>
-                <li><a class="page-link" href="/autores/g"> G</a></li>
-                <li><a class="page-link" href="/autores/h"> H</a></li>
-                <li><a class="page-link" href="/todos-autores/i"> I</a></li>
-                <li><a class="page-link" href="/todos-autores/j"> J</a></li>
-                <li><a class="page-link" href="/todos-autores/k"> K</a></li>
-                <li><a class="page-link" href="/todos-autores/l"> L</a></li>
-                <li><a class="page-link" href="/todos-autores/m"> M</a></li>
-                <li><a class="page-link" href="/todos-autores/n"> N</a></li>
-                <li><a class="page-link" href="/todos-autores/o"> O</a></li>
-                <li><a class="page-link" href="/todos-autores/p"> P</a></li>
-                <li><a class="page-link" href="/todos-autores/q"> Q</a></li>
-                <li><a class="page-link" href="/todos-autores/r"> R</a></li>
-                <li><a class="page-link" href="/todos-autores/s"> S</a></li>
-                <li><a class="page-link" href="/todos-autores/t"> T</a></li>
-                <li><a class="page-link" href="/todos-autores/u"> U</a></li>
-                <li><a class="page-link" href="/todos-autores/v"> V</a></li>
-                <li><a class="page-link" href="/todos-autores/w"> W</a></li>
-                <li><a class="page-link" href="/todos-autores/x"> X</a></li>
-                <li><a class="page-link" href="/todos-autores/y"> Y</a></li>
-                <li><a class="page-link" href="/todos-autores/z"> Z</a></li>
-            </ul>
-        </div>
-        <div class="abecedario hidden-md-down">
-            <ul class="pagination">
-                <li><a class="page-link" href="/todos-autores/a"> A</a></li><li><a class="page-link" href="/todos-autores/b"> B</a></li><li><a class="page-link" href="/todos-autores/c"> C</a></li><li><a class="page-link" href="/todos-autores/d"> D</a></li><li><a class="page-link" href="/todos-autores/e"> E</a></li><li><a class="page-link" href="/todos-autores/f"> F</a></li><li><a class="page-link" href="/todos-autores/g"> G</a></li><li><a class="page-link" href="/todos-autores/h"> H</a></li><li><a class="page-link" href="/todos-autores/i"> I</a></li><li><a class="page-link" href="/todos-autores/j"> J</a></li><li><a class="page-link" href="/todos-autores/k"> K</a></li><li><a class="page-link" href="/todos-autores/l"> L</a></li><li><a class="page-link" href="/todos-autores/m"> M</a></li><li><a class="page-link" href="/todos-autores/n"> N</a></li><li><a class="page-link" href="/todos-autores/o"> O</a></li><li><a class="page-link" href="/todos-autores/p"> P</a></li><li><a class="page-link" href="/todos-autores/q"> Q</a></li><li><a class="page-link" href="/todos-autores/r"> R</a></li><li><a class="page-link" href="/todos-autores/s"> S</a></li><li><a class="page-link" href="/todos-autores/t"> T</a></li><li><a class="page-link" href="/todos-autores/u"> U</a></li><li><a class="page-link" href="/todos-autores/v"> V</a></li><li><a class="page-link" href="/todos-autores/w"> W</a></li><li><a class="page-link" href="/todos-autores/x"> X</a></li><li><a class="page-link" href="/todos-autores/y"> Y</a></li><li><a class="page-link" href="/todos-autores/z"> Z</a></li>                                </ul>
-        </div>
-    </pagination-autor>
+    <div id="app">
+        <h1>[[ titulo ]]</h1>
+        <a href="{% url 'usuario:autor' %}" v-for="autor of autores">[[autor.nombre | capitalize('{{ inicial }}') ]]</a>
+    </div>
 </div>
-Fin buscador inicial -->
-    <!-- Mostrar autores -->
-    {% for autor in autores %}
-        <p>{{ autor.nombre }}</p>
-    {% endfor %}
-    <!-- Fin mostrar autores -->
-</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="{% static 'JS/autores.js' %}"></script>
 </body>
 {% endblock %}
 </html>
