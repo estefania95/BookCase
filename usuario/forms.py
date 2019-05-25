@@ -41,3 +41,5 @@ class LibreriaForm(forms.ModelForm):
         model = Libreria
         fields = ('nombre', 'descripcion', 'estantes')
 
+
+

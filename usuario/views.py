@@ -135,6 +135,7 @@ def libro(request, id_libro):
     libro = get_object_or_404(Libro, pk=id_libro)
     user = request.user
     usuario=Usuario.objects.get(usuario=user)
+    librerias = Libreria.objects.filter(usuario=usuario)
     form = EstadoForm()
     if request.method == 'POST':
         form = EstadoForm(request.POST)
@@ -150,8 +151,7 @@ def libro(request, id_libro):
             except:
                 libroUsuario = LibroUsuario.objects.create(usuario=usuario, libro=libro, estado=valor)
 
-
-    context = {'libro': libro, 'form': form}
+    context = {'libro': libro, 'form': form, 'librerias': librerias}
 
     return render(request, 'web/libro.html', context)
 
@@ -310,12 +310,12 @@ def explorador(request):
 
 
 # Autores
-def autores(request):
-    caracter = 'J'
+def autores(request, caracter):
+    inicial = caracter.upper()
     context = {'inicial': caracter}
     return render(request, 'web/autores.html', context)
 
-
+# Api autores
 def autoresApi(request):
     autoresTodos = Autor.objects.all()
 
@@ -365,6 +365,7 @@ def libreria(request):
     usuario = Usuario.objects.get(usuario=user)
 
     form = LibreriaForm()
+    librerias = Libreria.objects.filter(usuario=usuario)
 
     if request.method == 'POST':
         form = LibreriaForm(request.POST)
@@ -373,7 +374,12 @@ def libreria(request):
             nombreLibreria = form.cleaned_data['nombre']
             descripcionLibreria = form.cleaned_data['descripcion']
             estantes = form.cleaned_data['estantes']
-            libreria = Libreria.objects.create(nombre=nombreLibreria, descripcion=descripcionLibreria, estantes=estantes, usuario=usuario)
+            if estantes > 3 or estantes <= 0:
+                librerias = Libreria.objects.filter(usuario=usuario)
+                context = {'error': 'Los estantes tienen que ser entre 1 y 3', 'librerias': librerias, 'form': form}
+                return render(request, 'web/librerias.html', context)
+            else:
+                libreria = Libreria.objects.create(nombre=nombreLibreria, descripcion=descripcionLibreria, estantes=estantes, usuario=usuario)
 
             return redirect('usuario:librerias')
 
@@ -391,9 +397,30 @@ def libreriaIndividual(request, id_libreria):
 
     libreria = get_object_or_404(Libreria, pk=id_libreria)
 
-    context = {'libreria': libreria}
+    librosLibreria = libreria.libro.all()
+
+    maxPaginas = 12000
+    paginasOcupadas = 0
+
+    for libro in librosLibreria:
+        paginasOcupadas += libro.numeroPaginas
+
+    context = {'libreria': libreria, 'loop': range(1,libreria.estantes+1,), 'libros': librosLibreria}
 
     return render(request, 'web/libreria.html', context)
+
+
+# Añadir libro a la libreria
+def añadirLibro(request, id_libro):
+    libro = get_object_or_404(Libro, pk=id_libro)
+
+    if request.method == "POST":
+        idLibreria = request.POST['librerias']
+        libreria = Libreria.objects.get(id=idLibreria)
+        libreria.libro.add(libro)
+
+
+    return redirect('usuario:libro', libro.id)
 
 
 # Borrar libreria

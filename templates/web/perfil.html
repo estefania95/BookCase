@@ -19,7 +19,7 @@
           <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-user-circle"></i>
           </button>
-          <div class="dropdown-menu dropdown-menu-right ">
+           <div class="dropdown-menu dropdown-menu-right ">
               <a class="dropdown-item " href="{% url 'usuario:perfil' %}">Mi Perfil</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'usuario:logout' %}">Cerrar sesión</a>
@@ -40,13 +40,13 @@
             <a class="nav-link" href="{% url 'usuario:libros' %}">LIBROS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="#">EXPLORAR</a>
+            <a class="nav-link " href="{% url 'usuario:explorador' %}">EXPLORAR</a>
           </li>
             <li class="nav-item">
-                <a class="nav-link " href="#">AUTORES</a>
+                <a class="nav-link " href="{% url 'usuario:autores' 'A' %}">AUTORES</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="#">MIS LIBRERIAS</a>
+                <a class="nav-link " href="{% url 'usuario:librerias' %}">MIS LIBRERIAS</a>
             </li>
           <!--<li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MIS LIBRERIAS</a>

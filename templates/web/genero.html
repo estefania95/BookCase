@@ -40,13 +40,13 @@
             <a class="nav-link" href="{% url 'usuario:libros' %}">LIBROS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="#">EXPLORAR</a>
+            <a class="nav-link " href="{% url 'usuario:explorador' %}">EXPLORAR</a>
           </li>
             <li class="nav-item">
-                <a class="nav-link " href="#">AUTORES</a>
+                <a class="nav-link " href="{% url 'usuario:autores' 'A' %}">AUTORES</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="#">MIS LIBRERIAS</a>
+                <a class="nav-link " href="{% url 'usuario:librerias' %}">MIS LIBRERIAS</a>
             </li>
           <!--<li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MIS LIBRERIAS</a>

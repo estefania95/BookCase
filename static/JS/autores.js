@@ -6,6 +6,8 @@ const app = new Vue({
         json: '',
         autores: [],
         autoresInicial: [],
+        mostrar: true,
+        letra: '',
     },
     created: function () {
         var _this = this;
@@ -16,7 +18,6 @@ const app = new Vue({
             for (let i = 1; i <= count; i++) {
                _this.autores.push(_this.json['autor'+i])
             }
-
         });
     },
     filters: {
@@ -31,5 +32,10 @@ const app = new Vue({
                 return null;
             }
         }
-    }
+    },
+    methods: {
+        say: (msg) => {
+          alert(msg)
+        }
+  }
 });

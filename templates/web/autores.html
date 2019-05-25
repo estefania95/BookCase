@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     {% load static %}
     {%block css%}
-    <title>BookCase</title>
-        <link href="{% static 'css/home.css' %}">
+        <title>BookCase</title>
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+        <link rel="stylesheet" href="{% static '/css/autores.css' %}">
+
     {%endblock%}
 </head>
 {% block content %}
@@ -33,7 +35,7 @@
 
       <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
         <ul class="navbar-nav">
-          <li class="nav-item ">
+          <li class="nav-item active">
             <a class="nav-link" href="{% url 'usuario:home' %}">INICIO <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
@@ -42,11 +44,11 @@
           <li class="nav-item">
             <a class="nav-link " href="{% url 'usuario:explorador' %}">EXPLORAR</a>
           </li>
-            <li class="nav-item active">
-                <a class="nav-link " href="{% url 'usuario:autores' %}">AUTORES</a>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'usuario:autores' 'A' %}">AUTORES</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="#">MIS LIBRERIAS</a>
+                <a class="nav-link " href="{% url 'usuario:librerias' %}">MIS LIBRERIAS</a>
             </li>
           <!--<li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MIS LIBRERIAS</a>
@@ -71,12 +73,83 @@
 <div class="container">
     <div id="app">
         <h1>[[ titulo ]]</h1>
-        <p v-for="autor of autores">[[autor.nombre | capitalize('{{ inicial }}') ]]</p>
+        <!-- Buscador inicial -->
+        <div class="row justify-content-md-center">
+                <div class="boton-abecedario hidden-lg-up">
+                    <button id="btn-abcmin" >A - Z | <i aria-hidden="true" class="fa fa-chevron-down fa"></i></button>
+                </div>
+                <div class="abecedario-min">
+                    <ul class="pagination">
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'A'%}"> A</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'B'%}"> B</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'C'%}"> C</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'D'%}"> D</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'E'%}"> E</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'F'%}"> F</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'G'%}"> G</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'H'%}"> H</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'I'%}"> I</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'j'%}"> J</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'K'%}"> K</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'L'%}"> L</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'M'%}"> M</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'N'%}"> N</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'O'%}"> O</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'P'%}"> P</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'Q'%}"> Q</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'R'%}"> R</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'S'%}"> S</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'T'%}"> T</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'U'%}"> U</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'V'%}"> V</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'W'%}"> W</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'X'%}"> X</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'Y'%}"> Y</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'Z'%}"> Z</a></li>
+                    </ul>
+                </div>
+                <div class="abecedario hidden-md-down">
+                    <ul class="pagination">
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'A'%}"> A</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'B'%}"> B</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'C'%}"> C</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'D'%}"> D</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'E'%}"> E</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'F'%}"> F</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'G'%}"> G</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'H'%}"> H</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'I'%}"> I</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'J'%}"> J</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'K'%}"> K</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'L'%}"> L</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'M'%}"> M</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'N'%}"> N</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'O'%}"> O</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'P'%}"> P</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'Q'%}"> Q</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'R'%}"> R</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'S'%}"> S</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'T'%}"> T</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'U'%}"> U</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'V'%}"> V</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'W'%}"> W</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'X'%}"> X</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'Y'%}"> Y</a></li>
+                        <li><a class="page-link" href="{% url 'usuario:autores' 'Z'%}"> Z</a></li>
+                    </ul>
+                </div>
+        </div>
+<!-- Fin buscador inicial -->
+        <h3>Autores que empiezan por la {{ inicial }}</h3>
+        <div v-for="autor of autores">
+                <p v-if="autor.apellidos == null">[[autor.nombre | capitalize('{{ inicial }}') ]]</p>
+                <p v-else>[[autor.nombre + " " + autor.apellidos | capitalize('{{ inicial }}') ]]</p>
+            </ul>
+        </div>
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="{% static 'JS/autores.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="{% static 'JS/autores.js' %}"></script>
 </body>
 {% endblock %}
 </html>

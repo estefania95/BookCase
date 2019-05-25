@@ -1,0 +1,43 @@
+.boton-abecedario {
+  display: none;
+}
+.boton-abecedario i {
+  color: #E75362;
+}
+.abecedario-min {
+  display: none;
+}
+@media (max-width: 767px) {
+  .boton-abecedario {
+    display: inline;
+    padding: 10px;
+  }
+}
+@media (max-width: 961px) {
+  .abecedario {
+    display: none;
+  }
+  .boton-abecedario {
+    display: inline;
+    padding: 10px;
+  }
+  .abecedario-min {
+    display: block;
+    margin: 1em;
+  }
+  .abecedario-min ul {
+    display: block;
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: -16px;
+
+  }
+  .abecedario-min ul li {
+    display: inline-block;
+    width: 40px;
+    line-height: 35px;
+    font-weight: 800;
+    margin: 0;
+  }
+}

@@ -36,7 +36,7 @@ function generos(response){
         /* Libros */
         var contador = Object.keys(x['genero'+i].libros).length;
         if(contador == 0){
-            var texto = document.createTextNode("Este genero todavia no tiene libros")
+            var texto = document.createTextNode("Este genero todavia no tiene libros");
             divLibros.appendChild(texto);
             element.appendChild(divLibros);
         }
@@ -46,16 +46,19 @@ function generos(response){
 
             var libro = x['genero'+i].libros['libro'+j].tituloLibro;
             var imagen = x['genero'+i].libros['libro'+j].imagenLibro;
+            var idLibro = x['genero'+i].libros['libro'+j].idLibro;
 
             var imagenLibro = document.createElement("img");
             imagenLibro.setAttribute("src", imagen);
             imagenLibro.setAttribute("height","250px");
             divLibro.appendChild(imagenLibro);
 
-            var h5element = document.createElement("h5");
+
+            var aelement = document.createElement("a");
             var tituloLibro = document.createTextNode(libro);
-            h5element.appendChild(tituloLibro);
-            divLibro.appendChild(h5element);
+            aelement.setAttribute("href", "/libro/"+idLibro);
+            aelement.appendChild(tituloLibro);
+            divLibro.appendChild(aelement);
 
             divLibros.appendChild(divLibro);
 

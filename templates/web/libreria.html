@@ -6,7 +6,7 @@
     {% load static %}
     {%block css%}
     <title>BookCase</title>
-        <link href="{% static 'css/home.css' %}">
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
     {%endblock%}
 </head>
 {% block content %}
@@ -43,7 +43,7 @@
             <a class="nav-link " href="{% url 'usuario:explorador' %}">EXPLORAR</a>
           </li>
             <li class="nav-item">
-                <a class="nav-link " href="{% url 'usuario:autores' %}">AUTORES</a>
+                <a class="nav-link " href="{% url 'usuario:autores' 'A' %}">AUTORES</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link " href="{% url 'usuario:librerias' %}">MIS LIBRERIAS</a>
@@ -68,7 +68,12 @@
     </nav>
   <!-- Fin navegador -->
 <div class="container">
-
+    {% for i in loop %}
+        <option value={{ i }}>{{ i }}</option>
+    {% endfor %}
+    {% for libro in libros %}
+        <p>{{ libro.titulo }}</p>
+    {% endfor %}
 </div>
 </body>
 {% endblock %}

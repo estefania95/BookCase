@@ -12,7 +12,7 @@
 {% load static %}
 <body>
 
-  <!-- Navegador -->
+ <!-- Navegador -->
   <nav class="navbar navbar-light navbar-dark bg-dark navegador">
       <a class="navbar-brand" href="{% url 'usuario:home' %}"><img src="{% static 'imagenes/logo/logo.png' %}" width="150px"></a>
       <div class="btn-group usuario">
@@ -40,13 +40,13 @@
             <a class="nav-link" href="{% url 'usuario:libros' %}">LIBROS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="#">EXPLORAR</a>
+            <a class="nav-link " href="{% url 'usuario:explorador' %}">EXPLORAR</a>
           </li>
             <li class="nav-item">
-                <a class="nav-link " href="#">AUTORES</a>
+                <a class="nav-link " href="{% url 'usuario:autores' 'A' %}">AUTORES</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="#">MIS LIBRERIAS</a>
+                <a class="nav-link " href="{% url 'usuario:librerias' %}">MIS LIBRERIAS</a>
             </li>
           <!--<li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MIS LIBRERIAS</a>
@@ -67,7 +67,7 @@
 
     </nav>
   <!-- Fin navegador -->
-
+<div class="container">
 <h1>{{ libro.titulo }}</h1>
     <div>
         <p>{{ libro.sinopsis }}</p>
@@ -100,6 +100,37 @@
                 </form>
               </div>
             </div>
+  {% if librerias %}
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#libreria">Añadir a libreria</button>
+          <!-- Modal -->
+            <div class="modal fade" id="libreria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <form method="POST" action="{% url 'usuario:añadir' libro.id %}">
+                    {% csrf_token %}
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Añadir a libreria</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                          <select name="librerias">
+                              {% for libreria in librerias %}
+                                  <option name="libreria" value="{{ libreria.id }}">{{ libreria.nombre }}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                      </div>
+                    </div>
+                </form>
+              </div>
+            </div>
+    {% endif %}
+</div>
 </body>
 {% endblock %}
 </html>
