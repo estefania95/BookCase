@@ -76,24 +76,24 @@
       <div class="carousel-item active">
         <div class="row">
             {% for genero in generos1 %}
-                    <div class="col-sm">
-                        <a href="{% url 'usuario:genero' genero.id %}">
-                            <img class="d-block w-100" src="{% static 'generos/'|add:genero.nombreImagen %}" alt="1 slide" height="250px">
-                        </a>
-                        <p>{{ genero.nombre }}</p>
-                    </div>
+                <div class="col-sm">
+                    <a href="{% url 'usuario:genero' genero.id %}">
+                        <img class="d-block w-100 generoImg" src="{% static 'generos/'|add:genero.nombreImagen %}" alt="1 slide" height="250px">
+                    </a>
+                    <p>{{ genero.nombre }}</p>
+                </div>
             {% endfor %}
         </div>
       </div>
       <div class="carousel-item">
         <div class="row">
             {% for genero in generos2 %}
-          <div class="col-sm">
-              <a href="{% url 'usuario:genero' genero.id %}">
-              <img class="d-block w-100" src="{% static 'generos/'|add:genero.nombreImagen %}" alt="4 slide"  height="250px">
-              </a>
-            <p>{{ genero.nombre }}</p>
-          </div>
+              <div class="col-sm">
+                  <a href="{% url 'usuario:genero' genero.id %}">
+                  <img class="d-block w-100 generoImg" src="{% static 'generos/'|add:genero.nombreImagen %}" alt="4 slide"  height="250px">
+                  </a>
+                <p>{{ genero.nombre }}</p>
+              </div>
             {% endfor %}
         </div>
       </div>

@@ -137,6 +137,21 @@ def libro(request, id_libro):
     usuario=Usuario.objects.get(usuario=user)
     librerias = Libreria.objects.filter(usuario=usuario)
     form = EstadoForm()
+    try:
+        lista = LibroUsuario.objects.get(usuario=usuario, libro=libro)
+        estado = ''
+        if lista:
+            if lista.estado == 'LD':
+                estado = "Leído"
+            elif lista.estado == 'LR':
+                estado = "Leer"
+            elif lista.estado == 'CM':
+                estado = "Comprar"
+            else:
+                estado = "Abandonado"
+    except:
+        lista = None
+        estado = None
     if request.method == 'POST':
         form = EstadoForm(request.POST)
 
@@ -151,9 +166,21 @@ def libro(request, id_libro):
             except:
                 libroUsuario = LibroUsuario.objects.create(usuario=usuario, libro=libro, estado=valor)
 
-    context = {'libro': libro, 'form': form, 'librerias': librerias}
+            return redirect('usuario:libro', libro.id)
+
+    context = {'libro': libro, 'form': form, 'librerias': librerias, 'lista': lista, 'estado': estado}
 
     return render(request, 'web/libro.html', context)
+
+
+# Eliminar libro lista
+def eliminarLibro(request, id_libro):
+    libro = get_object_or_404(Libro, pk=id_libro)
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+    libroUser = LibroUsuario.objects.get(libro=libro, usuario=usuario).delete()
+
+    return redirect('usuario:libro', libro.id)
 
 
 # Genero: Todos los libros
@@ -309,11 +336,45 @@ def explorador(request):
     return render(request, 'web/explorador.html', context)
 
 
+# Api libros explorador (Generos favoritos del usuario
+def librosGenerosUsuario(request):
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+
+    generosUser = usuario.genero.all()
+    generos = {}
+    contadorGenero = 0
+
+    for genero in generosUser:
+        contadorGenero += 1
+        libros = {}
+        contadorLibros = 0
+        nombregenero = genero.nombre
+        librosGenero = Libro.objects.filter(genero=genero)
+        for libro in librosGenero:
+            contadorLibros += 1
+            titulo = libro.titulo
+            idLibro = libro.id
+            imagenLibro = libro.imagen
+            libros['libro'+str(contadorLibros)] = {'idLibro': idLibro, 'titulo': titulo, 'imagenLibro': imagenLibro}
+
+        generos['genero'+str(contadorGenero)] = {'nombreGenero': nombregenero, 'libros': libros}
+
+    return JsonResponse(generos)
+
+
 # Autores
 def autores(request, caracter):
     inicial = caracter.upper()
     context = {'inicial': caracter}
     return render(request, 'web/autores.html', context)
+
+def autor(request, id_autor):
+    autor = get_object_or_404(Autor, pk=id_autor)
+
+    context = {'autor': autor}
+
+    return render(request, 'web/autor.html', context)
 
 # Api autores
 def autoresApi(request):
@@ -374,12 +435,8 @@ def libreria(request):
             nombreLibreria = form.cleaned_data['nombre']
             descripcionLibreria = form.cleaned_data['descripcion']
             estantes = form.cleaned_data['estantes']
-            if estantes > 3 or estantes <= 0:
-                librerias = Libreria.objects.filter(usuario=usuario)
-                context = {'error': 'Los estantes tienen que ser entre 1 y 3', 'librerias': librerias, 'form': form}
-                return render(request, 'web/librerias.html', context)
-            else:
-                libreria = Libreria.objects.create(nombre=nombreLibreria, descripcion=descripcionLibreria, estantes=estantes, usuario=usuario)
+
+            libreria = Libreria.objects.create(nombre=nombreLibreria, descripcion=descripcionLibreria, estantes=estantes, usuario=usuario)
 
             return redirect('usuario:librerias')
 
@@ -492,8 +549,7 @@ def miPerfil(request):
             generoUsuario = Genero.objects.get(nombre=str(genero))
             usuario.genero.add(generoUsuario)
 
-        context = {'generos': generos}
-        return render(request, 'prueba.html', context)
+        return redirect('usuario:perfil')
 
     generos = Genero.objects.all()
 

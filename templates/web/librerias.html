@@ -70,9 +70,6 @@
   <!-- Fin navegador -->
 <div class="container">
 <!-- Si tiene librerias -->
-    {% if error %}
-        <p class="error"><i class="fas fa-times"> </i> {{ error }}</p>
-    {% endif %}
     {% if librerias %}
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#libreria">Crear libreria</button>
         {% for libreria in librerias %}
@@ -93,13 +90,21 @@
                     {% csrf_token %}
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Añadir a mi lista</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Añadir libreria</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
                       <div class="modal-body">
-                          {{ form }}
+                          <div class="form-group">
+                            <input type="text" class="form-control formulario" id="nombreLibreria" name="nombre" aria-describedby="nombrelibreri" placeholder="Nombre de la libreria">
+                          </div>
+                          <div class="form-group">
+                              <textarea type="text" class="form-control formulario" name="descripcion" id="password" placeholder="Descripción de la libreria"></textarea>
+                          </div>
+                          <div class="form-group">
+                            <input type="number" class="form-control formulario" id="estantes" name="estantes" aria-describedby="estantes" placeholder="Estantes. Max. 3" min="1" max="3">
+                          </div>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

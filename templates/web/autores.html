@@ -142,8 +142,8 @@
 <!-- Fin buscador inicial -->
         <h3>Autores que empiezan por la {{ inicial }}</h3>
         <div v-for="autor of autores">
-                <p v-if="autor.apellidos == null">[[autor.nombre | capitalize('{{ inicial }}') ]]</p>
-                <p v-else>[[autor.nombre + " " + autor.apellidos | capitalize('{{ inicial }}') ]]</p>
+                <a v-bind:href="'/autor/'+ autor.idAutor" v-if="autor.apellidos == null">[[autor.nombre | capitalize('{{ inicial }}') ]]</a>
+                <a v-else>[[autor.nombre + " " + autor.apellidos | capitalize('{{ inicial }}') ]]</a>
             </ul>
         </div>
     </div>

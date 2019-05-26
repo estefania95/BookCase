@@ -6,15 +6,12 @@
     {% load static %}
     {%block css%}
     <title>BookCase</title>
-
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <link rel="stylesheet" href="{% static 'css/libros.css' %}">
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
     {%endblock%}
 </head>
 {% block content %}
 {% load static %}
 <body>
-
   <!-- Navegador -->
   <nav class="navbar navbar-light navbar-dark bg-dark navegador">
       <a class="navbar-brand" href="{% url 'usuario:home' %}"><img src="{% static 'imagenes/logo/logo.png' %}" width="150px"></a>
@@ -36,10 +33,10 @@
 
       <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
         <ul class="navbar-nav">
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="{% url 'usuario:home' %}">INICIO <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'usuario:libros' %}">LIBROS</a>
           </li>
           <li class="nav-item">
@@ -70,16 +67,9 @@
 
     </nav>
   <!-- Fin navegador -->
-
-  <div class="container">
-    <!-- Inicio Generos y Libros -->
-      {% for genero in generos %}
-      <div id="genero{{ genero.id }}">
-
-      </div>
-      {% endfor %}
-  </div>
+<div class="container">
+    <h1>{{ autor.nombre }}</h1>
+</div>
 </body>
-<script src="{% static 'JS/libros.js' %}"></script>
 {% endblock %}
 </html>

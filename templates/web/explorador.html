@@ -33,13 +33,13 @@
 
       <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
         <ul class="navbar-nav">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'usuario:home' %}">INICIO <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'usuario:libros' %}">LIBROS</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link " href="{% url 'usuario:explorador' %}">EXPLORAR</a>
           </li>
             <li class="nav-item">
@@ -91,5 +91,6 @@
     {% endif %}
     </div>
 </body>
+    <script src="{% static 'JS/ %}"
 {% endblock %}
 </html>
