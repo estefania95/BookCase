@@ -6,7 +6,7 @@
     {% load static %}
     {%block css%}
     <title>BookCase</title>
-        <link href="{% static 'css/home.css' %}">
+        <link rel="stylesheet" href="{% static 'css/explorador.css' %}">
     {%endblock%}
 </head>
 {% block content %}
@@ -70,9 +70,9 @@
     <div class="container">
     <!-- Libros recomendados -->
         <h2>Recomendado para ti</h2>
-        <div class="row">
+        <div class="row libros">
             {% for libro in librosRecomendados %}
-                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-0">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-0 libro">
                     <div>
                         <img src="{{ libro.imagen }}" style="height: 320px">
                         <p><a href="{% url 'usuario:libro' libro.id %}">{{ libro.titulo }}</a></p>
@@ -81,16 +81,17 @@
             {% endfor %}
         </div>
     <!-- Libros favoritos por generos favoritos -->
-    {% if generos %}
-        {% for genero in generos %}
-            <h2>{{ genero.nombre }}</h2>
+    {% if loop %}
+        {% for i in loop %}
+            <div id="genero{{ i }}">
 
+            </div>
         {% endfor %}
     {% else %}
         <p>No tienes generos favoritos</p><a class="btn btn-success" href="{% url 'usuario:perfil' %}">Añadir Generos</a>
     {% endif %}
     </div>
 </body>
-    <script src="{% static 'JS/ %}"
+    <script src="{% static 'JS/explorador.js' %}"></script>
 {% endblock %}
 </html>

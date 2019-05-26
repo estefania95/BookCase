@@ -136,8 +136,10 @@ def libro(request, id_libro):
     user = request.user
     usuario=Usuario.objects.get(usuario=user)
     librerias = Libreria.objects.filter(usuario=usuario)
+
     form = EstadoForm()
     try:
+        # Si ya tiene el libro en la lista mostrará lo siguiente en el boton
         lista = LibroUsuario.objects.get(usuario=usuario, libro=libro)
         estado = ''
         if lista:
@@ -309,29 +311,12 @@ def explorador(request):
         librosRecomendados.append(libroRecom)
 
     # Generos favoritos
-    generos = usuario.genero.all()
+    try:
+        generosFav = usuario.genero.all()
+    except:
+        generosFav = None
 
-    generosFav = {}
-
-    if generos:
-        contadorGeneros = 0
-        for genero in generos:
-            contadorGeneros += 1
-            contadorLibros = 0
-            libros = Libro.objects.filter(genero=genero)[:5]
-            librosFav = {}
-            for libro in libros:
-                contadorLibros += 1
-                librosFav['libro'+str(contadorLibros)] = libro
-            generosFav[genero.nombre] = librosFav
-
-        print(generosFav)
-
-
-    else:
-        print("No tiene generos")
-
-    context = {'librosRecomendados': librosRecomendados, 'generos': generosFav}
+    context = {'librosRecomendados': librosRecomendados, 'loop': range(1, generosFav.count()+1,)}
 
     return render(request, 'web/explorador.html', context)
 
@@ -350,7 +335,7 @@ def librosGenerosUsuario(request):
         libros = {}
         contadorLibros = 0
         nombregenero = genero.nombre
-        librosGenero = Libro.objects.filter(genero=genero)
+        librosGenero = Libro.objects.filter(genero=genero).order_by('?')[:5]
         for libro in librosGenero:
             contadorLibros += 1
             titulo = libro.titulo
@@ -435,8 +420,13 @@ def libreria(request):
             nombreLibreria = form.cleaned_data['nombre']
             descripcionLibreria = form.cleaned_data['descripcion']
             estantes = form.cleaned_data['estantes']
+            maxLibros = estantes*20
 
-            libreria = Libreria.objects.create(nombre=nombreLibreria, descripcion=descripcionLibreria, estantes=estantes, usuario=usuario)
+            if estantes > 0 and estantes <= 3:
+                libreria = Libreria.objects.create(nombre=nombreLibreria,
+                                               descripcion=descripcionLibreria,
+                                               estantes=estantes, usuario=usuario,
+                                               maxLibros=maxLibros)
 
             return redirect('usuario:librerias')
 
@@ -453,16 +443,30 @@ def libreriaIndividual(request, id_libreria):
     usuario = Usuario.objects.get(usuario=user)
 
     libreria = get_object_or_404(Libreria, pk=id_libreria)
+    estantes = libreria.estantes
 
     librosLibreria = libreria.libro.all()
 
-    maxPaginas = 12000
-    paginasOcupadas = 0
+    print(librosLibreria)
+
+    estante1=[]
+    estante2=[]
+    estante3=[]
 
     for libro in librosLibreria:
-        paginasOcupadas += libro.numeroPaginas
+        if len(estante1) < 20:
+            estante1.append(libro)
+        elif len(estante2) < 40:
+            estante2.append(libro)
+        else:
+            estante3.append(libro)
 
-    context = {'libreria': libreria, 'loop': range(1,libreria.estantes+1,), 'libros': librosLibreria}
+    context = {'libreria': libreria,
+               'loop': range(1, libreria.estantes+1,),
+               'libros': librosLibreria,
+               'estante1': estante1,
+               'estante2': estante2,
+               'estante3': estante3}
 
     return render(request, 'web/libreria.html', context)
 
@@ -470,12 +474,16 @@ def libreriaIndividual(request, id_libreria):
 # Añadir libro a la libreria
 def añadirLibro(request, id_libro):
     libro = get_object_or_404(Libro, pk=id_libro)
+    maxLibros = 0
 
     if request.method == "POST":
         idLibreria = request.POST['librerias']
         libreria = Libreria.objects.get(id=idLibreria)
-        libreria.libro.add(libro)
+        maxLibros = libreria.estantes*20
+        librosLibreria = libreria.libro.count()
 
+        if librosLibreria < maxLibros:
+            libreria.libro.add(libro)
 
     return redirect('usuario:libro', libro.id)
 

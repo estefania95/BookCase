@@ -123,7 +123,9 @@
                       <div class="modal-body">
                           <select name="librerias">
                               {% for libreria in librerias %}
-                                  <option name="libreria" value="{{ libreria.id }}">{{ libreria.nombre }}</option>
+                                  {% if libreria.libro.count < libreria.maxLibros %} %}
+                                    <option name="libreria" value="{{ libreria.id }}">{{ libreria.nombre }}</option>
+                                  {% endif %}
                               {% endfor %}
                           </select>
                       </div>

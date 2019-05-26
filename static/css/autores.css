@@ -4,7 +4,7 @@
 .boton-abecedario i {
   color: #E75362;
 }
-.abecedario-min {
+.abecedario-min.novisible {
   display: none;
 }
 @media (max-width: 767px) {

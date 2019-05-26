@@ -6,7 +6,7 @@
     {% load static %}
     {%block css%}
     <title>BookCase</title>
-        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+        <link rel="stylesheet" href="{% static 'css/libreria.css' %}">
     {%endblock%}
 </head>
 {% block content %}
@@ -33,7 +33,7 @@
 
       <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
         <ul class="navbar-nav">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'usuario:home' %}">INICIO <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
@@ -45,7 +45,7 @@
             <li class="nav-item">
                 <a class="nav-link " href="{% url 'usuario:autores' 'A' %}">AUTORES</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link " href="{% url 'usuario:librerias' %}">MIS LIBRERIAS</a>
             </li>
           <!--<li class="nav-item dropdown">
@@ -67,13 +67,73 @@
 
     </nav>
   <!-- Fin navegador -->
-<div class="container">
-    {% for i in loop %}
-        <option value={{ i }}>{{ i }}</option>
-    {% endfor %}
-    {% for libro in libros %}
-        <p>{{ libro.titulo }}</p>
-    {% endfor %}
+<div class="container-fluid">
+    <div class="infoLibreria">
+        <h2>{{ libreria.nombre }}</h2>
+        <p class="descripcion">{{ libreria.descripcion }}</p>
+    </div>
+    <div class="libreriaVisual">
+        <div {% if libreria.estantes == 1 %} class="libreria libreria1" {% elif libreria.estantes == 2 %} class="libreria libreria2" {% else %} class="libreria libreria3" {% endif %}>
+            {% for i in loop %}
+                <div class="estante estante{{ i }}">
+                {% if i == 1 %}
+                    {% for libro in estante1 %}
+                        <div class="libro" data-toggle="modal" data-target="#libro{{ libro.id }}"></div>
+                        <!-- Modal libro -->
+                        <div class="modal fade bd-example-modal-lg" id="libro{{ libro.id }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">{{ libro.titulo }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <img src="{{ libro.imagen }}">
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
+
+                    {% endfor %}
+                {% elif i == 2 %}
+                    {% for libro in estante2 %}
+                        <div class="libro" data-toggle="modal" data-target="#libro{{ libro.id }}"></div>
+                        <!-- Modal libro -->
+                        <div class="modal fade bd-example-modal-lg" id="libro{{ libro.id }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">{{ libro.titulo }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <img src="{{ libro.imagen }}">
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
+                    {% endfor %}
+                {% else %}
+                    {% for libro in estante3 %}
+                        <div class="libro"></div>
+                    {% endfor %}
+                {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    <div>
 </div>
 </body>
 {% endblock %}

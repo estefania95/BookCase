@@ -50,7 +50,7 @@ function generos(response){
 
             var imagenLibro = document.createElement("img");
             imagenLibro.setAttribute("src", imagen);
-            imagenLibro.setAttribute("height","250px");
+            imagenLibro.setAttribute("height","320px");
             divLibro.appendChild(imagenLibro);
 
 

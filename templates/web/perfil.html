@@ -67,8 +67,9 @@
 
     </nav>
   <!-- Fin navegador -->
-
-<h2>{{ usuario.usuario.username.upper }}</h2>
+<div class="container">
+    <h2>{{ usuario.usuario.username.upper }}</h2>
+    <a class="btn btn-info">Editar  <i class="fas fa-pencil-alt"></i></a>
 <h4>Añadir generos (máximo 1)</h4>
 <form action="{% url 'usuario:perfil' %}" method="post">
         {% csrf_token %}
@@ -105,6 +106,7 @@
         <img src="{{ abandonado.libro.imagen }}">
     {% endfor %}
 {% endif %}
+</div>
 </body>
 {% endblock %}
 </html>

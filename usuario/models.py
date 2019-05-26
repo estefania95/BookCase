@@ -55,6 +55,7 @@ class Libreria(models.Model):
     estantes = models.IntegerField()
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     libro = models.ManyToManyField(Libro)
+    maxLibros = models.IntegerField(default=0, null=True, blank=True)
 
     def __str__(self):
         return '%s %s' % (self.nombre, self.usuario)
