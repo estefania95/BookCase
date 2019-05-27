@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import ExtendedUserCreationForm, UsuarioForm, EstadoForm, LibreriaForm
+from .forms import ExtendedUserCreationForm, UsuarioForm, EstadoForm, LibreriaForm, AddBook, AddAutor, AddGenero
 from .models import Usuario, LibroUsuario, Libreria
 from libro.models import Genero, Libro, Autor
 import random, json
@@ -44,6 +44,7 @@ def buscador(request):
 def home(request):
     user = request.user
     usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
     # Todos los generos para mostrarlos en la home
     generosTodos = Genero.objects.all()
     mitad = len(generosTodos)/2
@@ -126,7 +127,11 @@ def home(request):
         contador = contador + 1
         librosRecomendados.append(libroRecom)
 
-    context = {'generos1': primerosGeneros, 'generos2': segundosGeneros, 'librosNuevos': librosNuevos, 'librosRecomendados': librosRecomendados}
+    context = {'generos1': primerosGeneros,
+               'generos2': segundosGeneros,
+               'librosNuevos': librosNuevos,
+               'librosRecomendados': librosRecomendados,
+               'admin': admin}
     return render(request, 'web/home.html', context)
 
 
@@ -447,8 +452,6 @@ def libreriaIndividual(request, id_libreria):
 
     librosLibreria = libreria.libro.all()
 
-    print(librosLibreria)
-
     estante1=[]
     estante2=[]
     estante3=[]
@@ -577,3 +580,11 @@ def miPerfil(request):
     return render(request, 'web/perfil.html', context)
 
 
+# Añadir libros Admin
+def nuevosLibrosAdmin(request):
+    libro = AddBook()
+    autor = AddAutor()
+    genero = AddGenero()
+
+    context = {'libro': libro, 'autor': autor, 'genero': genero}
+    return render(request, 'web/admin/librosNuevos.html', context)

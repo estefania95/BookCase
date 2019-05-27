@@ -6,13 +6,13 @@
     {% load static %}
     {%block css%}
     <title>BookCase</title>
-        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+        <link rel="stylesheet" href="{% static 'css/adminLibro.css' %}">
     {%endblock%}
 </head>
 {% block content %}
 {% load static %}
 <body>
-  <!-- Navegador -->
+<!-- Navegador -->
   <nav class="navbar navbar-light navbar-dark bg-dark navegador">
       <a class="navbar-brand" href="{% url 'usuario:home' %}"><img src="{% static 'imagenes/logo/logo.png' %}" width="150px"></a>
       <div class="btn-group usuario">
@@ -36,7 +36,7 @@
 
       <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
         <ul class="navbar-nav">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'usuario:home' %}">INICIO <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
@@ -70,71 +70,44 @@
 
     </nav>
   <!-- Fin navegador -->
-  <!-- Contenedor -->
-    <div class="container">
-  <!-- Inicio Generos -->
-    <h1>Generos</h1>
-    <div class="carousel slide" data-ride="carousel" id="multi_item">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <div class="row">
-            {% for genero in generos1 %}
-                <div class="col-sm">
-                    <a href="{% url 'usuario:genero' genero.id %}">
-                        <img class="d-block w-100 generoImg" src="{% static 'generos/'|add:genero.nombreImagen %}" alt="1 slide" height="250px">
-                    </a>
-                    <p>{{ genero.nombre }}</p>
-                </div>
+<div class="container">
+    <h2>Añadir libro</h2>
+    <form action="{% url 'usuario:addBook' %}" method="post">
+        {% csrf_token %}
+         <div class="form-group">
+            <input type="text"  class="form-control formulario" id="titulo" name="titulo" aria-describedby="titulo" placeholder="Título del libro">
+         </div>
+         <div class="form-group">
+            <input type="text" class="form-control formulario" id="isbn" name="isbn" aria-describedby="isbn" placeholder="ISBN">
+         </div>
+         <div class="form-group">
+             <input type="text" class="form-control formulario" id="editorial" name="editorial" aria-describedby="editorial" placeholder="Editorial">
+         </div>
+         <div class="form-group">
+             <input type="number" class="form-control formulario" id="numPaginas" name="numPaginas" aria-describedby="numPaginas" placeholder="Numero de páginas">
+         </div>
+         <div class="form-group">
+            <input type="number" class="form-control formulario" id="edicion" name="edicion" aria-describedby="edicion" placeholder="Año de edición">
+         </div>
+         <div class="form-group">
+             <textarea class="form-control formulario" id="sinopsis" name="sinopsis" aria-describedby="sinopsis" placeholder="Sinopsis"></textarea>
+         </div>
+         <div class="form-group">
+             <input type="text" class="form-control formulario" id="imagen" name="imagen" aria-describedby="imagen" placeholder="Url de la imagen">
+         </div>
+        <div class="form-group genero">
+            <p>Genero</p>
+            {% for gen in libro.genero %}
+               {{ gen }}<input type="checkbox" class="formulario" id="genero" name="genero" aria-describedby="genero">
             {% endfor %}
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="row">
-            {% for genero in generos2 %}
-              <div class="col-sm">
-                  <a href="{% url 'usuario:genero' genero.id %}">
-                  <img class="d-block w-100 generoImg" src="{% static 'generos/'|add:genero.nombreImagen %}" alt="4 slide"  height="250px">
-                  </a>
-                <p>{{ genero.nombre }}</p>
-              </div>
-            {% endfor %}
-        </div>
-      </div>
-    </div>
-    <a class="carousel-control-prev" href="#multi_item" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#multi_item" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-  <!-- Fin Generos -->
-      <h2>Libros más nuevos</h2>
-      <div class="row">
-          {% for libro in librosNuevos %}
-          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-0">
-              <div>
-                  <img src="{{ libro.imagen }}" style="height: 320px">
-                  <p><a href="{% url 'usuario:libro' libro.id %}">{{ libro.titulo }}</a></p>
-              </div>
-          </div>
-          {% endfor %}
-      </div>
-      <h2>Libros recomendados</h2>
-      <div class="row">
-          {% for libro in librosRecomendados %}
-          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-0">
-              <div>
-                  <img src="{{ libro.imagen }}" style="height: 320px">
-                  <p><a href="{% url 'usuario:libro' libro.id %}">{{ libro.titulo }}</a></p>
-              </div>
-          </div>
-          {% endfor %}
-      </div>
-  </div>
-<script src="{% static 'JS/home.js' %}"></script>
+         </div>
+    <button type="submit" class="btn btn-info">Añadir libro</button>
+    </form>
+    <h2>Añadir autor</h2>
+    {{ autor }}
+    <h2>Añadir genero</h2>
+    {{ genero }}
+</div>
 </body>
 {% endblock %}
 </html>

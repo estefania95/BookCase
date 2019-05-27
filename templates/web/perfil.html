@@ -6,12 +6,12 @@
     {% load static %}
     {%block css%}
         <title>BookCase</title>
+        <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
     {%endblock%}
 </head>
 {% block content %}
 {% load static %}
 <body>
-
   <!-- Navegador -->
   <nav class="navbar navbar-light navbar-dark bg-dark navegador">
       <a class="navbar-brand" href="{% url 'usuario:home' %}"><img src="{% static 'imagenes/logo/logo.png' %}" width="150px"></a>
@@ -69,20 +69,47 @@
   <!-- Fin navegador -->
 <div class="container">
     <h2>{{ usuario.usuario.username.upper }}</h2>
-    <a class="btn btn-info">Editar  <i class="fas fa-pencil-alt"></i></a>
-<h4>Añadir generos (máximo 1)</h4>
-<form action="{% url 'usuario:perfil' %}" method="post">
-        {% csrf_token %}
-        {% for genero in generos %}
-        <input type="checkbox" name="genero" value="{{ genero }}" {% for generoUser in generoUser %}
-          {% if genero == generoUser %}
-            checked
-          {% endif %}
-          {% endfor %}>{{ genero.nombre }}
-        <br>
-        {% endfor %}
-        <input type="submit" name="Guardar">
+
+<h4>Generos</h4>
+<p>Añade o elimina tus geners favoritos. Puedes añadir hasta un máximo de 5 generos.</p>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#generos">Editar  <i class="fas fa-pencil-alt"></i></button>
+<!-- Modal de generos-->
+<div class="modal fade" id="generos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <form action="{% url 'usuario:perfil' %}" method="post">
+            {% csrf_token %}
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Añadir o editar generos</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body caja">
+        <div class="generosCheck">
+            {% for genero in generos %}
+            <input class="single-checkbox" type="checkbox" name="genero" value="{{ genero }}" {% for generoUser in generoUser %}
+              {% if genero == generoUser %}
+                checked
+              {% endif %}
+              {% endfor %}>{{ genero.nombre }}
+            <br>
+            {% endfor %}
+        </div>
+      <div class="maxGen">
+          <p class="maxGeneros">Máximo 5 generos</p>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
     </form>
+    </div>
+  </div>
+</div>
+
   <h4>Listas</h4>
   <h5>Leídos</h5>
     {% for leido in leidos %}
@@ -108,5 +135,6 @@
 {% endif %}
 </div>
 </body>
+    <script src="{% static 'JS/perfil.js' %}"></script>
 {% endblock %}
 </html>

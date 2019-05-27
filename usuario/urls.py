@@ -26,4 +26,5 @@ urlpatterns = [
     path('libreria/<int:id_libreria>', views.libreriaIndividual, name="libreria"),
     path('añadirLibro/<int:id_libro>/', views.añadirLibro, name="añadir"),
     path('borrar/<int:id_libreria>', views.borrar, name="borrar"),
+    path('addBook/', views.nuevosLibrosAdmin, name="addBook")
 ]

@@ -1,0 +1,13 @@
+.caja{
+    display: flex;
+}
+.generosCheck{
+    width: 70%;
+}
+.maxGen{
+    width: 30%;
+}
+.maxGeneros{
+    font-style: italic;
+    text-align: right;
+}

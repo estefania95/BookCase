@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Usuario, LibroUsuario, Libreria
+from libro.models import Libro, Autor, Genero
 
 
 # Creación del usuario
@@ -42,4 +43,22 @@ class LibreriaForm(forms.ModelForm):
         fields = ('nombre', 'descripcion', 'estantes')
 
 
+# Añadir libros
+class AddBook(forms.ModelForm):
+    class Meta:
+        model = Libro
+        fields = '__all__'
 
+
+# Añadir autor
+class AddAutor(forms.ModelForm):
+    class Meta:
+        model = Autor
+        fields = '__all__'
+
+
+# Añadir genero
+class AddGenero(forms.ModelForm):
+    class Meta:
+        model = Genero
+        fields = '__all__'
