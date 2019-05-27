@@ -1,7 +1,47 @@
+/* Navegador */
 .sticky-top{
     z-index: 900;
 }
 .navegador{
     background-color: #A9B7C0 !important;
     color: black;
+}
+
+/* Footer */
+#footer{
+    background-color: #A9B7C0 !important;
+
+}
+a>i{
+    font-size: 2em;
+    color: #EFD9C1;
+}
+a{
+    color: black;
+}
+a:hover{
+    color: black;
+}
+
+/* Libros */
+.libroContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.libros.row{
+    text-align: center;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+@media (max-width: 600px) {
+    h2{
+        text-align: center;
+    }
+    .form-inline{
+        flex-flow: row nowrap;
+        width: 70%;
+    }
 }

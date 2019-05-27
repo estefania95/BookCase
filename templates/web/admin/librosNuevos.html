@@ -71,43 +71,272 @@
     </nav>
   <!-- Fin navegador -->
 <div class="container">
+<!-- Añadir libros -->
     <h2>Añadir libro</h2>
     <form action="{% url 'usuario:addBook' %}" method="post">
         {% csrf_token %}
          <div class="form-group">
-            <input type="text"  class="form-control formulario" id="titulo" name="titulo" aria-describedby="titulo" placeholder="Título del libro">
+            <input type="text"  class="form-control formulario" id="titulo" name="titulo" aria-describedby="titulo" placeholder="Título del libro" required>
          </div>
          <div class="form-group">
-            <input type="text" class="form-control formulario" id="isbn" name="isbn" aria-describedby="isbn" placeholder="ISBN">
+            <input type="text" class="form-control formulario" id="isbn" name="isbn" aria-describedby="isbn" placeholder="ISBN" required>
          </div>
          <div class="form-group">
-             <input type="text" class="form-control formulario" id="editorial" name="editorial" aria-describedby="editorial" placeholder="Editorial">
+             <input type="text" class="form-control formulario" id="editorial" name="editorial" aria-describedby="editorial" placeholder="Editorial" required>
          </div>
          <div class="form-group">
-             <input type="number" class="form-control formulario" id="numPaginas" name="numPaginas" aria-describedby="numPaginas" placeholder="Numero de páginas">
+             <input type="number" class="form-control formulario" id="numPaginas" name="numPaginas" aria-describedby="numPaginas" placeholder="Numero de páginas" required>
          </div>
          <div class="form-group">
-            <input type="number" class="form-control formulario" id="edicion" name="edicion" aria-describedby="edicion" placeholder="Año de edición">
+            <input type="number" class="form-control formulario" id="edicion" name="edicion" aria-describedby="edicion" placeholder="Año de edición" required>
          </div>
          <div class="form-group">
-             <textarea class="form-control formulario" id="sinopsis" name="sinopsis" aria-describedby="sinopsis" placeholder="Sinopsis"></textarea>
+             <textarea class="form-control formulario" id="sinopsis" name="sinopsis" aria-describedby="sinopsis" placeholder="Sinopsis" required></textarea>
          </div>
          <div class="form-group">
-             <input type="text" class="form-control formulario" id="imagen" name="imagen" aria-describedby="imagen" placeholder="Url de la imagen">
+             <input type="text" class="form-control formulario" id="imagen" name="imagen" aria-describedby="imagen" placeholder="Url de la imagen" required>
          </div>
         <div class="form-group genero">
-            <p>Genero</p>
-            {% for gen in libro.genero %}
-               {{ gen }}<input type="checkbox" class="formulario" id="genero" name="genero" aria-describedby="genero">
-            {% endfor %}
+        <p>Genero</p>
+            <select class="js-example-basic-multiple select2 form-control" name="generos" multiple="multiple">
+                {% for gen in libro.genero %}
+                     {{ gen }}
+                {% endfor %}
+            </select>
          </div>
     <button type="submit" class="btn btn-info">Añadir libro</button>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editLibro">Editar libro</button>
     </form>
+<!-- Editar libros -->
+
+    <!-- Modal -->
+        <div class="modal fade" id="editLibro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <form method="POST" action="{% url 'usuario:editLibro' %}">
+                    {% csrf_token %}
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Editar libro</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <select class="js-example-basic-single form-control select2" name="libros">
+                            {% for libro in libros %}
+                                <option value="{{ libro.id }}">{{ libro.titulo }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                      <hr>
+                      <div class="form-group">
+                            <input type="text"  class="form-control formulario" id="titulo" name="titulo" aria-describedby="titulo" placeholder="Título del libro" >
+                         </div>
+                         <div class="form-group">
+                            <input type="text" class="form-control formulario" id="isbn" name="isbn" aria-describedby="isbn" placeholder="ISBN">
+                         </div>
+                         <div class="form-group">
+                             <input type="text" class="form-control formulario" id="editorial" name="editorial" aria-describedby="editorial" placeholder="Editorial">
+                         </div>
+                         <div class="form-group">
+                             <input type="number" class="form-control formulario" id="numPaginas" name="numPaginas" aria-describedby="numPaginas" placeholder="Numero de páginas">
+                         </div>
+                         <div class="form-group">
+                            <input type="number" class="form-control formulario" id="edicion" name="edicion" aria-describedby="edicion" placeholder="Año de edición">
+                         </div>
+                         <div class="form-group">
+                             <textarea class="form-control formulario" id="sinopsis" name="sinopsis" aria-describedby="sinopsis" placeholder="Sinopsis"></textarea>
+                         </div>
+                         <div class="form-group">
+                             <input type="text" class="form-control formulario" id="imagen" name="imagen" aria-describedby="imagen" placeholder="Url de la imagen">
+                         </div>
+                        <div class="form-group genero">
+                        <p>Añadir o eliminar genero</p>
+                            <select class="js-example-basic-multiple select2 form-control" name="generos" multiple="multiple">
+                                {% for gen in libro.genero %}
+                                     {{ gen }}
+                                {% endfor %}
+                            </select>
+                         </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                      </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+<!-- Añadir / Editar autor -->
     <h2>Añadir autor</h2>
-    {{ autor }}
+    <form action="{% url 'usuario:addAutor' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="text"  class="form-control formulario" id="nombreAutor" name="nombreAutor" aria-describedby="nombreAutor" placeholder="Nombre del autor" required>
+         </div>
+        <div class="form-group">
+            <input type="text"  class="form-control formulario" id="apellidos" name="apellidos" aria-describedby="apellidos" placeholder="Apellidos del autor" required>
+         </div>
+        <div class="form-group">
+            <input type="text"  class="form-control formulario" id="nacimiento" name="nacimiento" aria-describedby="nacimiento" placeholder="Año de nacimiento" required>
+         </div>
+        <div class="form-group">
+            <textarea type="text"  class="form-control formulario" id="descripcionAutor" name="descripcionAutor" aria-describedby="descripcionAutor" placeholder="Descripción del autor" required></textarea>
+         </div>
+        <div class="form-group ">
+        <p>Libros</p>
+            <select class="js-example-basic-multi select2 form-control" name="libros" multiple="multiple">
+                {% for libro in autor.libro %}
+                    {{ libro }}
+                {% endfor %}
+            </select>
+         </div>
+        <button type="submit" class="btn btn-info">Añadir autor</button>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editAutor">Editar autor</button>
+    </form>
+<!-- Modal -->
+        <div class="modal fade" id="editAutor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <form method="POST" action="{% url 'usuario:editAutor' %}">
+                    {% csrf_token %}
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Editar autor</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <select class="js-example-basic-single form-control select2" name="autor">
+                            {% for autor in autores %}
+                                <option value="{{ autor.id }}">{{ autor.nombre }} {{ autor.apellidos }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                      <hr>
+                        <div class="form-group">
+                            <input type="text"  class="form-control formulario" id="nombreAutor" name="nombreAutor" aria-describedby="nombreAutor" placeholder="Nombre del autor">
+                         </div>
+                        <div class="form-group">
+                            <input type="text"  class="form-control formulario" id="apellidos" name="apellidos" aria-describedby="apellidos" placeholder="Apellidos del autor" >
+                         </div>
+                        <div class="form-group">
+                            <input type="text"  class="form-control formulario" id="nacimiento" name="nacimiento" aria-describedby="nacimiento" placeholder="Año de nacimiento" >
+                         </div>
+                        <div class="form-group">
+                            <textarea type="text"  class="form-control formulario" id="descripcionAutor" name="descripcionAutor" aria-describedby="descripcionAutor" placeholder="Descripción del autor" ></textarea>
+                         </div>
+                        <div class="form-group ">
+                        <p>Libros</p>
+                            <select class="js-example-basic-multi select2 form-control" name="libros" multiple="multiple">
+                                {% for libro in autor.libro %}
+                                    {{ libro }}
+                                {% endfor %}
+                            </select>
+                         </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                      </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+<!-- Añadir / Editar genero -->
     <h2>Añadir genero</h2>
-    {{ genero }}
+        <form action="{% url 'usuario:addGenero' %}">
+            <div class="form-group">
+                <input type="text" class="form-control formulario" id="nombreGenero" name="nombreGenero" aria-describedby="nombreGenero" placeholder="Nombre del genero" required>
+             </div>
+            <div class="form-group">
+                <input type="text" class="form-control formulario" id="nombreImgGen" name="nombreImgGen" aria-describedby="nombreImgGen" placeholder="Nombre de la imagen del genero" required>
+             </div>
+            <div class="form-group">
+                <textarea type="text" class="form-control formulario" id="descripcionGenero" name="descripcionGenero" aria-describedby="descripcionGenero" placeholder="Descripción del genero" required></textarea>
+             </div>
+            <button type="submit"  class="btn btn-info">Añadir genero</button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editGenero">Editar genero</button>
+        </form>
+<!-- Modal -->
+        <div class="modal fade" id="editGenero" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <form method="POST" action="{% url 'usuario:editAutor' %}">
+                    {% csrf_token %}
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Editar Genero</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <select class="js-example-basic-single form-control select2" name="genero">
+                            {% for genero in generos %}
+                                <option value="{{ genero.id }}">{{ genero.nombre }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                      <hr>
+                      <div class="form-group">
+                            <input type="text" class="form-control formulario" id="nombreGenero" name="nombreGenero" aria-describedby="nombreGenero" placeholder="Nombre del genero" required>
+                         </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control formulario" id="nombreImgGen" name="nombreImgGen" aria-describedby="nombreImgGen" placeholder="Nombre de la imagen del genero" required>
+                         </div>
+                        <div class="form-group">
+                            <textarea type="text" class="form-control formulario" id="descripcionGenero" name="descripcionGenero" aria-describedby="descripcionGenero" placeholder="Descripción del genero" required></textarea>
+                         </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                      </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 </div>
+<!-- Footer -->
+	<section id="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+					<ul class="list-unstyled list-inline social text-center">
+						<li class="list-inline-item"><a href="https://www.facebook.com/ecaroortega2"><i class="fab fa-facebook-square"></i></a></li>
+						<li class="list-inline-item"><a href="https://twitter.com/estefiy"><i class="fab fa-twitter-square"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.instagram.com/estefy950/"><i class="fab fa-instagram"></i></a></li>
+						<li class="list-inline-item"><a href="https://github.com/estefania95"><i class="fab fa-github-square"></i></a></li>
+					</ul>
+				</div>
+				</hr>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+					<p><a href="{% url 'usuario:politica' %}">Política de privacidad</a></p>
+					<p class="h6">&copy All right Reversed. BookCase</p>
+				</div>
+				</hr>
+			</div>
+		</div>
+	</section>
+	<!-- ./Footer -->
 </body>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2(
+
+            );
+        });
+        $(document).ready(function() {
+            $('.js-example-basic-multi').select2();
+        });
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+    </script>
 {% endblock %}
 </html>

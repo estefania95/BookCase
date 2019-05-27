@@ -361,8 +361,9 @@ def autores(request, caracter):
 
 def autor(request, id_autor):
     autor = get_object_or_404(Autor, pk=id_autor)
+    librosAutor = autor.libro.all()
 
-    context = {'autor': autor}
+    context = {'autor': autor, 'librosAutor': librosAutor}
 
     return render(request, 'web/autor.html', context)
 
@@ -580,11 +581,181 @@ def miPerfil(request):
     return render(request, 'web/perfil.html', context)
 
 
-# Añadir libros Admin
-def nuevosLibrosAdmin(request):
+# Formularios de libros, autor y genero
+def add(request):
     libro = AddBook()
     autor = AddAutor()
     genero = AddGenero()
 
-    context = {'libro': libro, 'autor': autor, 'genero': genero}
+    libros = Libro.objects.all()
+    autores = Autor.objects.all()
+    generos = Genero.objects.all()
+
+    context = {'libro': libro,
+               'autor': autor,
+               'genero': genero,
+               'libros': libros,
+               'autores': autores,
+               'generos': generos}
     return render(request, 'web/admin/librosNuevos.html', context)
+
+
+# Añadir libros
+def addBook(request):
+    if request.method == 'POST':
+        titulo = request.POST['titulo']
+        isbn = request.POST['isbn']
+        editorial = request.POST['editorial']
+        numPaginas = request.POST['numPaginas']
+        anoEdicion = request.POST['edicion']
+        sinopsis = request.POST['sinopsis']
+        imagen = request.POST['imagen']
+        generos = request.POST.getlist('generos')
+        libro = Libro.objects.create(titulo=titulo,
+                                     isbn=isbn,
+                                     editorial=editorial,
+                                     numeroPaginas=numPaginas,
+                                     anoEdicion=anoEdicion,
+                                     sinopsis=sinopsis,
+                                     imagen=imagen)
+        for genero in generos:
+            gen = Genero.objects.get(id=genero)
+            libro.genero.add(gen)
+
+    return redirect('usuario:add')
+
+
+# Añadir autor
+def addAutor(request):
+    if request.method == 'POST':
+        nombreAutor = request.POST['nombreAutor']
+        apellidos = request.POST['apellidos']
+        anoNacimiento = request.POST['nacimiento']
+        descripcionAutor = request.POST['descripcionAutor']
+        libros = request.POST.getlist('libros')
+
+        autor = Autor.objects.create(nombre=nombreAutor,
+                                     apellidos=apellidos,
+                                     anoNacimiento=anoNacimiento,
+                                     descripcion=descripcionAutor)
+
+        for libro in libros:
+            autor.libro.add(libro)
+
+    return redirect('usuario:add')
+
+
+# Añadir genero
+def addGenero(request):
+    if request.method == 'POST':
+        nombreGenero = request.POST['nombreGenero']
+        nombreImgGen = request.POST['nombreImgGen']
+        descripcionGenero = request.POST['descripcionGenero']
+
+        genero = Genero.objects.create(nombre=nombreGenero, nombreImagen=nombreImgGen, descripcion=descripcionGenero)
+
+    return redirect('usuario:add')
+
+
+# Editar libro
+def editLibro(request):
+    if request.method == 'POST':
+        libroReq = request.POST['libros']
+        libro = Libro.objects.get(id=libroReq)
+
+        titulo = request.POST['titulo']
+        isbn = request.POST['isbn']
+        editorial = request.POST['editorial']
+        numPaginas = request.POST['numPaginas']
+        anoEdicion = request.POST['edicion']
+        sinopsis = request.POST['sinopsis']
+        imagen = request.POST['imagen']
+        generos = request.POST.getlist('generos')
+
+        if titulo:
+            libro.titulo = titulo
+        if isbn:
+            libro.isbn = isbn
+        if editorial:
+            libro.editorial = editorial
+        if numPaginas:
+            libro.numeroPaginas = numPaginas
+        if anoEdicion:
+            libro.anoEdicion = anoEdicion
+        if sinopsis:
+            libro.sinopsis = sinopsis
+        if imagen:
+            libro.imagen = imagen
+        if generos:
+            for genero in generos:
+                genLib = Genero.objects.get(id=genero)
+                # Si el genero ya existe lo elimina
+                try:
+                    libroGen = Libro.objects.get(id=libroReq, genero=genLib)
+                    libroGen.genero.remove(genLib)
+                except:
+                    libro.genero.add(genLib)
+
+        libro.save()
+
+    return redirect('usuario:add')
+
+
+# Editar autor
+def editAutor(request):
+    if request.method == 'POST':
+        idAutor = request.POST['autor']
+        autor = Autor.objects.get(id=idAutor)
+
+        nombreAutor = request.POST['nombreAutor']
+        apellidos = request.POST['apellidos']
+        anoNacimiento = request.POST['nacimiento']
+        descripcionAutor = request.POST['descripcionAutor']
+        libros = request.POST.getlist('libros')
+
+        if nombreAutor:
+            autor.nombre = nombreAutor
+        if apellidos:
+            autor.apellidos = apellidos
+        if anoNacimiento:
+            autor.anoNacimiento = anoNacimiento
+        if descripcionAutor:
+            autor.descripcion = descripcionAutor
+
+        if libros:
+            for libro in libros:
+                try:
+                    autorLibro = Autor.objects.get(id=idAutor, libro=libro)
+                    autorLibro.libro.remove(libro)
+                except:
+                    autor.libro.add(libro)
+        autor.save()
+
+    return redirect('usuario:add')
+
+
+# Editar genero
+def editGenero(request):
+    if request.method == 'POST':
+        idgenero = request.POST['genero']
+        genero = Genero.objects.get(id=idgenero)
+
+        nombreGenero = request.POST['nombreGenero']
+        nombreImgGen = request.POST['nombreImgGen']
+        descripcionGenero = request.POST['descripcionGenero']
+
+        if nombreGenero:
+            genero.nombre = nombreGenero
+        if nombreImgGen:
+            genero.nombreImagen =nombreImgGen
+        if genero.descripcion:
+            genero.descripcion = descripcionGenero
+
+        genero.save()
+
+    return redirect('usuario:add')
+
+
+# Politica de privacidad
+def politica(request):
+    return render(request, 'web/politica.html')
