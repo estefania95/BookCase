@@ -4,6 +4,10 @@
     display: flex;
     flex-direction: row;
 }
+.logo{
+    margin: 2em;
+    margin-bottom: 0;
+}
 .imagen{
     width: 60%;
     height: 100%;

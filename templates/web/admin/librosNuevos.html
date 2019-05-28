@@ -22,7 +22,7 @@
            <div class="dropdown-menu dropdown-menu-right ">
               <a class="dropdown-item " href="{% url 'usuario:perfil' %}">Mi Perfil</a>
                 {% if admin %}
-                    <a class="dropdown-item" href="{% url 'usuario:addBook' %}">Añadir libros</a>
+                    <a class="dropdown-item" href="{% url 'usuario:add' %}">Añadir o editar</a>
                {% endif %}
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'usuario:logout' %}">Cerrar sesión</a>
@@ -36,7 +36,7 @@
 
       <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
         <ul class="navbar-nav">
-          <li class="nav-item">
+          <li class="nav-item ">
             <a class="nav-link" href="{% url 'usuario:home' %}">INICIO <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
@@ -57,7 +57,7 @@
       <form class="form-inline" action="{% url 'usuario:buscador' %}" method="GET">
           {% csrf_token %}
         <input class="form-control mr-sm-2" name="libro" id="buscador" type="search" placeholder="Buscar" aria-label="Search">
-        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Buscar</button>
+        <button class="btn my-2 my-sm-0" type="submit">Buscar</button>
       </form>
 
     </nav>
@@ -255,7 +255,7 @@
 <!-- Modal -->
         <div class="modal fade" id="editGenero" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
-                <form method="POST" action="{% url 'usuario:editAutor' %}">
+                <form method="POST" action="{% url 'usuario:editGenero' %}">
                     {% csrf_token %}
                     <div class="modal-content">
                       <div class="modal-header">
@@ -274,13 +274,13 @@
                         </div>
                       <hr>
                       <div class="form-group">
-                            <input type="text" class="form-control formulario" id="nombreGenero" name="nombreGenero" aria-describedby="nombreGenero" placeholder="Nombre del genero" required>
+                            <input type="text" class="form-control formulario" id="nombreGenero" name="nombreGenero" aria-describedby="nombreGenero" placeholder="Nombre del genero" >
                          </div>
                         <div class="form-group">
-                            <input type="text" class="form-control formulario" id="nombreImgGen" name="nombreImgGen" aria-describedby="nombreImgGen" placeholder="Nombre de la imagen del genero" required>
+                            <input type="text" class="form-control formulario" id="nombreImgGen" name="nombreImgGen" aria-describedby="nombreImgGen" placeholder="Nombre de la imagen del genero" >
                          </div>
                         <div class="form-group">
-                            <textarea type="text" class="form-control formulario" id="descripcionGenero" name="descripcionGenero" aria-describedby="descripcionGenero" placeholder="Descripción del genero" required></textarea>
+                            <textarea type="text" class="form-control formulario" id="descripcionGenero" name="descripcionGenero" aria-describedby="descripcionGenero" placeholder="Descripción del genero" ></textarea>
                          </div>
                       </div>
                       <div class="modal-footer">

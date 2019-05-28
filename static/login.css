@@ -3,6 +3,11 @@
 
     background-color: #A9B7C0;
 }
+.logo {
+    margin-top: 1em;
+    padding: 2em;
+    padding-bottom: 0;
+}
 .close{
     margin: 1em;
     display: flex;

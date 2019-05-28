@@ -1,3 +1,14 @@
+.contenedor{
+  min-height: 51.5vh;
+}
+.page-link{
+  color: black !important;
+  background-color: #F8D7D0 !important;
+  border: 1px solid black !important;
+}
+.page-link:hover{
+  background-color: #E0B3B1 !important;
+}
 .boton-abecedario {
   display: none;
 }

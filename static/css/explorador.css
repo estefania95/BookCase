@@ -1,3 +1,6 @@
+.contenedor{
+    min-height: 60vh;
+}
 .libros{
     display: flex;
     flex-direction: row;
@@ -7,4 +10,20 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+}
+.contGen{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+@media (max-width: 600px){
+    .contGen{
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        margin-bottom: 1.5em;
+    }
+    h2{
+        font-size: 1.8rem !important;
+    }
 }

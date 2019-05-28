@@ -18,12 +18,18 @@ function generos(response){
 
 
         /* Generos */
+         var divGen = document.createElement("div");
+        divGen.setAttribute("class", 'divGen');
         var h2element = document.createElement("h2");
+        var icon = document.createElement("i");
+        icon.setAttribute("class","fas fa-angle-right icono");
         var genero = x['genero'+i].nombreGenero;
         var nombreGenero = document.createTextNode(genero);
         h2element.appendChild(nombreGenero);
+        divGen.appendChild(icon);
+        divGen.appendChild(h2element);
 
-        element.appendChild(h2element);
+        element.appendChild(divGen);
 
         var divLibros = document.createElement("div");
         divLibros.setAttribute("class", "libros row");

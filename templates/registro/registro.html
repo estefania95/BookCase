@@ -14,7 +14,7 @@
 <body>
     <div class="contenedor">
         <div class="imagen ">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand logo" href="{% url 'usuario:bienvenida' %}">
                 <img src="{% static 'imagenes/logo/logo.png' %}" width="150px">
             </a>
             <div class="conteTexto">
@@ -36,9 +36,10 @@
                     </div>
                     <div><input type="password" class="form-control formulario" id="usuario" aria-describedby="password1" name="password1" placeholder="Contraseña"></div>
                     <div><input type="password" class="form-control formulario" id="usuario" aria-describedby="password2" name="password2" placeholder="Repite la contraseña"></div>
-                    <button type="submit" class="btn btn-primary formulario">Registrar</button>
+                    <button type="submit" class="btn formulario">Registrar</button>
                 </form>
             </div>
+            <a href="{% url 'usuario:inicioSesion' %}">Ya tienes cuenta?</a>
         </div>
     </div>
 </body>

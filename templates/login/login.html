@@ -13,10 +13,10 @@
 {% load static %}
 <body>
     <div class="contenedor">
-        <a class="navbar-brand" href="#">
-
+        <a class="navbar-brand logo" href="{% url 'usuario:bienvenida' %}">
+            <img src="{% static 'imagenes/logo/logo.png' %}" width="150px">
         </a>
-        <a href="{% url 'usuario:bienvenida' %}" class="close"></a>
+        <a href="{% url 'usuario:bienvenida' %}" class="close"><i class="fas fa-times"> </i></a>
         <div class="conten">
             <div class="contenedorForm">
                 <h2>INICIAR SESIÓN</h2>
@@ -31,7 +31,7 @@
                     <div>
                         <a href="">¿Has olvidado la contraseña?</a>
                     </div>
-                    <button type="submit" class="btn btn-primary formulario">Acceder</button>
+                    <button type="submit" class="btn formulario">Acceder</button>
                 </form>
             </div>
         </div>

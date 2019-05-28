@@ -8,3 +8,15 @@
     align-items: center;
     text-align: center;
 }
+.divGen{
+    display: flex;
+    align-items: center;
+}
+.icono{
+    font-size: 2em;
+    margin-right: 0.5em;
+    color: #F8D7D0;
+}
+.container-section{
+    margin-bottom: 2em;
+}

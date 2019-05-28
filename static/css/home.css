@@ -11,6 +11,18 @@
   justify-content: space-between;
 }
 
+.banner{
+  width: 100%;
+}
+.imgBanner{
+  width: 100%;
+}
+.superior{
+}
+p{
+  text-align: center;
+}
+
 @media (min-width: 576px) and (max-width: 767.98px) {
   .slide-box img {
     -ms-flex: 0 0 50%;

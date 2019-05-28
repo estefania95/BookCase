@@ -1,21 +1,53 @@
+.contenedor{
+    min-height: 51.5vh;
+}
 /* Navegador */
 .sticky-top{
     z-index: 900;
 }
 .navegador{
-    background-color: #A9B7C0 !important;
-    color: black;
+    background-color: #B7D7D9 !important;
+    color: black !important;
+    box-shadow: 0 4px 2px -2px gray;
 }
+.container{
+    padding: 1em;
+}
+.container-footer{
+    padding: 0;
+    padding-bottom: 1em;
+
+}
+.row{
+    margin: 0px !important;
+}
+
 
 /* Footer */
-#footer{
-    background-color: #A9B7C0 !important;
 
+#footer{
+    background-color: #B7D7D9 !important;
+     box-shadow: 0 -4px 2px -2px gray;
 }
+/* Botones */
+.btn{
+    background-color: #F8D7D0 !important;
+    border: 1px solid black;
+}
+.btn:hover{
+    background-color: #E0B3B1 !important;
+}
+.btn-danger{
+    background-color: #ff3f43 !important;
+    color: black;
+}
+/* Iconos */
 a>i{
     font-size: 2em;
-    color: #EFD9C1;
+    color: #F8D7D0;
+    text-shadow: 1px 2px #00000066
 }
+/* Links */
 a{
     color: black;
 }
@@ -35,6 +67,17 @@ a:hover{
     margin-left: 0;
     margin-right: 0;
 }
+.divGen{
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+}
+.icono{
+    font-size: 2em;
+    margin-right: 0.5em;
+    color: #F8D7D0;
+}
+
 
 @media (max-width: 600px) {
     h2{

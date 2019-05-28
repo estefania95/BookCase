@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
@@ -32,16 +33,27 @@ def salir(request):
 
 # Buscador
 def buscador(request):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
+
     libro = request.GET.get('libro', '')
     titulo = (Q(titulo__contains=libro))
     libros = Libro.objects.filter(titulo)
 
-    context = {'libros': libros}
+    context = {'libros': libros, 'admin': admin}
 
     return render(request, 'buscador/buscador.html', context)
 
+
 # Apartado Home
 def home(request):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     user = request.user
     usuario = Usuario.objects.get(usuario=user)
     admin = usuario.usuario.is_superuser
@@ -137,9 +149,14 @@ def home(request):
 
 # Libros individuales
 def libro(request, id_libro):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     libro = get_object_or_404(Libro, pk=id_libro)
     user = request.user
     usuario=Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
+
     librerias = Libreria.objects.filter(usuario=usuario)
 
     form = EstadoForm()
@@ -175,16 +192,20 @@ def libro(request, id_libro):
 
             return redirect('usuario:libro', libro.id)
 
-    context = {'libro': libro, 'form': form, 'librerias': librerias, 'lista': lista, 'estado': estado}
+    context = {'libro': libro, 'form': form, 'librerias': librerias, 'lista': lista, 'estado': estado, 'admin': admin}
 
     return render(request, 'web/libro.html', context)
 
 
 # Eliminar libro lista
 def eliminarLibro(request, id_libro):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     libro = get_object_or_404(Libro, pk=id_libro)
     user = request.user
     usuario = Usuario.objects.get(usuario=user)
+
     libroUser = LibroUsuario.objects.get(libro=libro, usuario=usuario).delete()
 
     return redirect('usuario:libro', libro.id)
@@ -192,29 +213,44 @@ def eliminarLibro(request, id_libro):
 
 # Genero: Todos los libros
 def genero(request, id_genero):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     genero = get_object_or_404(Genero, pk=id_genero)
 
     user = request.user
     usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
+
     libros = Libro.objects.filter(genero=genero)
 
 
-    context = {'libros': libros, 'genero': genero}
+    context = {'libros': libros, 'genero': genero, 'admin': admin}
 
     return render(request, 'web/genero.html', context)
 
 
 # Apartado Libros
 def librosGenero(request):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
+
     generos = Genero.objects.all()
 
-    context = {'generos': generos}
+    context = {'generos': generos, 'admin': admin}
 
     return render(request, 'web/libros.html', context)
 
 
 # Api Libros Generos
 def apiLibrosGenero(request):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     generos = Genero.objects.all()
     contadorGen = 0
     generosLibros = {}
@@ -252,8 +288,12 @@ def apiLibrosGenero(request):
 
 # Explorador
 def explorador(request):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     user = request.user
     usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
 
     # Libros recomendados
     # Array para generos de libros recomendados
@@ -321,15 +361,19 @@ def explorador(request):
     except:
         generosFav = None
 
-    context = {'librosRecomendados': librosRecomendados, 'loop': range(1, generosFav.count()+1,)}
+    context = {'librosRecomendados': librosRecomendados, 'loop': range(1, generosFav.count()+1,), 'admin': admin}
 
     return render(request, 'web/explorador.html', context)
 
 
 # Api libros explorador (Generos favoritos del usuario
 def librosGenerosUsuario(request):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     user = request.user
     usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
 
     generosUser = usuario.genero.all()
     generos = {}
@@ -348,27 +392,47 @@ def librosGenerosUsuario(request):
             imagenLibro = libro.imagen
             libros['libro'+str(contadorLibros)] = {'idLibro': idLibro, 'titulo': titulo, 'imagenLibro': imagenLibro}
 
-        generos['genero'+str(contadorGenero)] = {'nombreGenero': nombregenero, 'libros': libros}
+        generos['genero'+str(contadorGenero)] = {'nombreGenero': nombregenero, 'libros': libros, 'admin': admin}
 
     return JsonResponse(generos)
 
 
 # Autores
 def autores(request, caracter):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
+
     inicial = caracter.upper()
-    context = {'inicial': caracter}
+    context = {'inicial': caracter, 'admin': admin}
     return render(request, 'web/autores.html', context)
 
+
+# Autor individual
 def autor(request, id_autor):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
+
     autor = get_object_or_404(Autor, pk=id_autor)
     librosAutor = autor.libro.all()
 
-    context = {'autor': autor, 'librosAutor': librosAutor}
+    context = {'autor': autor, 'librosAutor': librosAutor, 'admin': admin}
 
     return render(request, 'web/autor.html', context)
 
+
 # Api autores
 def autoresApi(request):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     autoresTodos = Autor.objects.all()
 
     autores = {}
@@ -413,8 +477,12 @@ def autoresApi(request):
 
 # Mis librerias
 def libreria(request):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     user = request.user
     usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
 
     form = LibreriaForm()
     librerias = Libreria.objects.filter(usuario=usuario)
@@ -438,15 +506,19 @@ def libreria(request):
 
     librerias = Libreria.objects.filter(usuario=usuario)
 
-    context = {'librerias': librerias, 'form': form}
+    context = {'librerias': librerias, 'form': form, 'admin': admin}
 
     return render(request, 'web/librerias.html', context)
 
 
 # Libreria individual
 def libreriaIndividual(request, id_libreria):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     user = request.user
     usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
 
     libreria = get_object_or_404(Libreria, pk=id_libreria)
     estantes = libreria.estantes
@@ -470,13 +542,17 @@ def libreriaIndividual(request, id_libreria):
                'libros': librosLibreria,
                'estante1': estante1,
                'estante2': estante2,
-               'estante3': estante3}
+               'estante3': estante3,
+               'admin': admin}
 
     return render(request, 'web/libreria.html', context)
 
 
 # Añadir libro a la libreria
 def añadirLibro(request, id_libro):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     libro = get_object_or_404(Libro, pk=id_libro)
     maxLibros = 0
 
@@ -494,6 +570,9 @@ def añadirLibro(request, id_libro):
 
 # Borrar libreria
 def borrar(request, id_libreria):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     libreria = get_object_or_404(Libreria, pk=id_libreria).delete()
     return redirect('usuario:librerias')
 
@@ -550,8 +629,13 @@ def inicioSesion(request):
 
 # Añadir generos
 def miPerfil(request):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     user = request.user
     usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
+
     generosUser = usuario.genero.all()
     # Añadir generos al usuaio
     if request.method == 'POST':
@@ -577,12 +661,26 @@ def miPerfil(request):
     # Libros abandonados del usuario
     abandonados = LibroUsuario.objects.filter(usuario=usuario, estado="AB")
 
-    context = {'generos': generos, 'generoUser': generosUser, 'usuario': usuario, 'leidos': leidos, 'leer': leer, 'comprar': comprar, 'abandonados': abandonados}
+    context = {'generos': generos,
+               'generoUser': generosUser,
+               'usuario': usuario,
+               'leidos': leidos,
+               'leer': leer,
+               'comprar': comprar,
+               'abandonados': abandonados,
+               'admin': admin}
     return render(request, 'web/perfil.html', context)
 
 
 # Formularios de libros, autor y genero
 def add(request):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
+
     libro = AddBook()
     autor = AddAutor()
     genero = AddGenero()
@@ -596,12 +694,16 @@ def add(request):
                'genero': genero,
                'libros': libros,
                'autores': autores,
-               'generos': generos}
+               'generos': generos,
+               'admin': admin}
     return render(request, 'web/admin/librosNuevos.html', context)
 
 
 # Añadir libros
 def addBook(request):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     if request.method == 'POST':
         titulo = request.POST['titulo']
         isbn = request.POST['isbn']
@@ -627,6 +729,9 @@ def addBook(request):
 
 # Añadir autor
 def addAutor(request):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     if request.method == 'POST':
         nombreAutor = request.POST['nombreAutor']
         apellidos = request.POST['apellidos']
@@ -647,6 +752,9 @@ def addAutor(request):
 
 # Añadir genero
 def addGenero(request):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     if request.method == 'POST':
         nombreGenero = request.POST['nombreGenero']
         nombreImgGen = request.POST['nombreImgGen']
@@ -659,6 +767,9 @@ def addGenero(request):
 
 # Editar libro
 def editLibro(request):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     if request.method == 'POST':
         libroReq = request.POST['libros']
         libro = Libro.objects.get(id=libroReq)
@@ -703,6 +814,9 @@ def editLibro(request):
 
 # Editar autor
 def editAutor(request):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     if request.method == 'POST':
         idAutor = request.POST['autor']
         autor = Autor.objects.get(id=idAutor)
@@ -736,6 +850,9 @@ def editAutor(request):
 
 # Editar genero
 def editGenero(request):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
     if request.method == 'POST':
         idgenero = request.POST['genero']
         genero = Genero.objects.get(id=idgenero)
@@ -758,4 +875,10 @@ def editGenero(request):
 
 # Politica de privacidad
 def politica(request):
-    return render(request, 'web/politica.html')
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
+
+    context = {'admin': admin}
+
+    return render(request, 'web/politica.html', context)
