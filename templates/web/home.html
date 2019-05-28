@@ -22,7 +22,7 @@
            <div class="dropdown-menu dropdown-menu-right ">
               <a class="dropdown-item " href="{% url 'usuario:perfil' %}">Mi Perfil</a>
                 {% if admin %}
-                    <a class="dropdown-item" href="{% url 'usuario:add' %}">Añadir</a>
+                    <a class="dropdown-item" href="{% url 'usuario:add' %}">Añadir o editar</a>
                {% endif %}
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'usuario:logout' %}">Cerrar sesión</a>
@@ -51,14 +51,6 @@
             <li class="nav-item">
                 <a class="nav-link " href="{% url 'usuario:librerias' %}">MIS LIBRERIAS</a>
             </li>
-          <!--<li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MIS LIBRERIAS</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown08">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li> -->
         </ul>
       </div>
 
@@ -71,7 +63,6 @@
     </nav>
   <!-- Fin navegador -->
   <!-- Contenedor -->
-
     <div class="container">
   <!-- Inicio Generos -->
     <h1>Generos</h1>

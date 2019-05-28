@@ -65,7 +65,7 @@ def home(request):
         segundosGeneros.append("")
 
     # Todos los libros ordenados por mas nuevos
-    librosNuevos = Libro.objects.all().order_by('-anoEdicion')[:5]
+    librosNuevos = Libro.objects.all().order_by('-anoEdicion')[:4]
 
 # Libros recomendados
     # Array para generos de libros recomendados
@@ -73,14 +73,14 @@ def home(request):
     contador = 0
 
     # Seleccion generos
-    while contador < 5:
+    while contador < 4:
         # Seleccionar generos de los libros que el usuario ha guardado como leído.
         try:
             # Seleccionar los generos que el usuario ha guardado como favoritos
-            if contador <= 5:
+            if contador <= 4:
                 generos = usuario.genero.all()
                 for genero in generos:
-                    if contador >= 5:
+                    if contador >= 4:
                         break
                     generosLibrosUsuario.append(genero.nombre)
                     contador = contador + 1
@@ -88,7 +88,7 @@ def home(request):
             leidos = LibroUsuario.objects.filter(usuario=usuario, estado="LD")
 
             for libroU in leidos:
-                if contador >= 5:
+                if contador >= 4:
                     break
                 libroUser = libroU.libro
                 generos = libroUser.genero.all()
@@ -96,12 +96,12 @@ def home(request):
                     generosLibrosUsuario.append(genero.nombre)
                     contador = contador + 1
 
-            # Si no tiene ningun libro ni genero añadido en favoritos seleccionará 5 generos
+            # Si no tiene ningun libro ni genero añadido en favoritos seleccionará 4 generos
             if contador == 0:
                 # Generos aleatorios
-                generos = Genero.objects.order_by('?')[:5]
+                generos = Genero.objects.order_by('?')[:4]
                 for genero in generos:
-                    if contador >= 5:
+                    if contador >= 4:
                         break
                     generosLibrosUsuario.append(genero.nombre)
                     contador = contador + 1
@@ -261,14 +261,14 @@ def explorador(request):
     contador = 0
 
     # Seleccion generos
-    while contador < 5:
+    while contador < 4:
         # Seleccionar generos de los libros que el usuario ha guardado como leído.
         try:
             # Seleccionar los generos que el usuario ha guardado como favoritos
-            if contador <= 5:
+            if contador <= 4:
                 generos = usuario.genero.all()
                 for genero in generos:
-                    if contador >= 5:
+                    if contador >= 4:
                         break
                     generosLibrosUsuario.append(genero.nombre)
                     contador = contador + 1
@@ -276,7 +276,7 @@ def explorador(request):
             leidos = LibroUsuario.objects.filter(usuario=usuario, estado="LD")
 
             for libroU in leidos:
-                if contador >= 5:
+                if contador >= 4:
                     break
                 libroUser = libroU.libro
                 generos = libroUser.genero.all()
@@ -284,12 +284,12 @@ def explorador(request):
                     generosLibrosUsuario.append(genero.nombre)
                     contador = contador + 1
 
-            # Si no tiene ningun libro ni genero añadido en favoritos seleccionará 5 generos
+            # Si no tiene ningun libro ni genero añadido en favoritos seleccionará 4 generos
             if contador == 0:
                 # Generos aleatorios
-                generos = Genero.objects.order_by('?')[:5]
+                generos = Genero.objects.order_by('?')[:4]
                 for genero in generos:
-                    if contador >= 5:
+                    if contador >= 4:
                         break
                     generosLibrosUsuario.append(genero.nombre)
                     contador = contador + 1
@@ -340,7 +340,7 @@ def librosGenerosUsuario(request):
         libros = {}
         contadorLibros = 0
         nombregenero = genero.nombre
-        librosGenero = Libro.objects.filter(genero=genero).order_by('?')[:5]
+        librosGenero = Libro.objects.filter(genero=genero).order_by('?')[:4]
         for libro in librosGenero:
             contadorLibros += 1
             titulo = libro.titulo

@@ -21,6 +21,7 @@
           </button>
            <div class="dropdown-menu dropdown-menu-right ">
               <a class="dropdown-item " href="{% url 'usuario:perfil' %}">Mi Perfil</a>
+               {% if  %}
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'usuario:logout' %}">Cerrar sesión</a>
           </div>
