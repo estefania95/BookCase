@@ -10,7 +10,13 @@
   display: flex;
   justify-content: space-between;
 }
-
+.contenGen{
+  display: flex;
+  justify-content: center;
+}
+.carousel-control-prev-icon{
+  color: black !important;
+}
 .banner{
   width: 100%;
 }

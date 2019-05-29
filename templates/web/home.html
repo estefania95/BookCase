@@ -68,7 +68,8 @@
   <!-- Contenedor -->
   <div class="superior">
     <div class="container contenedor">
-  <!-- Inicio Generos -->
+
+        <!-- Inicio Generos -->
      <div class="divGen">
         <i class="fas fa-angle-right icono"></i>
         <h3>Generos</h3>
@@ -76,27 +77,70 @@
     <div class="carousel slide" data-ride="carousel" id="multi_item">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <div class="row">
-            {% for genero in generos1 %}
-                <div class="col-sm">
-                    <a href="{% url 'usuario:genero' genero.id %}">
-                        <img class="d-block w-100 generoImg" src="{% static 'generos/'|add:genero.nombreImagen %}" alt="1 slide" height="250px">
+        <div class="row contenGen">
+                <div class="col-12 col-md-2">
+                    <a href="{% url 'usuario:genero' 1 %}">
+                        <img class="d-block w-100 generoImg" src="{% static 'generos/historia.jpg' %}" alt="1 slide" height="auto">
                     </a>
-                    <p>{{ genero.nombre }}</p>
+                    <p></p>
                 </div>
-            {% endfor %}
+                <div class="col-12 col-md-2">
+                        <a href="{% url 'usuario:genero' 2 %}">
+                            <img class="d-block w-100 generoImg" src="{% static 'generos/historica.jpg' %}" alt="1 slide" height="auto">
+                        </a>
+                        <p></p>
+                    </div>
+                <div class="col-12 col-md-2">
+                        <a href="{% url 'usuario:genero' 3 %}">
+                            <img class="d-block w-100 generoImg" src="{% static 'generos/contemporanea.jpg' %}" alt="1 slide" height="auto">
+                        </a>
+                        <p></p>
+                    </div>
+                <div class="col-12 col-md-2">
+                        <a href="{% url 'usuario:genero' 4 %}">
+                            <img class="d-block w-100 generoImg" src="{% static 'generos/autoayuda.jpg' %}" alt="1 slide" height="auto">
+                        </a>
+                        <p></p>
+                    </div><div class="col-12 col-md-2">
+                        <a href="{% url 'usuario:genero' 5 %}">
+                            <img class="d-block w-100 generoImg" src="{% static 'generos/comics.jpg' %}" alt="1 slide" height="auto">
+                        </a>
+                        <p></p>
+                    </div>
         </div>
       </div>
       <div class="carousel-item">
-        <div class="row">
-            {% for genero in generos2 %}
-              <div class="col-sm">
-                  <a href="{% url 'usuario:genero' genero.id %}">
-                  <img class="d-block w-100 generoImg" src="{% static 'generos/'|add:genero.nombreImagen %}" alt="4 slide"  height="250px">
-                  </a>
-                <p>{{ genero.nombre }}</p>
-              </div>
-            {% endfor %}
+        <div class="row contenGen">
+            <div class="col-12 col-md-2">
+                        <a href="{% url 'usuario:genero' 6 %}">
+                            <img class="d-block w-100 generoImg" src="{% static 'generos/novelaNegra.jpg' %}" alt="1 slide" height="auto">
+                        </a>
+                        <p></p>
+                    </div>
+              <div class="col-12 col-md-2">
+                    <a href="{% url 'usuario:genero' 7 %}">
+                        <img class="d-block w-100 generoImg" src="{% static 'generos/juvenil.jpg' %}" alt="1 slide" height="auto">
+                    </a>
+                    <p></p>
+                </div>
+                <div class="col-12 col-md-2">
+                        <a href="{% url 'usuario:genero' 8 %}">
+                            <img class="d-block w-100 generoImg" src="{% static 'generos/infantil.jpg' %}" alt="1 slide" height="auto">
+                        </a>
+                        <p></p>
+                    </div>
+                <div class="col-12 col-md-2">
+                        <a href="{% url 'usuario:genero' 9 %}">
+                            <img class="d-block w-100 generoImg" src="{% static 'generos/literatura.jpg' %}" alt="1 slide" height="auto">
+                        </a>
+                        <p></p>
+                    </div>
+                <div class="col-12 col-md-2">
+                        <a href="{% url 'usuario:genero' 10 %}">
+                            <img class="d-block w-100 generoImg" src="{% static 'generos/novelaRomantica.jpg' %}" alt="1 slide" height="auto">
+                        </a>
+                        <p></p>
+                    </div>
         </div>
       </div>
     </div>
