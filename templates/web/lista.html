@@ -6,7 +6,7 @@
     {% load static %}
     {%block css%}
     <title>BookCase</title>
-        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+        <link rel="stylesheet" href="{% static 'css/lista.css' %}">
     {%endblock%}
 </head>
 {% block content %}
@@ -62,87 +62,20 @@
 
     </nav>
   <!-- Fin navegador -->
-  <div class="banner">
-      <img class="imgBanner" src="{% static 'imagenes/banner.png' %}">
-  </div>
-  <!-- Contenedor -->
-  <div class="superior">
-    <div class="container contenedor">
-  <!-- Inicio Generos -->
-     <div class="divGen">
-        <i class="fas fa-angle-right icono"></i>
-        <h3>Generos</h3>
-     </div>
-    <div class="carousel slide" data-ride="carousel" id="multi_item">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <div class="row">
-            {% for genero in generos1 %}
-                <div class="col-sm">
-                    <a href="{% url 'usuario:genero' genero.id %}">
-                        <img class="d-block w-100 generoImg" src="{% static 'generos/'|add:genero.nombreImagen %}" alt="1 slide" height="250px">
-                    </a>
-                    <p>{{ genero.nombre }}</p>
+<div class="container contenedor">
+    <h1>{{ lista }}</h1>
+    <div class="row libros">
+        {% for libro in libros %}
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-0 libro">
+                <div>
+                    <img src="{{ libro.libro.imagen }}" style="height: 320px">
+                    <p><a href="{% url 'usuario:libro' libro.id %}">{{ libro.libro.titulo }}</a></p>
                 </div>
-            {% endfor %}
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="row">
-            {% for genero in generos2 %}
-              <div class="col-sm">
-                  <a href="{% url 'usuario:genero' genero.id %}">
-                  <img class="d-block w-100 generoImg" src="{% static 'generos/'|add:genero.nombreImagen %}" alt="4 slide"  height="250px">
-                  </a>
-                <p>{{ genero.nombre }}</p>
-              </div>
-            {% endfor %}
-        </div>
-      </div>
+            </div>
+        {% endfor %}
     </div>
-    <a class="carousel-control-prev" href="#multi_item" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#multi_item" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-  <!-- Fin Generos -->
-    <div class="divGen">
-        <i class="fas fa-angle-right icono"></i>
-        <h3>Libros más nuevos</h3>
-    </div>
-
-      <div class="row">
-          {% for libro in librosNuevos %}
-          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-0">
-              <div class="libroContainer">
-                  <a href="{% url 'usuario:libro' libro.id %}"><img src="{{ libro.imagen }}" style="height: 320px">
-                      <p>{{ libro.titulo }}</p></a>
-              </div>
-          </div>
-          {% endfor %}
-      </div>
-     <div class="divGen">
-        <i class="fas fa-angle-right icono"></i>
-        <h3>Libros recomendados</h3>
-     </div>
-      <div class="row">
-          {% for libro in librosRecomendados %}
-          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-0">
-              <div class="libroContainer">
-                  <a href="{% url 'usuario:libro' libro.id %}">
-                  <img src="{{ libro.imagen }}" style="height: 320px">
-                      <p>{{ libro.titulo }}</p></a>
-              </div>
-          </div>
-          {% endfor %}
-      </div>
-  </div>
-  </div>
-  <!-- Footer -->
+</div>
+<!-- Footer -->
 	<section id="footer">
 		<div class="container container-footer">
 			<div class="row">
@@ -166,7 +99,6 @@
 		</div>
 	</section>
 	<!-- ./Footer -->
-<script src="{% static 'JS/home.js' %}"></script>
 </body>
 {% endblock %}
 </html>

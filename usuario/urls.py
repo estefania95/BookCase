@@ -33,5 +33,6 @@ urlpatterns = [
     path('editLibro/', views.editLibro, name="editLibro"),
     path('editAutor/', views.editAutor, name="editAutor"),
     path('editGenero/', views.editGenero, name="editGenero"),
+    path('lista/<int:lista>', views.listas, name="lista"),
     path('politica/', views.politica, name="politica")
 ]

@@ -58,6 +58,12 @@ h2{
     margin-top: 3px;
     text-align: center;
 }
+.row.ejemplos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2em !important;
+}
 
 @media (max-width: 600px) {
     .logoRI{

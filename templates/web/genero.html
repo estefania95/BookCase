@@ -6,7 +6,7 @@
     {% load static %}
     {%block css%}
     <title>BookCase</title>
-        <link href="{% static 'css/home.css' %}">
+        <link rel="stylesheet" href="{% static 'css/genero.css' %}">
     {%endblock%}
 </head>
 {% block content %}
@@ -62,16 +62,26 @@
 
     </nav>
   <!-- Fin navegador -->
-<h1>{{ genero.nombre }}</h1>
-{% if libros %}
-{% for libro in libros %}
-    <h2>{{ libro.titulo }}</h2>
-    <img src="{{ libro.imagen }}">
-    <p>{{ libro.sinopsis }}</p>
-{% endfor %}
-{% else %}
-<p>No hay libros de ese genero</p>
-{% endif %}
+  <div class="container contenedor">
+      <h1>{{ genero.nombre }}</h1>
+    <div class="libros">
+    {% if libros %}
+            {% for libro in libros %}
+                <div class="libro">
+                    <h2><a href="{% url 'usuario:libro' libro.id %}">{{ libro.titulo }}</a></h2>
+                    <div class="imgSin">
+                        <a href="{% url 'usuario:libro' libro.id %}"><img src="{{ libro.imagen }}"></a>
+                        <p class="sinopsis">{{ libro.sinopsis }}</p>
+                    </div>
+                </div>
+                <hr>
+        {% endfor %}
+    {% else %}
+    <p>No hay libros de ese genero</p>
+    {% endif %}
+    </div>
+  </div>
+
 <!-- Footer -->
 	<section id="footer">
 		<div class="container container-footer">

@@ -1,0 +1,21 @@
+h2{
+    text-align: center;
+}
+.libro{
+    margin: 2em 1em;
+}
+.imgSin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sinopsis{
+    text-align: justify;
+    margin-left: 2em;
+}
+@media (max-width: 600px){
+    h1, h2{
+        text-align: center;
+    }
+
+}

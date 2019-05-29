@@ -1,6 +1,9 @@
 .caja{
     display: flex;
 }
+h5{
+    text-align: center;
+}
 .generosCheck{
     width: 70%;
 }
@@ -10,4 +13,10 @@
 .maxGeneros{
     font-style: italic;
     text-align: right;
+}
+span{
+    margin-left: 0.7em;
+}
+h4{
+    margin-top: 1em !important;
 }

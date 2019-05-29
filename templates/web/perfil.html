@@ -67,7 +67,7 @@
 
 <h4>Generos</h4>
 <p>Añade o elimina tus geners favoritos. Puedes añadir hasta un máximo de 5 generos.</p>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#generos">Editar  <i class="fas fa-pencil-alt"></i></button>
+<button type="button" class="btn" data-toggle="modal" data-target="#generos">Editar  <i class="fas fa-pencil-alt"></i></button>
 <!-- Modal de generos-->
 <div class="modal fade" id="generos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -88,7 +88,7 @@
               {% if genero == generoUser %}
                 checked
               {% endif %}
-              {% endfor %}>{{ genero.nombre }}
+            {% endfor %}><span>{{ genero.nombre }}</span>
             <br>
             {% endfor %}
         </div>
@@ -97,8 +97,8 @@
       </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn">Guardar</button>
       </div>
     </form>
     </div>
@@ -106,28 +106,33 @@
 </div>
 
   <h4>Listas</h4>
-  <h5>Leídos</h5>
-    {% for leido in leidos %}
-        <img src="{{ leido.libro.imagen }}">
-    {% endfor %}
-{% if leer %}
-    <h5>Leer</h5>
-    {% for leer in leer %}
-        <img src="{{ leer.libro.imagen }}">
-    {% endfor %}
-{% endif %}
-{% if comprar %}
-  <h5>Comprar</h5>
-    {% for comprar in comprar %}
-        <img src="{{ comprar.libro.imagen }}">
-    {% endfor %}
-{% endif %}
-{% if abandonados %}
-  <h5>Abandonado</h5>
-    {% for abandonado in abandonados %}
-        <img src="{{ abandonado.libro.imagen }}">
-    {% endfor %}
-{% endif %}
+    <div class="row">
+        <div class="col-12 col-md-3">
+            <a href="{% url 'usuario:lista' 1 %}">
+                <h5>Leídos</h5>
+                <img width="100%" src="{% static 'imagenes/list.png' %}">
+            </a>
+        </div>
+        <div class="col-12 col-md-3">
+            <a href="{% url 'usuario:lista' 2 %}">
+                <h5>Leer</h5>
+                <img width="100%" src="{% static 'imagenes/list.png' %}">
+            </a>
+        </div>
+        <div class="col-12 col-md-3">
+            <a href="{% url 'usuario:lista' 3 %}">
+                <h5>Comprar</h5>
+                <img width="100%" src="{% static 'imagenes/list.png' %}">
+            </a>
+        </div>
+        <div class="col-12 col-md-3">
+            <a href="{% url 'usuario:lista' 4 %}">
+                <h5>Abandonado</h5>
+                <img width="100%" src="{% static 'imagenes/list.png' %}">
+            </a>
+        </div>
+    </div>
+
 </div>
 <!-- Footer -->
 	<section id="footer">

@@ -918,6 +918,42 @@ def editGenero(request):
     return redirect('usuario:add')
 
 
+# Listas
+def listas(request, lista):
+    if not request.user.is_authenticated:
+        return redirect('usuario:bienvenida')
+
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
+
+    list = ''
+    libros = ''
+
+    if lista == 1:
+        # Libros leídos del usuario
+        list = 'Libros leídos'
+        libros = LibroUsuario.objects.filter(usuario=usuario, estado="LD")
+    elif lista == 2:
+        list = 'Libros para leer'
+        # Libros leer del usuario
+        libros = LibroUsuario.objects.filter(usuario=usuario, estado="LR")
+    elif lista == 3:
+        list = 'Libros para comprar'
+        # Libros comprar del usuario
+        libros = LibroUsuario.objects.filter(usuario=usuario, estado="CM")
+    elif lista == 4:
+        list = 'Libros abandonados'
+        # Libros abandonados del usuario
+        libros = LibroUsuario.objects.filter(usuario=usuario, estado="AB")
+
+    context = {'libros': libros,
+               'lista': list,
+               'admin': admin}
+
+    return render(request, 'web/lista.html', context)
+
+
 # Politica de privacidad
 def politica(request):
     user = request.user
