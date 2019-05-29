@@ -49,11 +49,31 @@
 .libreria3>.estante{
     height: 28%;
 }
+.imgLibro{
+    width: 350px;
+    height: 400px;
+}
 .libro{
     border: 1px solid black;
     background-color: #A9B7C0;
     width: 5%;
     height: 70%;
+}
+.libroModal{
+    display: flex;
+    align-items: center;
+}
+.textSinopsis{
+    display: flex;
+    flex-flow: column;
+    margin-left: 2em;
+    margin-right: 2em;
+}
+.textSinopsis>h4{
+    text-align: center;
+}
+.textSinopsis>p{
+    text-align: justify;
 }
 @media (max-width: 840px) {
     .container-fluid{

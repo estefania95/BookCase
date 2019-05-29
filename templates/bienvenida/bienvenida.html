@@ -15,19 +15,75 @@
 {% load static %}
 <body>
     <header class="contenedor">
-        <nav class="navbar">
+        <nav class="navbar logoRI">
             <a class="navbar-brand" href="#"><img src="{% static 'imagenes/logo/logo.png' %}" width="150px"></a>
             <form class="form-inline">
-                <a class="btn btn-info" href="{% url 'usuario:registro' %}">Registro</a>
-                <a class="btn btn-info m-1" href="{% url 'usuario:inicioSesion' %}">Inicia sesion</a>
+                <a class="btn " href="{% url 'usuario:registro' %}">Registro</a>
+                <a class="btn  m-1" href="{% url 'usuario:inicioSesion' %}">Inicia sesion</a>
             </form>
         </nav>
         <div class="contains">
             <h1 class="slogan">
-                Bienvenido a BookCase, donde te vamos a recomendar los mejores libros
+                Ten tus librerías con tus libros favoritos más a mano con BookCase.
             </h1>
         </div>
     </header>
+    <div class="container-fluid">
+        <div class="container">
+            <div class="info">
+                <h2>Descubre libros nuevos con nuestra aplicación</h2>
+                <p class="textInfo">Utiliza nuestra página web BookCase para conocer nuevos libros. Descubre libros que sean afínes a tí.
+                Encuentra tus libros de una forma rápida y sencilla</p>
+            </div>
+            <div class="row text-center elementos"><br>
+                <div class="col-md-4 col-sm-4 rodona">
+                    <div class="rounded-circle redonda"><i class="fas fa-book" style="font-size:90px;color:white;"></i></div>
+                    <h5 class="stitol" id="hosting">BookCase</h5>
+                    <p class="pserveis">Descubre los mejores libros para ti. Organiza tus libros. Elige los generos que más te gustan. Nosotros nos encargamos de sugerirte libros compatibles contigo.</p>
+                </div>
+                <div class="col-md-4 col-sm-4 rodona">
+                    <div class="rounded-circle redonda"><i class="fa fa-list-ul" style="font-size:90px;color:white;"></i></div>
+                    <h5 class="stitol">Listas</h5>
+                    <p class="pserveis">Añade los libros a listas que hemos definido para que los tengas organizados. Tendás una lista para tus libros leídos, una para libros que quieres leer, ...</p>
+                </div>
+                <div class="col-md-4 col-sm-4 rodona">
+                    <div class="rounded-circle redonda"><i class="fas fa-book-reader" style="font-size:90px;color:white;"></i></div>
+                    <h5 class="stitol">Librerías</h5>
+                    <p class="pserveis">Crea tus librerías con los libros que más te gusten, como si fuera una librería real. Organiza tus libros visualmente para tenerlos más a mano.</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="container">
+                <h2>Ejemplo de lo que vas a encontrar en BookCase</h2>
+            </div>
+
+        </div>
+    </div>
+    <!-- Footer -->
+	<section id="footer">
+		<div class="container container-footer">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+					<ul class="list-unstyled list-inline social text-center">
+						<li class="list-inline-item"><a href="https://www.facebook.com/ecaroortega2"><i class="fab fa-facebook-square"></i></a></li>
+						<li class="list-inline-item"><a href="https://twitter.com/estefiy"><i class="fab fa-twitter-square"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.instagram.com/estefy950/"><i class="fab fa-instagram"></i></a></li>
+						<li class="list-inline-item"><a href="https://github.com/estefania95"><i class="fab fa-github-square"></i></a></li>
+					</ul>
+				</div>
+				</hr>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+					<p><a href="{% url 'usuario:politica' %}">Política de privacidad</a></p>
+					<p class="h6">&copyBookCase</p>
+				</div>
+				</hr>
+			</div>
+		</div>
+	</section>
+	<!-- ./Footer -->
 </body>
 {% endblock %}
 </html>

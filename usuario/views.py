@@ -681,6 +681,9 @@ def add(request):
     usuario = Usuario.objects.get(usuario=user)
     admin = usuario.usuario.is_superuser
 
+    if not admin:
+        return redirect('usuario:home')
+
     libro = AddBook()
     autor = AddAutor()
     genero = AddGenero()
@@ -703,6 +706,13 @@ def add(request):
 def addBook(request):
     if not request.user.is_authenticated:
         return redirect('usuario:bienvenida')
+
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
+
+    if not admin:
+        return redirect('usuario:home')
 
     if request.method == 'POST':
         titulo = request.POST['titulo']
@@ -732,6 +742,13 @@ def addAutor(request):
     if not request.user.is_authenticated:
         return redirect('usuario:bienvenida')
 
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
+
+    if not admin:
+        return redirect('usuario:home')
+
     if request.method == 'POST':
         nombreAutor = request.POST['nombreAutor']
         apellidos = request.POST['apellidos']
@@ -755,6 +772,13 @@ def addGenero(request):
     if not request.user.is_authenticated:
         return redirect('usuario:bienvenida')
 
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
+
+    if not admin:
+        return redirect('usuario:home')
+
     if request.method == 'POST':
         nombreGenero = request.POST['nombreGenero']
         nombreImgGen = request.POST['nombreImgGen']
@@ -769,6 +793,13 @@ def addGenero(request):
 def editLibro(request):
     if not request.user.is_authenticated:
         return redirect('usuario:bienvenida')
+
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
+
+    if not admin:
+        return redirect('usuario:home')
 
     if request.method == 'POST':
         libroReq = request.POST['libros']
@@ -817,6 +848,13 @@ def editAutor(request):
     if not request.user.is_authenticated:
         return redirect('usuario:bienvenida')
 
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
+
+    if not admin:
+        return redirect('usuario:home')
+
     if request.method == 'POST':
         idAutor = request.POST['autor']
         autor = Autor.objects.get(id=idAutor)
@@ -852,6 +890,13 @@ def editAutor(request):
 def editGenero(request):
     if not request.user.is_authenticated:
         return redirect('usuario:bienvenida')
+
+    user = request.user
+    usuario = Usuario.objects.get(usuario=user)
+    admin = usuario.usuario.is_superuser
+
+    if not admin:
+        return redirect('usuario:home')
 
     if request.method == 'POST':
         idgenero = request.POST['genero']

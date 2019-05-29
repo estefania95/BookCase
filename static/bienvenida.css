@@ -1,24 +1,81 @@
 .contenedor{
     width: 100%;
-    height: 60vh;
-    background: url("bienvenida.png") no-repeat;
+    height: auto;
+    background: url("imagenes/home.jpg") no-repeat;
     background-size: cover;
     background-position: center;
-
+    box-shadow: 0 4px 2px -2px gray;
 }
 .contains{
     margin: 0 auto;
     width: 70%;
-    height: 100%;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
 .slogan{
+    margin-top: 2rem;
     color: white;
     text-shadow: 2px 2px black;
 }
 .btn{
     background-color: #5b80b2;
+}
+.info{
+    margin-top: 2em;
+    text-align: center;
+}
+h2{
+    font-size: 3rem !important;
+}
+.textInfo{
+    font-size: 1.6rem;
+}
+.stitol{
+    margin-top: 1em;
+}
+.row.elementos{
+    margin-top: 2em !important;
+}
+.rodona{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.redonda{
+    width: 150px;
+    height: 150px;
+    background-color:  #B7D7D9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pserveis{
+    margin-top: 3px;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .logoRI{
+        display: flex !important;
+        justify-content: center  !important;
+        align-items: center  !important;
+    }
+    .slogan{
+        font-size: 1.7rem;
+    }
+    .form-inline{
+        flex-flow: row nowrap;
+        width: auto !important;
+    }
+    h2{
+        font-size: 2rem !important;
+    }
+    .textInfo{
+        font-size: 1.3rem;
+    }
 }
