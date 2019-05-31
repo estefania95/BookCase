@@ -1,0 +1,1460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 4.8.5
+- https://www.phpmyadmin.net
+-
+- Servidor: 127.0.0.1
+- Tiempo de generación: 30-05-2019 a las 16:40:39
+- Versión del servidor: 10.1.38-MariaDB
+- Versión de PHP: 7.3.3
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="bookcase" collation="utf8_spanish_ci" charset="utf8">
+            <pma:table name="auth_group">
+                CREATE TABLE `auth_group` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `name` varchar(150) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `name` (`name`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="auth_group_permissions">
+                CREATE TABLE `auth_group_permissions` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `group_id` int(11) NOT NULL,
+                  `permission_id` int(11) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `auth_group_permissions_group_id_permission_id_0cd325b0_uniq` (`group_id`,`permission_id`),
+                  KEY `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` (`permission_id`),
+                  CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+                  CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="auth_permission">
+                CREATE TABLE `auth_permission` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `name` varchar(255) NOT NULL,
+                  `content_type_id` int(11) NOT NULL,
+                  `codename` varchar(100) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
+                  CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="auth_user">
+                CREATE TABLE `auth_user` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `password` varchar(128) NOT NULL,
+                  `last_login` datetime(6) DEFAULT NULL,
+                  `is_superuser` tinyint(1) NOT NULL,
+                  `username` varchar(150) NOT NULL,
+                  `first_name` varchar(30) NOT NULL,
+                  `last_name` varchar(150) NOT NULL,
+                  `email` varchar(254) NOT NULL,
+                  `is_staff` tinyint(1) NOT NULL,
+                  `is_active` tinyint(1) NOT NULL,
+                  `date_joined` datetime(6) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `username` (`username`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="auth_user_groups">
+                CREATE TABLE `auth_user_groups` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `user_id` int(11) NOT NULL,
+                  `group_id` int(11) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `auth_user_groups_user_id_group_id_94350c0c_uniq` (`user_id`,`group_id`),
+                  KEY `auth_user_groups_group_id_97559544_fk_auth_group_id` (`group_id`),
+                  CONSTRAINT `auth_user_groups_group_id_97559544_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+                  CONSTRAINT `auth_user_groups_user_id_6a12ed8b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="auth_user_user_permissions">
+                CREATE TABLE `auth_user_user_permissions` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `user_id` int(11) NOT NULL,
+                  `permission_id` int(11) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `auth_user_user_permissions_user_id_permission_id_14a6b632_uniq` (`user_id`,`permission_id`),
+                  KEY `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` (`permission_id`),
+                  CONSTRAINT `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+                  CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="django_admin_log">
+                CREATE TABLE `django_admin_log` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `action_time` datetime(6) NOT NULL,
+                  `object_id` longtext,
+                  `object_repr` varchar(200) NOT NULL,
+                  `action_flag` smallint(5) unsigned NOT NULL,
+                  `change_message` longtext NOT NULL,
+                  `content_type_id` int(11) DEFAULT NULL,
+                  `user_id` int(11) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  KEY `django_admin_log_content_type_id_c4bce8eb_fk_django_co` (`content_type_id`),
+                  KEY `django_admin_log_user_id_c564eba6_fk_auth_user_id` (`user_id`),
+                  CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
+                  CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="django_content_type">
+                CREATE TABLE `django_content_type` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `app_label` varchar(100) NOT NULL,
+                  `model` varchar(100) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="django_migrations">
+                CREATE TABLE `django_migrations` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `app` varchar(255) NOT NULL,
+                  `name` varchar(255) NOT NULL,
+                  `applied` datetime(6) NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="django_session">
+                CREATE TABLE `django_session` (
+                  `session_key` varchar(40) NOT NULL,
+                  `session_data` longtext NOT NULL,
+                  `expire_date` datetime(6) NOT NULL,
+                  PRIMARY KEY (`session_key`),
+                  KEY `django_session_expire_date_a5c62663` (`expire_date`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="libro_autor">
+                CREATE TABLE `libro_autor` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `nombre` varchar(100) DEFAULT NULL,
+                  `apellidos` varchar(100) DEFAULT NULL,
+                  `anoNacimiento` int(11) DEFAULT NULL,
+                  `descripcion` longtext,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="libro_autor_libro">
+                CREATE TABLE `libro_autor_libro` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `autor_id` int(11) NOT NULL,
+                  `libro_id` int(11) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `libro_autor_libro_autor_id_libro_id_231264ab_uniq` (`autor_id`,`libro_id`),
+                  KEY `libro_autor_libro_libro_id_c980126a_fk_libro_libro_id` (`libro_id`),
+                  CONSTRAINT `libro_autor_libro_autor_id_97ca9e7d_fk_libro_autor_id` FOREIGN KEY (`autor_id`) REFERENCES `libro_autor` (`id`),
+                  CONSTRAINT `libro_autor_libro_libro_id_c980126a_fk_libro_libro_id` FOREIGN KEY (`libro_id`) REFERENCES `libro_libro` (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="libro_genero">
+                CREATE TABLE `libro_genero` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `nombre` varchar(100) NOT NULL,
+                  `descripcion` longtext NOT NULL,
+                  `nombreImagen` varchar(50) DEFAULT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="libro_libro">
+                CREATE TABLE `libro_libro` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `titulo` varchar(100) NOT NULL,
+                  `isbn` varchar(50) NOT NULL,
+                  `editorial` varchar(100) NOT NULL,
+                  `numeroPaginas` int(11) NOT NULL,
+                  `anoEdicion` int(11) NOT NULL,
+                  `sinopsis` longtext NOT NULL,
+                  `imagen` varchar(200) DEFAULT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="libro_libro_genero">
+                CREATE TABLE `libro_libro_genero` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `libro_id` int(11) NOT NULL,
+                  `genero_id` int(11) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `libro_libro_genero_libro_id_genero_id_b05771cb_uniq` (`libro_id`,`genero_id`),
+                  KEY `libro_libro_genero_genero_id_a0ed9e32_fk_libro_genero_id` (`genero_id`),
+                  CONSTRAINT `libro_libro_genero_genero_id_a0ed9e32_fk_libro_genero_id` FOREIGN KEY (`genero_id`) REFERENCES `libro_genero` (`id`),
+                  CONSTRAINT `libro_libro_genero_libro_id_05650adc_fk_libro_libro_id` FOREIGN KEY (`libro_id`) REFERENCES `libro_libro` (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="usuario_libreria">
+                CREATE TABLE `usuario_libreria` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `nombre` varchar(100) NOT NULL,
+                  `descripcion` longtext NOT NULL,
+                  `estantes` int(11) NOT NULL,
+                  `usuario_id` int(11) NOT NULL,
+                  `maxLibros` int(11) DEFAULT NULL,
+                  PRIMARY KEY (`id`),
+                  KEY `usuario_libreria_usuario_id_8644d861_fk_usuario_usuario_id` (`usuario_id`),
+                  CONSTRAINT `usuario_libreria_usuario_id_8644d861_fk_usuario_usuario_id` FOREIGN KEY (`usuario_id`) REFERENCES `usuario_usuario` (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="usuario_libreria_libro">
+                CREATE TABLE `usuario_libreria_libro` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `libreria_id` int(11) NOT NULL,
+                  `libro_id` int(11) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `usuario_libreria_libro_libreria_id_libro_id_5087564b_uniq` (`libreria_id`,`libro_id`),
+                  KEY `usuario_libreria_libro_libro_id_4e24d947_fk_libro_libro_id` (`libro_id`),
+                  CONSTRAINT `usuario_libreria_lib_libreria_id_7ff3bd51_fk_usuario_l` FOREIGN KEY (`libreria_id`) REFERENCES `usuario_libreria` (`id`),
+                  CONSTRAINT `usuario_libreria_libro_libro_id_4e24d947_fk_libro_libro_id` FOREIGN KEY (`libro_id`) REFERENCES `libro_libro` (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="usuario_librousuario">
+                CREATE TABLE `usuario_librousuario` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `estado` varchar(2) NOT NULL,
+                  `dia` date DEFAULT NULL,
+                  `libro_id` int(11) NOT NULL,
+                  `usuario_id` int(11) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  KEY `usuario_librousuario_libro_id_0f1397ae_fk_libro_libro_id` (`libro_id`),
+                  KEY `usuario_librousuario_usuario_id_88b3aee5_fk_usuario_usuario_id` (`usuario_id`),
+                  CONSTRAINT `usuario_librousuario_libro_id_0f1397ae_fk_libro_libro_id` FOREIGN KEY (`libro_id`) REFERENCES `libro_libro` (`id`),
+                  CONSTRAINT `usuario_librousuario_usuario_id_88b3aee5_fk_usuario_usuario_id` FOREIGN KEY (`usuario_id`) REFERENCES `usuario_usuario` (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="usuario_ranking">
+                CREATE TABLE `usuario_ranking` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `tiempo` varchar(2) NOT NULL,
+                  `cantidad` int(11) NOT NULL,
+                  `usuario_id` int(11) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  KEY `usuario_ranking_usuario_id_899a8756_fk_usuario_usuario_id` (`usuario_id`),
+                  CONSTRAINT `usuario_ranking_usuario_id_899a8756_fk_usuario_usuario_id` FOREIGN KEY (`usuario_id`) REFERENCES `usuario_usuario` (`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="usuario_usuario">
+                CREATE TABLE `usuario_usuario` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `usuario_id` int(11) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `usuario_id` (`usuario_id`),
+                  CONSTRAINT `usuario_usuario_usuario_id_617b687d_fk_auth_user_id` FOREIGN KEY (`usuario_id`) REFERENCES `auth_user` (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="usuario_usuario_genero">
+                CREATE TABLE `usuario_usuario_genero` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `usuario_id` int(11) NOT NULL,
+                  `genero_id` int(11) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `usuario_usuario_genero_usuario_id_genero_id_b415e91a_uniq` (`usuario_id`,`genero_id`),
+                  KEY `usuario_usuario_genero_genero_id_e9ed3adb_fk_libro_genero_id` (`genero_id`),
+                  CONSTRAINT `usuario_usuario_genero_genero_id_e9ed3adb_fk_libro_genero_id` FOREIGN KEY (`genero_id`) REFERENCES `libro_genero` (`id`),
+                  CONSTRAINT `usuario_usuario_genero_usuario_id_93152a73_fk_usuario_usuario_id` FOREIGN KEY (`usuario_id`) REFERENCES `usuario_usuario` (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Base de datos: 'bookcase'
+    -->
+    <database name="bookcase">
+        <!-- Tabla auth_group -->
+        <!-- Tabla auth_group_permissions -->
+        <!-- Tabla auth_permission -->
+        <table name="auth_permission">
+            <column name="id">1</column>
+            <column name="name">Can add log entry</column>
+            <column name="content_type_id">1</column>
+            <column name="codename">add_logentry</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">2</column>
+            <column name="name">Can change log entry</column>
+            <column name="content_type_id">1</column>
+            <column name="codename">change_logentry</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">3</column>
+            <column name="name">Can delete log entry</column>
+            <column name="content_type_id">1</column>
+            <column name="codename">delete_logentry</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">4</column>
+            <column name="name">Can view log entry</column>
+            <column name="content_type_id">1</column>
+            <column name="codename">view_logentry</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">5</column>
+            <column name="name">Can add permission</column>
+            <column name="content_type_id">2</column>
+            <column name="codename">add_permission</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">6</column>
+            <column name="name">Can change permission</column>
+            <column name="content_type_id">2</column>
+            <column name="codename">change_permission</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">7</column>
+            <column name="name">Can delete permission</column>
+            <column name="content_type_id">2</column>
+            <column name="codename">delete_permission</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">8</column>
+            <column name="name">Can view permission</column>
+            <column name="content_type_id">2</column>
+            <column name="codename">view_permission</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">9</column>
+            <column name="name">Can add group</column>
+            <column name="content_type_id">3</column>
+            <column name="codename">add_group</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">10</column>
+            <column name="name">Can change group</column>
+            <column name="content_type_id">3</column>
+            <column name="codename">change_group</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">11</column>
+            <column name="name">Can delete group</column>
+            <column name="content_type_id">3</column>
+            <column name="codename">delete_group</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">12</column>
+            <column name="name">Can view group</column>
+            <column name="content_type_id">3</column>
+            <column name="codename">view_group</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">13</column>
+            <column name="name">Can add user</column>
+            <column name="content_type_id">4</column>
+            <column name="codename">add_user</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">14</column>
+            <column name="name">Can change user</column>
+            <column name="content_type_id">4</column>
+            <column name="codename">change_user</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">15</column>
+            <column name="name">Can delete user</column>
+            <column name="content_type_id">4</column>
+            <column name="codename">delete_user</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">16</column>
+            <column name="name">Can view user</column>
+            <column name="content_type_id">4</column>
+            <column name="codename">view_user</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">17</column>
+            <column name="name">Can add content type</column>
+            <column name="content_type_id">5</column>
+            <column name="codename">add_contenttype</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">18</column>
+            <column name="name">Can change content type</column>
+            <column name="content_type_id">5</column>
+            <column name="codename">change_contenttype</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">19</column>
+            <column name="name">Can delete content type</column>
+            <column name="content_type_id">5</column>
+            <column name="codename">delete_contenttype</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">20</column>
+            <column name="name">Can view content type</column>
+            <column name="content_type_id">5</column>
+            <column name="codename">view_contenttype</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">21</column>
+            <column name="name">Can add session</column>
+            <column name="content_type_id">6</column>
+            <column name="codename">add_session</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">22</column>
+            <column name="name">Can change session</column>
+            <column name="content_type_id">6</column>
+            <column name="codename">change_session</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">23</column>
+            <column name="name">Can delete session</column>
+            <column name="content_type_id">6</column>
+            <column name="codename">delete_session</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">24</column>
+            <column name="name">Can view session</column>
+            <column name="content_type_id">6</column>
+            <column name="codename">view_session</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">25</column>
+            <column name="name">Can add libro usuario</column>
+            <column name="content_type_id">7</column>
+            <column name="codename">add_librousuario</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">26</column>
+            <column name="name">Can change libro usuario</column>
+            <column name="content_type_id">7</column>
+            <column name="codename">change_librousuario</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">27</column>
+            <column name="name">Can delete libro usuario</column>
+            <column name="content_type_id">7</column>
+            <column name="codename">delete_librousuario</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">28</column>
+            <column name="name">Can view libro usuario</column>
+            <column name="content_type_id">7</column>
+            <column name="codename">view_librousuario</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">29</column>
+            <column name="name">Can add usuario</column>
+            <column name="content_type_id">8</column>
+            <column name="codename">add_usuario</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">30</column>
+            <column name="name">Can change usuario</column>
+            <column name="content_type_id">8</column>
+            <column name="codename">change_usuario</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">31</column>
+            <column name="name">Can delete usuario</column>
+            <column name="content_type_id">8</column>
+            <column name="codename">delete_usuario</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">32</column>
+            <column name="name">Can view usuario</column>
+            <column name="content_type_id">8</column>
+            <column name="codename">view_usuario</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">33</column>
+            <column name="name">Can add ranking</column>
+            <column name="content_type_id">9</column>
+            <column name="codename">add_ranking</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">34</column>
+            <column name="name">Can change ranking</column>
+            <column name="content_type_id">9</column>
+            <column name="codename">change_ranking</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">35</column>
+            <column name="name">Can delete ranking</column>
+            <column name="content_type_id">9</column>
+            <column name="codename">delete_ranking</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">36</column>
+            <column name="name">Can view ranking</column>
+            <column name="content_type_id">9</column>
+            <column name="codename">view_ranking</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">37</column>
+            <column name="name">Can add libreria</column>
+            <column name="content_type_id">10</column>
+            <column name="codename">add_libreria</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">38</column>
+            <column name="name">Can change libreria</column>
+            <column name="content_type_id">10</column>
+            <column name="codename">change_libreria</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">39</column>
+            <column name="name">Can delete libreria</column>
+            <column name="content_type_id">10</column>
+            <column name="codename">delete_libreria</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">40</column>
+            <column name="name">Can view libreria</column>
+            <column name="content_type_id">10</column>
+            <column name="codename">view_libreria</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">41</column>
+            <column name="name">Can add genero</column>
+            <column name="content_type_id">11</column>
+            <column name="codename">add_genero</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">42</column>
+            <column name="name">Can change genero</column>
+            <column name="content_type_id">11</column>
+            <column name="codename">change_genero</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">43</column>
+            <column name="name">Can delete genero</column>
+            <column name="content_type_id">11</column>
+            <column name="codename">delete_genero</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">44</column>
+            <column name="name">Can view genero</column>
+            <column name="content_type_id">11</column>
+            <column name="codename">view_genero</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">45</column>
+            <column name="name">Can add libro</column>
+            <column name="content_type_id">12</column>
+            <column name="codename">add_libro</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">46</column>
+            <column name="name">Can change libro</column>
+            <column name="content_type_id">12</column>
+            <column name="codename">change_libro</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">47</column>
+            <column name="name">Can delete libro</column>
+            <column name="content_type_id">12</column>
+            <column name="codename">delete_libro</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">48</column>
+            <column name="name">Can view libro</column>
+            <column name="content_type_id">12</column>
+            <column name="codename">view_libro</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">49</column>
+            <column name="name">Can add autor</column>
+            <column name="content_type_id">13</column>
+            <column name="codename">add_autor</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">50</column>
+            <column name="name">Can change autor</column>
+            <column name="content_type_id">13</column>
+            <column name="codename">change_autor</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">51</column>
+            <column name="name">Can delete autor</column>
+            <column name="content_type_id">13</column>
+            <column name="codename">delete_autor</column>
+        </table>
+        <table name="auth_permission">
+            <column name="id">52</column>
+            <column name="name">Can view autor</column>
+            <column name="content_type_id">13</column>
+            <column name="codename">view_autor</column>
+        </table>
+        <!-- Tabla auth_user -->
+        <table name="auth_user">
+            <column name="id">1</column>
+            <column name="password">pbkdf2_sha256$150000$ykV11KG9CHUB$XWIpHtwwAnANLEIfWDTrn1HlrdIUCGKZ6eWEH0m9d1Y=</column>
+            <column name="last_login">2019-05-29 18:00:40.600059</column>
+            <column name="is_superuser">1</column>
+            <column name="username">bookcase</column>
+            <column name="first_name"></column>
+            <column name="last_name"></column>
+            <column name="email"></column>
+            <column name="is_staff">1</column>
+            <column name="is_active">1</column>
+            <column name="date_joined">2019-05-29 16:47:04.450148</column>
+        </table>
+        <table name="auth_user">
+            <column name="id">2</column>
+            <column name="password">pbkdf2_sha256$150000$b765pasirQ55$JSh4xQ57gQ52K4HFIllvYL5REdmHqtVsl2wDmtEuYQY=</column>
+            <column name="last_login">2019-05-29 16:47:42.106195</column>
+            <column name="is_superuser">0</column>
+            <column name="username">estefania</column>
+            <column name="first_name"></column>
+            <column name="last_name"></column>
+            <column name="email">estefi.95.c@gmail.com</column>
+            <column name="is_staff">0</column>
+            <column name="is_active">1</column>
+            <column name="date_joined">2019-05-29 16:47:41.716884</column>
+        </table>
+        <table name="auth_user">
+            <column name="id">3</column>
+            <column name="password">pbkdf2_sha256$150000$3Qvfe5aQdbiI$aRcbi4BB3zXTv9OfXZ4quaUXxoz47U3l2XN+EWASJwI=</column>
+            <column name="last_login">2019-05-29 17:18:51.306785</column>
+            <column name="is_superuser">0</column>
+            <column name="username">Madalenachafada</column>
+            <column name="first_name"></column>
+            <column name="last_name"></column>
+            <column name="email">eric-elvikingo22@hotmail.com</column>
+            <column name="is_staff">0</column>
+            <column name="is_active">1</column>
+            <column name="date_joined">2019-05-29 17:13:55.286961</column>
+        </table>
+        <!-- Tabla auth_user_groups -->
+        <!-- Tabla auth_user_user_permissions -->
+        <!-- Tabla django_admin_log -->
+        <table name="django_admin_log">
+            <column name="id">1</column>
+            <column name="action_time">2019-05-29 16:53:23.310996</column>
+            <column name="object_id">2</column>
+            <column name="object_repr">bookcase</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">8</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">2</column>
+            <column name="action_time">2019-05-29 16:54:50.715000</column>
+            <column name="object_id">1</column>
+            <column name="object_repr">Historia</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">11</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">3</column>
+            <column name="action_time">2019-05-29 16:55:17.926788</column>
+            <column name="object_id">2</column>
+            <column name="object_repr">Novela histórica</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">11</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">4</column>
+            <column name="action_time">2019-05-29 16:55:41.314563</column>
+            <column name="object_id">3</column>
+            <column name="object_repr">Literatura contemporánea</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">11</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">5</column>
+            <column name="action_time">2019-05-29 16:56:13.687991</column>
+            <column name="object_id">4</column>
+            <column name="object_repr">Autoayuda</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">11</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">6</column>
+            <column name="action_time">2019-05-29 16:57:03.154447</column>
+            <column name="object_id">5</column>
+            <column name="object_repr">Cómics y mangas</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">11</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">7</column>
+            <column name="action_time">2019-05-29 16:57:29.489840</column>
+            <column name="object_id">6</column>
+            <column name="object_repr">Novela negra</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">11</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">8</column>
+            <column name="action_time">2019-05-29 16:58:12.922915</column>
+            <column name="object_id">7</column>
+            <column name="object_repr">Juvenil</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">11</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">9</column>
+            <column name="action_time">2019-05-29 16:58:40.141731</column>
+            <column name="object_id">8</column>
+            <column name="object_repr">Infantil</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">11</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">10</column>
+            <column name="action_time">2019-05-29 16:59:58.723746</column>
+            <column name="object_id">9</column>
+            <column name="object_repr">Literatura</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">11</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">11</column>
+            <column name="action_time">2019-05-29 17:00:21.510246</column>
+            <column name="object_id">10</column>
+            <column name="object_repr">Novela romántica</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">11</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">12</column>
+            <column name="action_time">2019-05-29 17:01:36.153854</column>
+            <column name="object_id">1</column>
+            <column name="object_repr">Harry Potter y la piedra filosofal</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">12</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">13</column>
+            <column name="action_time">2019-05-29 17:02:19.190754</column>
+            <column name="object_id">2</column>
+            <column name="object_repr">Sed</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">12</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">14</column>
+            <column name="action_time">2019-05-29 17:03:09.853349</column>
+            <column name="object_id">3</column>
+            <column name="object_repr">Mister</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">12</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">15</column>
+            <column name="action_time">2019-05-29 17:03:45.038602</column>
+            <column name="object_id">4</column>
+            <column name="object_repr">Bienvenida al club. Cabronas sin fronteras</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">12</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">16</column>
+            <column name="action_time">2019-05-29 17:04:33.493640</column>
+            <column name="object_id">5</column>
+            <column name="object_repr">El dia que se perdió la cordura</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">12</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">17</column>
+            <column name="action_time">2019-05-29 17:05:18.944729</column>
+            <column name="object_id">6</column>
+            <column name="object_repr">El día que se perdió el amor</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">12</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">18</column>
+            <column name="action_time">2019-05-29 17:06:03.601370</column>
+            <column name="object_id">7</column>
+            <column name="object_repr">Reina roja</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">12</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">19</column>
+            <column name="action_time">2019-05-29 17:06:38.595818</column>
+            <column name="object_id">8</column>
+            <column name="object_repr">Marfil</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">12</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">20</column>
+            <column name="action_time">2019-05-29 17:07:18.643676</column>
+            <column name="object_id">9</column>
+            <column name="object_repr">La chica invisible</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">12</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">21</column>
+            <column name="action_time">2019-05-29 17:08:10.719645</column>
+            <column name="object_id">1</column>
+            <column name="object_repr">J. K.</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">13</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">22</column>
+            <column name="action_time">2019-05-29 17:08:34.534247</column>
+            <column name="object_id">2</column>
+            <column name="object_repr">Neal</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">13</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">23</column>
+            <column name="action_time">2019-05-29 17:09:03.495753</column>
+            <column name="object_id">3</column>
+            <column name="object_repr">E.L.</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">13</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">24</column>
+            <column name="action_time">2019-05-29 17:09:26.492737</column>
+            <column name="object_id">4</column>
+            <column name="object_repr">Megan</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">13</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">25</column>
+            <column name="action_time">2019-05-29 17:09:58.898374</column>
+            <column name="object_id">5</column>
+            <column name="object_repr">Javier</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">13</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">26</column>
+            <column name="action_time">2019-05-29 17:10:43.545983</column>
+            <column name="object_id">6</column>
+            <column name="object_repr">Blue</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">13</column>
+            <column name="user_id">1</column>
+        </table>
+        <table name="django_admin_log">
+            <column name="id">27</column>
+            <column name="action_time">2019-05-29 17:11:21.314555</column>
+            <column name="object_id">7</column>
+            <column name="object_repr">Mercedes</column>
+            <column name="action_flag">1</column>
+            <column name="change_message">[{&quot;added&quot;: {}}]</column>
+            <column name="content_type_id">13</column>
+            <column name="user_id">1</column>
+        </table>
+        <!-- Tabla django_content_type -->
+        <table name="django_content_type">
+            <column name="id">1</column>
+            <column name="app_label">admin</column>
+            <column name="model">logentry</column>
+        </table>
+        <table name="django_content_type">
+            <column name="id">3</column>
+            <column name="app_label">auth</column>
+            <column name="model">group</column>
+        </table>
+        <table name="django_content_type">
+            <column name="id">2</column>
+            <column name="app_label">auth</column>
+            <column name="model">permission</column>
+        </table>
+        <table name="django_content_type">
+            <column name="id">4</column>
+            <column name="app_label">auth</column>
+            <column name="model">user</column>
+        </table>
+        <table name="django_content_type">
+            <column name="id">5</column>
+            <column name="app_label">contenttypes</column>
+            <column name="model">contenttype</column>
+        </table>
+        <table name="django_content_type">
+            <column name="id">13</column>
+            <column name="app_label">libro</column>
+            <column name="model">autor</column>
+        </table>
+        <table name="django_content_type">
+            <column name="id">11</column>
+            <column name="app_label">libro</column>
+            <column name="model">genero</column>
+        </table>
+        <table name="django_content_type">
+            <column name="id">12</column>
+            <column name="app_label">libro</column>
+            <column name="model">libro</column>
+        </table>
+        <table name="django_content_type">
+            <column name="id">6</column>
+            <column name="app_label">sessions</column>
+            <column name="model">session</column>
+        </table>
+        <table name="django_content_type">
+            <column name="id">10</column>
+            <column name="app_label">usuario</column>
+            <column name="model">libreria</column>
+        </table>
+        <table name="django_content_type">
+            <column name="id">7</column>
+            <column name="app_label">usuario</column>
+            <column name="model">librousuario</column>
+        </table>
+        <table name="django_content_type">
+            <column name="id">9</column>
+            <column name="app_label">usuario</column>
+            <column name="model">ranking</column>
+        </table>
+        <table name="django_content_type">
+            <column name="id">8</column>
+            <column name="app_label">usuario</column>
+            <column name="model">usuario</column>
+        </table>
+        <!-- Tabla django_migrations -->
+        <table name="django_migrations">
+            <column name="id">1</column>
+            <column name="app">contenttypes</column>
+            <column name="name">0001_initial</column>
+            <column name="applied">2019-05-29 15:42:05.855572</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">2</column>
+            <column name="app">auth</column>
+            <column name="name">0001_initial</column>
+            <column name="applied">2019-05-29 15:43:17.237678</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">3</column>
+            <column name="app">admin</column>
+            <column name="name">0001_initial</column>
+            <column name="applied">2019-05-29 15:43:43.710499</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">4</column>
+            <column name="app">admin</column>
+            <column name="name">0002_logentry_remove_auto_add</column>
+            <column name="applied">2019-05-29 15:43:43.834618</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">5</column>
+            <column name="app">admin</column>
+            <column name="name">0003_logentry_add_action_flag_choices</column>
+            <column name="applied">2019-05-29 15:43:43.860677</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">6</column>
+            <column name="app">contenttypes</column>
+            <column name="name">0002_remove_content_type_name</column>
+            <column name="applied">2019-05-29 15:43:43.956612</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">7</column>
+            <column name="app">auth</column>
+            <column name="name">0002_alter_permission_name_max_length</column>
+            <column name="applied">2019-05-29 15:43:44.011702</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">8</column>
+            <column name="app">auth</column>
+            <column name="name">0003_alter_user_email_max_length</column>
+            <column name="applied">2019-05-29 15:43:44.077374</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">9</column>
+            <column name="app">auth</column>
+            <column name="name">0004_alter_user_username_opts</column>
+            <column name="applied">2019-05-29 15:43:44.091271</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">10</column>
+            <column name="app">auth</column>
+            <column name="name">0005_alter_user_last_login_null</column>
+            <column name="applied">2019-05-29 15:43:44.140900</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">11</column>
+            <column name="app">auth</column>
+            <column name="name">0006_require_contenttypes_0002</column>
+            <column name="applied">2019-05-29 15:43:44.147411</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">12</column>
+            <column name="app">auth</column>
+            <column name="name">0007_alter_validators_add_error_messages</column>
+            <column name="applied">2019-05-29 15:43:44.158730</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">13</column>
+            <column name="app">auth</column>
+            <column name="name">0008_alter_user_username_max_length</column>
+            <column name="applied">2019-05-29 15:43:44.226487</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">14</column>
+            <column name="app">auth</column>
+            <column name="name">0009_alter_user_last_name_max_length</column>
+            <column name="applied">2019-05-29 15:43:44.289160</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">15</column>
+            <column name="app">auth</column>
+            <column name="name">0010_alter_group_name_max_length</column>
+            <column name="applied">2019-05-29 15:43:44.385826</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">16</column>
+            <column name="app">auth</column>
+            <column name="name">0011_update_proxy_permissions</column>
+            <column name="applied">2019-05-29 15:43:44.400140</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">17</column>
+            <column name="app">sessions</column>
+            <column name="name">0001_initial</column>
+            <column name="applied">2019-05-29 15:43:51.499810</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">18</column>
+            <column name="app">libro</column>
+            <column name="name">0001_initial</column>
+            <column name="applied">2019-05-29 16:43:45.820520</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">19</column>
+            <column name="app">usuario</column>
+            <column name="name">0001_initial</column>
+            <column name="applied">2019-05-29 16:44:42.538421</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">20</column>
+            <column name="app">usuario</column>
+            <column name="name">0002_auto_20190517_1844</column>
+            <column name="applied">2019-05-29 16:44:43.585603</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">21</column>
+            <column name="app">usuario</column>
+            <column name="name">0003_auto_20190520_1625</column>
+            <column name="applied">2019-05-29 16:44:43.652534</column>
+        </table>
+        <table name="django_migrations">
+            <column name="id">22</column>
+            <column name="app">usuario</column>
+            <column name="name">0004_libreria_maxlibros</column>
+            <column name="applied">2019-05-29 16:44:47.064673</column>
+        </table>
+        <!-- Tabla django_session -->
+        <table name="django_session">
+            <column name="session_key">0ci6l02j68um5b0hb5l3bwebt82gu5ir</column>
+            <column name="session_data">MzllZGM1MTQ4NjA4ZmNkOTc4NDVmZTA1YjcyOTc3ZDhmODAxYTBhODp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJmZmQ2NjJhOTQxNGMwMDU3ZWZkMzRmYWQ5ZmY3MDIwZmNmNWQ3NTUxIn0=</column>
+            <column name="expire_date">2019-06-12 16:52:35.751673</column>
+        </table>
+        <table name="django_session">
+            <column name="session_key">4q2loqj71faqsiyj8kx08w0jxeeu7q01</column>
+            <column name="session_data">MzllZGM1MTQ4NjA4ZmNkOTc4NDVmZTA1YjcyOTc3ZDhmODAxYTBhODp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJmZmQ2NjJhOTQxNGMwMDU3ZWZkMzRmYWQ5ZmY3MDIwZmNmNWQ3NTUxIn0=</column>
+            <column name="expire_date">2019-06-12 18:00:40.606909</column>
+        </table>
+        <table name="django_session">
+            <column name="session_key">5n7qlub9szhwo840p9cmfhsbjn7a63rh</column>
+            <column name="session_data">MGRmZDMxM2FjMmE3MTkxZjE5NjFiYmMzODNkNWVhNWNlNDc3NzAxODp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhNzg0MWFhMTI0OTQ0NTMwZTg1OThiOTVmMjEzZWMxMmFiYmViMWI5In0=</column>
+            <column name="expire_date">2019-06-12 16:47:42.122202</column>
+        </table>
+        <table name="django_session">
+            <column name="session_key">x14mks2kfrmp8yf1vjc6o5fkyl763dl2</column>
+            <column name="session_data">MGUzMGQxY2UxOTc4ZGI4MTgwY2U0ZDM0MDMzYjBmZWE3NzMxN2Q4ODp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI2MGYwMTE4ZTgyNmU4OGIwYzdjMGY0NGJkNTA5NDE1MjgzN2ZlZTM5In0=</column>
+            <column name="expire_date">2019-06-12 17:13:55.742406</column>
+        </table>
+        <!-- Tabla libro_autor -->
+        <table name="libro_autor">
+            <column name="id">1</column>
+            <column name="nombre">J. K.</column>
+            <column name="apellidos">Rowling</column>
+            <column name="anoNacimiento">1965</column>
+            <column name="descripcion">J K (Joanne Kathleen) Rowling es autora de los siete libros de la famosa saga de Harry Potter. Amada por lectores de todo el mundo, la serie ha vendido más de 500 millones de ejemplares, se ha traducido a ochenta idiomas y ha inspirado ocho películas de enorme éxito de taquilla. Ha escrito asimismo tres volúmenes complementarios con fines benéficos: Quidditch a través de los tiempos, Animales fantásticos y dónde encontrarlos (en beneficio de Comic Relief y Lumos), y Los cuentos de Beedle el Bardo (en beneficio de Lumos), así como el guión inspirado en Animales fantásticos y dónde encontrarlos, la primera de una serie de cinco películas que escribirá la autora. También colaboró en una obra, Harry Potter y el legado maldito, Partes Uno y Dos, que se estrenó en el West End de Londres en el verano de 2016. En 2012 creó la plataforma digital Pottermore, donde sus fans pueden disfrutar de noticias, reportajes y artículos, así como de contenido original escrito por J. K. Rowling. Asimismo, ha escrito la novela para adultos Una vacante imprevista, y, con el seudónimo Robert Galbraith, la serie de novelas policíacas protagonizadas por Cormoran Strike. Ha sido galardonada con numerosos premios, entre ellos la Orden del Imperio Británico por su contribución a la literatura infantil y la Orden de los Compañeros de Honor, la Orden de la Legión de Honor de Francia y el Premio Hans Christian Andersen.</column>
+        </table>
+        <table name="libro_autor">
+            <column name="id">2</column>
+            <column name="nombre">Neal</column>
+            <column name="apellidos">Shusterman</column>
+            <column name="anoNacimiento">1962</column>
+            <column name="descripcion">Neal Shusterman, autor premiado y superventas en las listas delNew York Times, cuenta con una reconocida trayectoria en el ámbito de la literatura infantil y juvenil. Entre sus obras destacan la saga distópicaDesconexión, la trilogíaEverlostyLa trilogía de los Accelerati, publicadas en Anaya. Por su última novela,El abismo, ha recibido el National Book Award 2015, en la categoría de literatura juvenil.</column>
+        </table>
+        <table name="libro_autor">
+            <column name="id">3</column>
+            <column name="nombre">E.L.</column>
+            <column name="apellidos">James</column>
+            <column name="anoNacimiento">1963</column>
+            <column name="descripcion">E.L. James ha desempeñado cargos ejecutivos en televisión. Está casada, tiene dos hijos y vive en Londres. De niña, soñaba con escribir historias que cautivarían a los lectores, pero postergó sus sueños para dedicarse a su familia y a su carrera. Finalmente reunió el coraje para escribir su primera novela Cincuenta sombras de Grey. Es también la autora de Cincuenta sombras más oscuras y Cincuenta sombras liberadas. Con motivo del fenómeno editorial que ha supuesto su trilogía Cincuenta sombras, con gran repercusión en los medios y que ya ha vendido millones de ejemplares, la revista Time ha nombrado a E.L. James una de las cien personas más influyentes del año. Los derechos de traducción ya se han vendido en cuarenta países, y Universal Pictures y Focus Features han comprado los derechos cinematográficos.</column>
+        </table>
+        <table name="libro_autor">
+            <column name="id">4</column>
+            <column name="nombre">Megan</column>
+            <column name="apellidos">Maxwell</column>
+            <column name="anoNacimiento">1965</column>
+            <column name="descripcion">Megan Maxwell es una reconocida y prolífica escritora de género romántico. De madre española y padre americano, ha publicado novelas como Te lo dije (2009), Diario de una chirli (2009), Deseo concedido (2010), Fue un beso tonto (2010), Te esperaré toda mi vida (2011), Niyomismalosé (2011), Casi una novela (2011) y Las ranas también se enamoran (2011), además de relatos y cuentos en antologías colectivas. Ha ganado el Premio Internacional de Novela Romántica Seseña 2010 y el Premio Dama 2010 de Clubromantica.com, entre otros.</column>
+        </table>
+        <table name="libro_autor">
+            <column name="id">5</column>
+            <column name="nombre">Javier</column>
+            <column name="apellidos">Castillo</column>
+            <column name="anoNacimiento">1987</column>
+            <column name="descripcion">Javier Castillo creció en Málaga, se diplomó en empresariales y estudió el máster in Management de ESCP Europe, en el itinerario Madrid-Shanghái-París. Actualmente trabaja como consultor de finanzas c orporativas en una compañía con presencia nacional. Escritor de relatos cortos desde la adolescencia, El día que se perdió la cordura es su primera novela y un éxito comercial en internet.</column>
+        </table>
+        <table name="libro_autor">
+            <column name="id">6</column>
+            <column name="nombre">Blue</column>
+            <column name="apellidos">Jeans</column>
+            <column name="anoNacimiento">1978</column>
+            <column name="descripcion">BLUE JEANS, seudónimo de Francisco de Paula Fernández, nació en Sevilla, aunque toda su adolescencia la pasó en Carmona. A los dieciocho años se trasladó a Madrid, ciudad en la que actualmente reside, para estudiar periodismo en la Universidad Europea. Después de hacer un máster en periodismo deportivo y colaborar en algunos medios, encontró finalmente su lugar cuando se dejó llevar por su gran pasión, la escritura. La trilogía «Canciones para Paula» es su primera obra publicada, una historia que miles de seguidores comenzaron a leer en diferentes redes sociales antes de verla consagrada al papel.Cuando no está escribiendo, BLUE JEANS dedica su tiempo libre a responder las preguntas de sus seguidores en las redes sociales. También ha colaborado con la revista Superpop.</column>
+        </table>
+        <table name="libro_autor">
+            <column name="id">7</column>
+            <column name="nombre">Mercedes</column>
+            <column name="apellidos">Ron</column>
+            <column name="anoNacimiento">1993</column>
+            <column name="descripcion">Mercedes Ron es una joven escritora española que ha triunfado en Wattpad, donde tiene más de 258k seguidores. Los dos primeros títulos de la saga Culpa mía llevan más de 33 millones de lecturas acumuladas. Actualmente se encuentra escribiendo la tercera parte de la saga.</column>
+        </table>
+        <!-- Tabla libro_autor_libro -->
+        <table name="libro_autor_libro">
+            <column name="id">1</column>
+            <column name="autor_id">1</column>
+            <column name="libro_id">1</column>
+        </table>
+        <table name="libro_autor_libro">
+            <column name="id">2</column>
+            <column name="autor_id">2</column>
+            <column name="libro_id">2</column>
+        </table>
+        <table name="libro_autor_libro">
+            <column name="id">3</column>
+            <column name="autor_id">3</column>
+            <column name="libro_id">3</column>
+        </table>
+        <table name="libro_autor_libro">
+            <column name="id">4</column>
+            <column name="autor_id">4</column>
+            <column name="libro_id">4</column>
+        </table>
+        <table name="libro_autor_libro">
+            <column name="id">5</column>
+            <column name="autor_id">5</column>
+            <column name="libro_id">5</column>
+        </table>
+        <table name="libro_autor_libro">
+            <column name="id">6</column>
+            <column name="autor_id">5</column>
+            <column name="libro_id">6</column>
+        </table>
+        <table name="libro_autor_libro">
+            <column name="id">7</column>
+            <column name="autor_id">6</column>
+            <column name="libro_id">9</column>
+        </table>
+        <table name="libro_autor_libro">
+            <column name="id">8</column>
+            <column name="autor_id">7</column>
+            <column name="libro_id">8</column>
+        </table>
+        <!-- Tabla libro_genero -->
+        <table name="libro_genero">
+            <column name="id">1</column>
+            <column name="nombre">Historia</column>
+            <column name="descripcion">Historia Antigua, Moderna, Contemporánea... Si crees que es necesario entender el pasado para comprender el presente, encuentra aquí el libro que buscas.</column>
+            <column name="nombreImagen">historia.jpg</column>
+        </table>
+        <table name="libro_genero">
+            <column name="id">2</column>
+            <column name="nombre">Novela histórica</column>
+            <column name="descripcion">Viaja cientos de años atrás en el tiempo con las mejores novelas históricas. Entra y transpórtate a otras épocas para conocer la historia.</column>
+            <column name="nombreImagen">historica.jpg</column>
+        </table>
+        <table name="libro_genero">
+            <column name="id">3</column>
+            <column name="nombre">Literatura contemporánea</column>
+            <column name="descripcion">Todas las novelas las encontrarás aquí. Descubre miles de lecturas que te atraparán desde la primera página.</column>
+            <column name="nombreImagen">contemporanea.jpg</column>
+        </table>
+        <table name="libro_genero">
+            <column name="id">4</column>
+            <column name="nombre">Autoayuda</column>
+            <column name="descripcion">Libros de autoayuda para los que buscan resolver sus dudas o satisfacer su curiosidad. Descubre también nuestros títulos de crecimiento personal y bienestar.</column>
+            <column name="nombreImagen">autoayuda.png</column>
+        </table>
+        <table name="libro_genero">
+            <column name="id">5</column>
+            <column name="nombre">Cómics y mangas</column>
+            <column name="descripcion">Todos los cómics, mangas y novelas ilustradas.</column>
+            <column name="nombreImagen">NULL</column>
+        </table>
+        <table name="libro_genero">
+            <column name="id">6</column>
+            <column name="nombre">Novela negra</column>
+            <column name="descripcion">Adéntrate en las mejores novelas negras y de misterio. Lee los grandes clásicos y los mejores thrillers de momento. Todas las novelas de policías, detectives, libros de terror, crímenes, asesinatos, mafia, espionaje y libros de suspense.</column>
+            <column name="nombreImagen">novelaNegra.jpg</column>
+        </table>
+        <table name="libro_genero">
+            <column name="id">7</column>
+            <column name="nombre">Juvenil</column>
+            <column name="descripcion">Descubre tu próxima lectura juvenil. ¿Te gusta el misterio, la ciencia-ficción, la fantasía? ¿O prefieres las novelas románticas y realistas? ¡Una amplia variedad de historias llenas de emociones!</column>
+            <column name="nombreImagen">juvenil.jpg</column>
+        </table>
+        <table name="libro_genero">
+            <column name="id">8</column>
+            <column name="nombre">Infantil</column>
+            <column name="descripcion">Los mejores libros para los más pequeños.</column>
+            <column name="nombreImagen">NULL</column>
+        </table>
+        <table name="libro_genero">
+            <column name="id">9</column>
+            <column name="nombre">Literatura</column>
+            <column name="descripcion">Hay muchas joyas de la literatura que no hemos leído por falta de tiempo o sencillamente porque siempre tenemos otra lectura a medias que queremos acabar. Si tienes ganas de descubrir un libro que recuerdes para siempre, has llegado al lugar adecuado.</column>
+            <column name="nombreImagen">NULL</column>
+        </table>
+        <table name="libro_genero">
+            <column name="id">10</column>
+            <column name="nombre">Novela romántica</column>
+            <column name="descripcion">Disfruta de las novelas románticas más apasionantes y descubre todos los libros de romántica contemporánea y histórica, highlanders, regencia y romántica fantástica. ¡Te enamorarás de sus personajes!</column>
+            <column name="nombreImagen">NULL</column>
+        </table>
+        <!-- Tabla libro_libro -->
+        <table name="libro_libro">
+            <column name="id">1</column>
+            <column name="titulo">Harry Potter y la piedra filosofal</column>
+            <column name="isbn">9788498382662</column>
+            <column name="editorial">Salamandra</column>
+            <column name="numeroPaginas">256</column>
+            <column name="anoEdicion">2010</column>
+            <column name="sinopsis">Harry Potter se ha quedado huérfano y vive en casa de sus abominables tíos y el insoportable primo Dudley. Harry se siente muy triste y solo, hasta que un buen día recibe una carta que cambiará su vida para siempre. En ella le comunican que ha sido aceptado como alumno en el Colegio Hogwarts de Magia. A partir de ese momento, la suerte de Harry da un vuelco espectacular. En esa escuela tan especial aprenderá encantamientos, trucos fabulosos y tácticas de defensa contra las malas artes. Se convertirá en el campeón escolar de quidditch, especie de fútbol aéreo que se juega montado sobre escobas, y hará un puñado de buenos amigos... aunque también algunos temibles enemigos. Pero, sobre todo, conocerá los secretos que le permitirán cumplir con su destino. Pues, aunque no lo parezca a primera vista, Harry no es un chico normal y corriente: ¡es un verdadero mago!</column>
+            <column name="imagen">https://imagessl2.casadellibro.com/a/l/t5/62/9788498382662.jpg</column>
+        </table>
+        <table name="libro_libro">
+            <column name="id">2</column>
+            <column name="titulo">Sed</column>
+            <column name="isbn">9788416858897</column>
+            <column name="editorial">Nocturna ediciones</column>
+            <column name="numeroPaginas">424</column>
+            <column name="anoEdicion">2019</column>
+            <column name="sinopsis">¿Hasta dónde llegarías para conseguir la última gota de agua? Alyssa vive con su familia al sur de California, en un barrio residencial muy apacible... Hasta que, un día, del fregadero deja de salir agua. Tras padecer varios años de sequía, eso tampoco es extraño; allí todo el mundo está acostumbrado a las advertencias: no riegues el césped, no llenes la piscina, no te des duchas largas.Pero esta vez ya no queda agua que ahorrar. En muy poco tiempo, el supermercado del apacible barrio residencial se ha llenado de familias desesperadas y dispuestas a todo con tal de conseguir un bidón de agua. Y cuando sus padres salen en busca de provisiones y no regresan, Alyssa, su hermano y el peculiar vecino que los acompaña no tienen más remedio que empezar a tomar decisiones difíciles para sobrevivir. Cueste lo que cueste.</column>
+            <column name="imagen">https://imagessl7.casadellibro.com/a/l/t5/97/9788416858897.jpg</column>
+        </table>
+        <table name="libro_libro">
+            <column name="id">3</column>
+            <column name="titulo">Mister</column>
+            <column name="isbn">9788425358098</column>
+            <column name="editorial">Grijalbo</column>
+            <column name="numeroPaginas">604</column>
+            <column name="anoEdicion">2019</column>
+            <column name="sinopsis">La vida siempre ha sido fácil para Maxim Trevelyan. Gracias a su innegable atractivo, su entorno aristocrático y su riqueza, nunca ha tenido que trabajar y pocas veces duerme solo. Pero todo cambia cuando estalla la tragedia y lleva a Maxim a heredar el título nobiliario, la fortuna y las propiedades familiares. Pero no está preparado para esta responsabilidad y le cuesta afrontarlo. Sin embargo, su mayor desafío es luchar contra el deseo que le despierta inesperadamente una enigmática joven…</column>
+            <column name="imagen">https://imagessl8.casadellibro.com/a/l/t5/98/9788425358098.jpg</column>
+        </table>
+        <table name="libro_libro">
+            <column name="id">4</column>
+            <column name="titulo">Bienvenida al club. Cabronas sin fronteras</column>
+            <column name="isbn">9788408210801</column>
+            <column name="editorial">Planeta</column>
+            <column name="numeroPaginas">480</column>
+            <column name="anoEdicion">2019</column>
+            <column name="sinopsis">na comedia romántica que nos enseña a dejar de ser princesas para convertirnos en auténticas guerreras. Amar y ser amada es lo que toda mujer… desea. Lo que toda mujer… ansía. Y con lo que toda mujer… sueña. Pero ¿qué pasa cuando el sueño se desvanece, eres consciente de que tu vida es pura mentira y encima vas rayando los techos allí por donde pasas? Te pongo en situación. Silvia, Rosa y Elisa no han tenido demasiada suerte en el amor. Por diferentes circunstancias, las tres han acabado rompiendo sus supuestamente felices vidas matrimoniales y han adoptado el estado civil de solteras o divorciadas. Y también está Venecia. Soltera y sin hijos, tanto la vida de sus amigas como su último fracaso amoroso le hacen ver que el amor, además de caduco, es una mierda. Tras una noche de juerga y borrachera en un karaoke, donde conocen las historias de otras mujeres, tienen varias cosas claras: 1. El amor es para los incautos. 2. Se acabó ser una princesa para empezar a ser una guerrera. 3. Corazón blindado y cabeza fría (y si es en «modo tío»…, mejor). 4. Crearán un club privado llamado… Cabronas sin fronteras. Si quieres reírte y ver cómo las mujeres somos capaces de dar un giro a nuestras vidas, no puedes quedarte sin leer Bienvenida al club. Cabronas sin fronteras.</column>
+            <column name="imagen">https://imagessl1.casadellibro.com/a/l/t5/01/9788408210801.jpg</column>
+        </table>
+        <table name="libro_libro">
+            <column name="id">5</column>
+            <column name="titulo">El dia que se perdió la cordura</column>
+            <column name="isbn">9788483659052</column>
+            <column name="editorial">Suma</column>
+            <column name="numeroPaginas">300</column>
+            <column name="anoEdicion">2017</column>
+            <column name="sinopsis">Amor, odio, destino, extrañas prácticas, intriga y acción trepidante inundan las páginas de una novela que se ha convertido en todo un fenómeno editorial antes de su publicación en papel.«A veces el destino nos pone a prueba para que sepamos que existe».Centro de Boston, 24 de diciembre, un hombre camina desnudo con la cabeza decapitada de una joven. El doctor Jenkins, director del centro psiquiátrico de la ciudad, y Stella Hyden, agente de perfiles del FBI, se adentrarán en una investigación que pondrá en juego sus vidas, su concepción de la cordura y que los llevará hasta unos sucesos fortuitos ocurridos en el misterioso pueblo de Salt Lake diecisiete años atrás.</column>
+            <column name="imagen">https://imagessl2.casadellibro.com/a/l/t5/52/9788483659052.jpg</column>
+        </table>
+        <table name="libro_libro">
+            <column name="id">6</column>
+            <column name="titulo">El día que se perdió el amor</column>
+            <column name="isbn">9788491291732</column>
+            <column name="editorial">Suma</column>
+            <column name="numeroPaginas">432</column>
+            <column name="anoEdicion">2018</column>
+            <column name="sinopsis">Adictiva, trepidante y absorbente, Javier Castillo, autor del exitoso thriller El día que se perdió la cordura, nos introduce de nuevo en una historia frenética cargada suspense y amor a partes iguales. «A veces el amor te pone en el camino equivocado para que sepas cuánto duele.» A las doce de la mañana del 14 de diciembre, una joven llena de magulladuras se presenta desnuda en las instalaciones del FBI en Nueva York. El inspector Bowring, jefe de la Unidad de Criminología, intentará descubrir qué esconde una nota amarillenta con el nombre de una mujer que horas después aparece decapitada en un descampado. La investigación lo sumirá de lleno en una trama en la que el destino, el amor y la venganza se entrelazan en una truculenta historia que guarda conexión con la desaparición de una chica varios años antes y cuyo paradero nunca pudo descubrir.</column>
+            <column name="imagen">https://imagessl2.casadellibro.com/a/l/t5/32/9788491291732.jpg</column>
+        </table>
+        <table name="libro_libro">
+            <column name="id">7</column>
+            <column name="titulo">Reina roja</column>
+            <column name="isbn">9788466664417</column>
+            <column name="editorial">S.A. EDICIONES B</column>
+            <column name="numeroPaginas">568</column>
+            <column name="anoEdicion">2018</column>
+            <column name="sinopsis">Vuelve el autor español de thriller más leído en todo el mundo Antonia Scott es una mujer muy especial. Tiene un don que es al mismo tiempo una maldición: una extraordinaria inteligencia. Gracias a ella ha salvado decenas de vidas, pero también lo ha perdido todo. Hoy se parapeta contra el mundo en su piso casi vacío de Lavapiés, del que no piensa volver a salir. Ya no queda nada ahí fuera que le interese lo más mínimo. El inspector Jon Gutiérrez está acusado de corrupción, suspendido de empleo y sueldo. Es un buen policía metido en un asunto muy feo, y ya no tiene mucho que perder. Por eso acepta la propuesta de un misterioso desconocido: ir a buscar a Antonia y sacarla de su encierro, conseguir que vuelva a hacer lo que fuera que hiciera antes, y el desconocido le ayudará a limpiar su nombre. Un encargo extraño aunque aparentemente fácil. Pero Jon se dará cuenta en seguida de que con Antonia nada es fácil.</column>
+            <column name="imagen">https://imagessl7.casadellibro.com/a/l/t5/17/9788466664417.jpg</column>
+        </table>
+        <table name="libro_libro">
+            <column name="id">8</column>
+            <column name="titulo">Marfil</column>
+            <column name="isbn">9788417671488</column>
+            <column name="editorial">Montena</column>
+            <column name="numeroPaginas">448</column>
+            <column name="anoEdicion">2019</column>
+            <column name="sinopsis">Amar nunca fue tan peligroso como en «Enfrentados», la nueva saga de Mercedes Ron. Marfil tiene 20 años y vive en Nueva York, pero no todo es tan idílico como parece: hace unos días fue secuestrada mientras paseaba por Central Park. Su padre tiene muy claro que la razón del secuestro ha sido para mandarle un mensaje: podemos llegar a ella. A pesar de ser liberada, todo ha cambiado para Marfil: su vida no es la misma, y ella tampoco. Sobre todo porque ahora nunca está sola: siempre la acompaña Sebastian Moore, su guardaespaldas. Sebastian demostrará ser el encargado perfecto para protegerla, sobre todo cuando comienzan a llegar las amenazas de muerte, aunque nunca hubiese pensado que la tarea más complicada no sería esa, sino mantener a Marfil Cortés alejada de él. ¿Está Marfil preparada para descubrir la verdad de su pasado? ¿Lo pondrá todo en riesgo la atracción que ha surgido entre ambos?</column>
+            <column name="imagen">https://imagessl8.casadellibro.com/a/l/t5/88/9788417671488.jpg</column>
+        </table>
+        <table name="libro_libro">
+            <column name="id">9</column>
+            <column name="titulo">La chica invisible</column>
+            <column name="isbn">9788408184782</column>
+            <column name="editorial">Planeta</column>
+            <column name="numeroPaginas">544</column>
+            <column name="anoEdicion">2018</column>
+            <column name="sinopsis">Aurora Ríos es invisible para casi todos. Los acontecimientos del pasado han hecho que se aísle del mundo y que apenas se relacione. A sus diecisiete años, no tiene amigos y está harta de que los habitantes de aquel pueblo hablen a su espalda. Una noche de mayo, su madre no la encuentra en casa cuando regresa del trabajo. No es lo habitual. Aurora aparece muerta a la mañana siguiente en el vestuario de su instituto, el Rubén Darío. Tiene un golpe en la cabeza y han dejado una brújula junto a su cuerpo. ¿Quién es el responsable de aquel terrible suceso? Julia Plaza, compañera de clase de la chica invisible, está obsesionada con encontrar la respuesta. Su gran inteligencia y su memoria prodigiosa le sirven para realizar el cubo de Rubik en cincuenta segundos o ser invencible jugando al ajedrez. Pero ¿podrá ayudar a sus padres en la resolución de aquel enigma? Su madre, Aitana, es la forense del caso y su padre, Miguel Ángel, el sargento de la Policía Judicial de la Guardia Civil encargado de la investigación. Julia, junto a su inseparable amigo Emilio, un chico muy particular con una mirada inquietante, tratará de hacer todo lo que esté en su mano para que el asesinato de Aurora Ríos no quede impune. ¿Conseguirán averiguar quién es el Asesino de la brújula y qué hay detrás de aquella extraña muerte?</column>
+            <column name="imagen">https://imagessl2.casadellibro.com/a/l/t5/82/9788408184782.jpg</column>
+        </table>
+        <!-- Tabla libro_libro_genero -->
+        <table name="libro_libro_genero">
+            <column name="id">1</column>
+            <column name="libro_id">1</column>
+            <column name="genero_id">7</column>
+        </table>
+        <table name="libro_libro_genero">
+            <column name="id">2</column>
+            <column name="libro_id">2</column>
+            <column name="genero_id">7</column>
+        </table>
+        <table name="libro_libro_genero">
+            <column name="id">3</column>
+            <column name="libro_id">3</column>
+            <column name="genero_id">10</column>
+        </table>
+        <table name="libro_libro_genero">
+            <column name="id">4</column>
+            <column name="libro_id">4</column>
+            <column name="genero_id">10</column>
+        </table>
+        <table name="libro_libro_genero">
+            <column name="id">5</column>
+            <column name="libro_id">5</column>
+            <column name="genero_id">6</column>
+        </table>
+        <table name="libro_libro_genero">
+            <column name="id">6</column>
+            <column name="libro_id">6</column>
+            <column name="genero_id">6</column>
+        </table>
+        <table name="libro_libro_genero">
+            <column name="id">7</column>
+            <column name="libro_id">7</column>
+            <column name="genero_id">6</column>
+        </table>
+        <table name="libro_libro_genero">
+            <column name="id">8</column>
+            <column name="libro_id">8</column>
+            <column name="genero_id">7</column>
+        </table>
+        <table name="libro_libro_genero">
+            <column name="id">9</column>
+            <column name="libro_id">9</column>
+            <column name="genero_id">6</column>
+        </table>
+        <table name="libro_libro_genero">
+            <column name="id">10</column>
+            <column name="libro_id">9</column>
+            <column name="genero_id">7</column>
+        </table>
+        <!-- Tabla usuario_libreria -->
+        <table name="usuario_libreria">
+            <column name="id">1</column>
+            <column name="nombre">Libreria juvenil</column>
+            <column name="descripcion">Aqui hay libros juveniles</column>
+            <column name="estantes">2</column>
+            <column name="usuario_id">2</column>
+            <column name="maxLibros">40</column>
+        </table>
+        <!-- Tabla usuario_libreria_libro -->
+        <table name="usuario_libreria_libro">
+            <column name="id">1</column>
+            <column name="libreria_id">1</column>
+            <column name="libro_id">2</column>
+        </table>
+        <table name="usuario_libreria_libro">
+            <column name="id">2</column>
+            <column name="libreria_id">1</column>
+            <column name="libro_id">9</column>
+        </table>
+        <!-- Tabla usuario_librousuario -->
+        <table name="usuario_librousuario">
+            <column name="id">1</column>
+            <column name="estado">LD</column>
+            <column name="dia">NULL</column>
+            <column name="libro_id">2</column>
+            <column name="usuario_id">2</column>
+        </table>
+        <!-- Tabla usuario_ranking -->
+        <!-- Tabla usuario_usuario -->
+        <table name="usuario_usuario">
+            <column name="id">2</column>
+            <column name="usuario_id">1</column>
+        </table>
+        <table name="usuario_usuario">
+            <column name="id">1</column>
+            <column name="usuario_id">2</column>
+        </table>
+        <table name="usuario_usuario">
+            <column name="id">3</column>
+            <column name="usuario_id">3</column>
+        </table>
+        <!-- Tabla usuario_usuario_genero -->
+        <table name="usuario_usuario_genero">
+            <column name="id">1</column>
+            <column name="usuario_id">2</column>
+            <column name="genero_id">7</column>
+        </table>
+    </database>
+</pma_xml_export>
